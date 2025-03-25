@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;  
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("../fonte/Roboto/static/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Roboto-ExtraBold";
+    src: url("../fonte/Roboto/static/Roboto-ExtraBold.ttf");
+}
+
+body{
+    min-height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 6rem 1fr 14rem;
+    font-family: "Roboto-Regular";
+    background-color: #FFE5E5;
+}

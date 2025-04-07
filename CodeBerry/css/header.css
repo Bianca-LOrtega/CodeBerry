@@ -1,0 +1,52 @@
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .section_nav{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+        padding: 1.25rem 1.5rem;
+        background-color: #ffffff;
+        border-radius: 2rem;
+        box-shadow:5px 5px 15px 5px rgba(0, 0, 0, 0.416)
+    }
+    
+
+    nav{
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    img.logo{
+        width: 16rem;
+        height: 4rem;
+        object-fit: cover;
+    }
+
+    a.links{
+        color: #000000;
+        text-decoration: none;
+    }
+
+    a.botao{
+        padding: 0.5rem 2rem;
+        color: #ffffff;
+        text-decoration: none;
+        border: none;
+        border-radius: 5rem;
+    }
+
+    a.botao.verde{
+        background-color: #29953F;
+    }
+
+    a.botao.vermelho{
+        background-color: #e11e24;
+    }
+    
+}

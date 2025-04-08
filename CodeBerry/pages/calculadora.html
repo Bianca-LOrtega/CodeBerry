@@ -61,7 +61,6 @@
 
                 <nav>
                     <h3> Mapa do Site </h3>
-                    <a href="produtos.html"> Produtos </a>
                     <a href="solucoes.html"> Soluções </a>
                     <a href="sobrenos.html"> Sobre nós </a>
                     <a href="calculadora.html"> Calculadora </a>
@@ -92,7 +91,7 @@
 
             var precoCheio = peso * precoMorango;
             var semCodeBerry = precoCheio * 0.6;  // 60% da produção aproveitada
-            var comCodeBerry = precoCheio * 0.92;  // 92% da produção aproveitada
+            var comCodeBerry = precoCheio * 0.88;  // 92% da produção aproveitada
 
             section_esquerda.style.display = 'flex';
             section_direita.style.display = 'flex';
@@ -110,8 +109,8 @@
             section_direita.innerHTML = `
                 <h1> ✅ Com a CodeBerry✅ </h1>
                 <h3> Mais Lucro, Menos Perda!</h3>
-                <p class="p-style">🟢 Perda Reduzida: Apenas 8% da produção.</p>
-                <p class="p-style">🟢 Morangos Vendidos: 92% da produção aproveitada.</p>
+                <p class="p-style">🟢 Perda Reduzida: Apenas 12% da produção.</p>
+                <p class="p-style">🟢 Morangos Vendidos: 88% da produção aproveitada.</p>
                 <p class="p-style">💡 Com a nossa tecnologia, você salva R$ +${Math.round(comCodeBerry - semCodeBerry)} por mês! </p>
                 <p class="p-style">💰 Ganho adicional com a nossa empresa: R$ +${Math.round(comCodeBerry - semCodeBerry) * 12} ao ano! </p>
                 <p class="p-style">📈 Invista no controle de temperatura e aumente seus lucros! </p>

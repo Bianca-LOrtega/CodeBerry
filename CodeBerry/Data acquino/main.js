@@ -49,22 +49,23 @@ const serial = async (
 
     // processa os dados recebidos do Arduino
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
-        console.log(data);
+        console.log("Dado - " + data);
         const valores = data.split(';');
-        const sensorTemperatura = parseFloat(valores[0]);
-        const sensorUmidade = parseFloat(valores[1]);
+        const sensorTemperatura = parseFloat(valores[1]);
+        const sensorUmidade = parseFloat(valores[0]);
 
         // armazena os valores dos sensores nos arrays correspondentes
         valoresSensorAnalogico.push(sensorTemperatura);
         valoresSensorDigital.push(sensorUmidade);
+        var lote = Math.random()* (3 - 1) + 1;
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
 
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO registros (umidade, temperatura, horario) VALUES (?, ?, current_timestamp() );',
-                [sensorTemperatura, sensorUmidade]
+                'INSERT INTO registros (umidade, temperatura, horario, fk_lote) VALUES (?, ?, current_timestamp(), ? );',
+                [sensorUmidade, sensorTemperatura, lote]
             );
             console.log("valores inseridos no banco: ", sensorUmidade + ", " +  sensorTemperatura );
                 

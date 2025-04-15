@@ -1,0 +1,121 @@
+/* main.css */
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 0;
+  }
+  
+  .section_main {
+    display: flex;
+    flex-direction: row; /* Alinha imagem e texto lado a lado */
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 90%;
+    background-color: #ffffff;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    gap: 2rem;
+  }
+  
+  .section_main .img {
+    flex: 1;
+  }
+  
+  .section_main .img img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 2rem;
+  }
+  
+  .section_main .textos {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* Alinha os textos à esquerda */
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .section_main .textos h1.vermelho {
+    color: #000000;
+    font-family: "Roboto-ExtraBold", sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .section_main .textos h1.vermelho > u {
+    color: #e11e24;
+    font-style: italic;
+    text-transform: uppercase;
+  }
+  
+  /* Parágrafos e lista */
+  .section_main .textos p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333333;
+  }
+  
+  .section_main .textos ul.lista {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0;
+  }
+  
+  .section_main .textos ul.lista li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  
+  .section_main .textos ul.lista li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #e11e24;
+  }
+  
+  /* Botão principal */
+  .section_main .textos a.botao {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #e11e24;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .section_main .textos a.botao:hover {
+    background-color: #ad1d1d;
+    transform: scale(1.03);
+  }
+  
+  /* Ajuste para dispositivos móveis */
+  @media (max-width: 768px) {
+    .section_main {
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    .section_main .img,
+    .section_main .textos {
+      width: 100%;
+    }
+    
+    .section_main .textos {
+      align-items: center;
+      text-align: center;
+    }
+  }
+  

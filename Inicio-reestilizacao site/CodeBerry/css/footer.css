@@ -1,0 +1,73 @@
+/* footer.css */
+
+footer {
+    background-color: #272727;
+    color: #ffffff;
+    padding: 2rem 5%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footerLinha {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  
+  .footerLinha a.logo {
+    display: inline-block;
+  }
+  
+  .footerLinha img.logo {
+    width: 8rem;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Navegação e Contato */
+  .footerLinha nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .footerLinha nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+  }
+  
+  .footerLinha nav a:hover {
+    color: #e11e24;
+  }
+  
+  .footerLinha p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Ícones */
+  .icone {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .iconeInstagram {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  /* Área de direitos autorais */
+  .footerTexto {
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 1rem;
+  }
+  

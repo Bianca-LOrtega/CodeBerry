@@ -1,0 +1,228 @@
+/* main.css */
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 0;
+  }
+  
+  .section_main {
+    display: flex;
+    flex-direction: row; /* Alinha imagem e texto lado a lado */
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 90%;
+    background-color: #ffffff;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    gap: 2rem;
+  }
+  
+  .section_main .img {
+    flex: 1;
+  }
+  
+  .section_main .img img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 2rem;
+  }
+  
+  .section_main .textos {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* Alinha os textos à esquerda */
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .section_main .textos h1.vermelho {
+    color: #000000;
+    font-family: "Roboto-ExtraBold", sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .section_main .textos h1.vermelho > u {
+    color: #e11e24;
+    font-style: italic;
+    text-transform: uppercase;
+  }
+  
+  /* Parágrafos e lista */
+  .section_main .textos p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333333;
+  }
+  
+  .section_main .textos ul.lista {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0;
+  }
+  
+  .section_main .textos ul.lista li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  
+  .section_main .textos ul.lista li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #e11e24;
+  }
+  
+  /* Botão principal */
+  .section_main .textos a.botao {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #e11e24;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .section_main .textos a.botao:hover {
+    background-color: #ad1d1d;
+    transform: scale(1.03);
+  }
+  
+/* login.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #FFE5E5; 
+  /* Garante que o body ocupe pelo menos a altura da tela */
+  min-height: 100vh;
+  /* Usa flexbox para organizar header, main (com login), e footer (se houver) */
+  display: flex;
+  flex-direction: column;
+}
+
+.section_nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.links, .botao {
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.botao.verde {
+  background-color: #28a745;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.botao.vermelho {
+  background-color: #e11e24;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+/* Container principal do login */
+.login_container {
+  display: flex; /* Organiza imagem e card lado a lado */
+  flex-direction: row; /* Direção horizontal */
+  align-items: stretch; /* Faz imagem e card terem a mesma altura */
+  justify-content: flex-end; /* Alinha o conjunto (imagem + card) à direita */
+  padding: 6rem 16em 4rem 4rem; /* Espaçamento interno do container. Ajuste top/right/bottom/left como precisar */
+  gap: 0; /* Remove espaço entre a imagem e o card (colados) */
+  flex-grow: 1; /* Permite que o container cresça para ocupar espaço vertical no body */
+  width: 100%; /* Ocupa a largura disponível para permitir o justify-content: flex-end */
+}
+
+/* Ilustração (Imagem) */
+.login_image {
+  width: 600px;
+  display: flex;
+}
+
+.login_image img {
+  width: 100%; /* Faz a imagem ocupar toda a largura do container .login_image */
+  height: 100%; /* Faz a imagem ocupar toda a altura (esticada por align-items: stretch) */
+  object-fit: cover; /* Cobre a área da imagem, pode cortar partes se a proporção não bater */
+  border-radius: 16px 0 0 16px; /* Arredonda os cantos esquerdos da imagem */
+}
+
+/* Caixa de login */
+.login_card {
+  flex: 1; /* Ocupa o espaço restante ao lado da imagem, garantindo boa proporção */
+  max-width: 420px; /* Define uma largura máxima para evitar que a caixa fique muito larga */
+  background-color: #fff; /* Fundo branco */
+  padding: 40px; /* Espaçamento interno da caixa */
+  border-radius: 0 16px 16px 0; /* Arredonda os cantos direitos da caixa */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  margin-left: 0; /* Mantém a caixa colada à imagem (sem espaço entre os dois) */
+}
+
+.login_card h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Campos */
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.campo span {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.campo input {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  transition: border 0.3s ease;
+}
+
+.campo input:focus {
+  border-color: #e11e24; /* Cor da borda ao focar */
+  outline: none; /* Remove o contorno padrão do navegador */
+}
+
+/* Botão */
+.botao_cadastro_login {
+  background-color: #e11e24; /* Cor de fundo vermelha */
+  color: white; /* Cor do texto */
+  border: none; /* Sem borda */
+  padding: 0.8rem; /* Espaçamento interno */
+  font-size: 1rem; /* Tamanho da fonte */
+  border-radius: 0.5rem; /* Arredondamento */
+  cursor: pointer; /* Cursor de mãozinha */
+  font-weight: bold; /* Negrito */
+  width: 100%; /* Largura total dentro da caixa */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
+  margin-top: auto; /* Empurra o botão para baixo se houver espaço extra na caixa (devido ao flex-direction: column e justify-content: center no .login_card) */
+}
+
+.botao_cadastro_login:hover {
+  background-color: #ad1d1d; /* Cor de fundo mais escura ao passar o mouse */
+  transform: scale(1.03); /* Leve aumento de tamanho ao passar o mouse */
+}

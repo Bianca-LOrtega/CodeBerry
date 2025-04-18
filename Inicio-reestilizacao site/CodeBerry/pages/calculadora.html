@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Calculadora - Code Berry </title>
+    <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
+    <link rel="stylesheet" href="../css/body.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/footer.css">
+</head>
+
+<body>
+    <header>
+        <a href="../index.html">
+            <img src="../img/logo/logoExtenso.png" class="logo" alt="Logo da Code Berry">
+        </a>
+
+        <section class="section_nav">
+            <nav>
+                <a href="solucoes.html" class="links"> Soluções </a>
+                <a href="sobrenos.html" class="links"> Sobre nós </a>
+                <a href="calculadora.html" class="links"> Calculadora </a>
+            </nav>
+
+            <nav>
+                <a href="login.html#login" class="botao verde"> Entrar </a>
+                <a href="login.html#cadastro" class="botao vermelho"> Cadastrar </a>
+            </nav>
+        </section>
+
+    </header>
+
+    <main>
+        <section class="section_main">
+            <section class="textos">
+                <h1 class="vermelho"> Calculadora </h1>
+
+                <label for="ipt_peso"> Digite quantos kg são transportados mensalmente </label>
+                <input type="number" name="ipt_peso" id="ipt_peso" placeholder="Digite quantos kg são transportados">
+
+                <label for="ipt_preco"> Digite o preço do morango </label>
+                <input type="number" name="ipt_preco" id="ipt_preco" placeholder="Digite o preço do morango">
+
+                <button onclick="calcularDesconto()" id="btn" class="botao">🍓Calcular Desconto!🍓</button>
+
+            </section>
+        </section>
+
+        <section class="calculadora">
+            <section id="section_esquerda"></section>
+            <section id="section_direita"></section>
+        </section>
+    </main>
+
+    <footer>
+        <section class="footerLinha">
+            <a href="index.html">
+                <img src="../img/logo/logoCurta.png" class="logo" alt="Logo da Code Berry">
+            </a>
+
+            <nav>
+                <h3> Mapa do Site </h3>
+                <a href="../pages/solucoes.html"> Soluções </a>
+                <a href="../pages/sobrenos.html"> Sobre nós </a>
+                <a href="../pages/calculadora.html"> Calculadora </a>
+            </nav>
+
+
+            <nav>
+                <h3> Contato </h3>
+                <p> <img src="../img/icone/iconeEmail.png" alt="Icone do E-mail" class="icone"> codeberry@gmail.com </p>
+                <p> <img src="../img/icone/iconeTelefone.png" alt="Icone do Telefone" class="icone"> (11) 4002-8922 </p>
+            </nav>
+
+            <a href="">
+                <img src="../img/icone/iconeInstagram.png" alt="Icone do Instagram" class="iconeInstagram">
+            </a>
+        </section>
+
+        <section class="footerTexto">
+            <p> &copy; 2025 Code Berry - Todos os Direitos Reservados</p>
+        </section>
+    </footer>
+</body>
+
+<script>
+    function calcularDesconto() {
+        var peso = Number(ipt_peso.value);
+        var precoMorango = Number(ipt_preco.value);
+
+        var precoCheio = peso * precoMorango;
+        var semCodeBerry = precoCheio * 0.6;  // 60% da produção aproveitada
+        var comCodeBerry = precoCheio * 0.88;  // 88% da produção aproveitada
+
+        section_esquerda.style.display = 'flex';
+        section_direita.style.display = 'flex';
+
+        section_esquerda.innerHTML = `
+                <h1>❌Sem a CodeBerry❌</h1>
+                <h3> Você Está Perdendo Dinheiro!</h3>
+                <p class="p-style">🔴 Perda Elevada: 40% da produção comprometida.</p>
+                <p class="p-style">🔴 Morangos Vendidos: Apenas 60% da produção aproveitada.</p>
+                <p class="p-style">💥 Prejuízo mensal: R$ -${Math.round(precoCheio - semCodeBerry)}!</p>
+                <p class="p-style">❗ Isso significa uma perda anual de R$ -${Math.round(precoCheio - semCodeBerry) * 12} !</p>
+                <p class="p-style">🚀 Evite desperdício e maximize seus ganhos! Entre em contato agora. </p>
+            `;
+
+        section_direita.innerHTML = `
+                <h1> ✅ Com a CodeBerry✅ </h1>
+                <h3> Mais Lucro, Menos Perda!</h3>
+                <p class="p-style">🟢 Perda Reduzida: Apenas 12% da produção.</p>
+                <p class="p-style">🟢 Morangos Vendidos: 88% da produção aproveitada.</p>
+                <p class="p-style">💡 Com a nossa tecnologia, você salva R$ +${Math.round(comCodeBerry - semCodeBerry)} por mês! </p>
+                <p class="p-style">💰 Ganho adicional com a nossa empresa: R$ +${Math.round(comCodeBerry - semCodeBerry) * 12} ao ano! </p>
+                <p class="p-style">📈 Invista no controle de temperatura e aumente seus lucros! </p>
+                <button class="botao" id="contato">Entre em contato📞</button>
+            `;
+    }
+</script>
+
+</html>

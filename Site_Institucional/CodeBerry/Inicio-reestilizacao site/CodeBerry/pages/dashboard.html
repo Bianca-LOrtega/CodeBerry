@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
+  <link rel="stylesheet" href="../css/dash.css">
+  <link rel="stylesheet" href="../css/header.css">
+</head>
+
+<body>
+
+  <header>
+    <section class="section_nav">
+        <div class="header">
+          <div class="container">
+        
+            <h1 class="logo">CodeBery</h1>
+            <ul class="navbar">
+              <li class="agora">
+                <a href="../index.html">Home</a>
+              </li>
+              <li class="agora">
+                <a href="../pages/sobrenos.html">Sobre</a>
+              </li>
+              <li>
+                <a href="../pages/calculadora.html">Calculadora</a>
+              </li>
+              <li>|</li>
+        
+        
+              <div class="botao">
+        
+                <button class="login">
+                  <a href="../pages/login.html">Login</a>
+                </button>
+        
+                <button class="cadastro">
+                  <a href="../pages/cadastro.html">Cadastro</a>
+                </button>
+        
+              </div>
+            </ul>
+          </div>
+        </div>
+</header><br>
+
+  <h2>Dashboard Codeberry</h2><br>
+
+  <div class="dashboard">
+
+    <!-- KPIs -->
+    <div class="card kpi">
+      <div>
+        <h3>Alertas de Temperatura</h3>
+        <h2 style="color: rgb(233, 1, 1);">TRCK002(S2): 2.1ºC</h2>
+        <p>↑ 1.1ºC</p>
+      </div>
+    </div>
+
+    <div class="card kpi">
+      <div>
+        <h3>Quantidade de Caminhões Ativos</h3>
+        <h2>8</h2>
+        <p style="color: rgb(233, 1, 1);">Alertas: 1</p>
+      </div>
+    </div>
+
+    <div class="card kpi">
+      <div>
+        <h3>Temperatura Média nos Caminhões em Trânsito</h3>
+        <h2>0.9ºC</h2>
+        <p>↑ 0.2ºC</p>
+      </div>
+    </div>
+
+    <div class="card kpi">
+      <div>
+        <h3>Umidade Média nos Caminhões em Trânsito</h3>
+        <h2>85%</h2>
+        <p>↑ 5.0%</p>
+      </div>
+    </div>
+
+  </div><br>
+
+  <div class="chart">
+
+    <!-- Gráfico de barras e linhas -->
+    <div class="chart-container">
+      <h4>Média de Temperatura e Umidade Registradas nos Caminhões Hoje</h4>
+      <canvas id="graficoBarras"></canvas>
+    </div>
+
+    <!-- Gráfico de Barras horizontal -->
+    <div class="chart-container">
+      <h4>Registro de Temperatura nos Caminhões</h4>
+      <canvas id="graficoBarrashorizontais"></canvas>
+    </div>
+
+    <!-- Gráfico de Umidade Linhas  -->
+    <div class="chart-container">
+      <h4>Registro de Umidade nos Caminhões</h4>
+      <canvas id="umidadeLinhas"></canvas>
+    </div>
+  </div>
+  
+  <script>
+
+    // Barras e linhas temperatura e umidade
+    new Chart(document.getElementById('graficoBarras'), {
+      type: 'bar',
+      data: {
+        labels: ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30'],
+        datasets: [
+          {
+            label: 'Umidade (%)',
+            type: 'line',
+            data: [85, 82, 80, 83, 85, 78, 80, 84],
+            borderColor: 'rgba(54, 162, 235, 0.7)',
+            tension: 0.3,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Temperatura (°C)',
+            type: 'bar',
+            data: [0.3, 1.0, 0.8, 0.5, 0.8, 0.6, 0.5, 0.4],
+            backgroundColor: 'rgba(255, 239, 15, 0.959)',
+            yAxisID: 'y1'
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            title: { display: true, text: 'Umidade (%)' },
+            min: 60, max: 100
+          },
+          y1: {
+            position: 'right',
+            title: { display: true, text: 'Temperatura (°C)' },
+            min: 0, max: 5,
+            grid: { drawOnChartArea: false }
+          }
+        }
+      }
+    });
+
+    // Barras horizontal
+    new Chart(document.getElementById("graficoBarrashorizontais"), {
+      type: "bar",
+      data: {
+        labels: ["TRK001(S1)", "TRK002(S2)", "TRK003(S3)", "TRK004(S4)", "TRK005(S5)", "TRK006(S6)", "TRK007(S7)", "TRK008(S8)"],
+        datasets: [{
+          label: "Temperatura (°C)",
+          data: [0.3, 2.1, 0.9, 0.1, 0.7, 1.0, 0.8, 0.5],
+          backgroundColor: ["rgba(255, 239, 15, 0.959)", "rgb(233, 1, 1)", "rgba(255, 239, 15, 0.959)", "rgba(255, 239, 15, 0.959)", "rgba(255, 239, 15, 0.959)", "rgba(255, 239, 15, 0.959)", "rgba(255, 239, 15, 0.959)", "rgba(255, 239, 15, 0.959)"]
+        }]
+      },
+      options: {
+        indexAxis: 'y'
+      }
+    });
+
+    // Umidade linhas
+    new Chart(document.getElementById('umidadeLinhas'), {
+      type: "line",
+      data: {
+        labels: ["TRK001(S1)", "TRK002(S2)", "TRK003(S3)", "TRK004(S4)", "TRK005(S5)", "TRK006(S6)", "TRK007(S7)", "TRK008(S8)"],
+        datasets: [{
+          label: "Umidade (%)",
+          data: [79.2, 87.2, 82.1, 87.9, 84.8, 85.0, 83.0, 86.1],
+          backgroundColor: ["rgba(54, 162, 235, 0.7)"]
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            title: { display: true, text: 'Umidade (%)' },
+            min: 60, max: 100
+          },
+        }
+    }});
+
+  </script>
+
+</body>
+
+</html>

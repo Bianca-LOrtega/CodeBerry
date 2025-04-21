@@ -1,0 +1,34 @@
+.footer {
+  background-color: #21653a;
+  color: white;
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+.footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.footer p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* espaço entre o ícone e o texto */
+  margin: 0.3rem 0;
+  font-size: 1rem;
+}
+
+.footer .icone {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.footer .version {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #ccc;
+}

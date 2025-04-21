@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOGIN - Code Berry</title>
+  <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS Global -->
+  <link rel="stylesheet" href="../css/body.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/footer.css">
+
+  <!-- CSS Login -->
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+  <header>
+  
+    <div class="header">
+      <div class="container">
+  
+        <h1 class="logo">CodeBery</h1>
+        <ul class="navbar">
+          <li class="agora">
+            <a href="../index.html">Home</a>
+          </li>
+          <li class="agora">
+            <a href="../pages/sobrenos.html">Sobre</a>
+          </li>
+          <li>
+            <a href="../pages/calculadora.html">Simulador</a>
+          </li>
+          <li>|</li>
+  
+  
+          <div class="botao">
+  
+            <button class="login">
+              <a href="../pages/login.html">Login</a>
+            </button>
+  
+            <button class="cadastro">
+              <a href="../pages/cadastro.html">Cadastro</a>
+            </button>
+  
+          </div>
+        </ul>
+      </div>
+    </div>
+  
+  
+  </header>
+
+  <main class="login_container">
+    <section class="login_image">
+      <img src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2022/07/06/1594778894-como-cultivar-morangos-dentro-de-casa-pexels-aphiwat-chuangchoem.jpg" alt="Ilustração Login">
+    </section>
+
+    <section class="login_card">
+      <h1>Login</h1>
+
+      <div class="campo">
+        <span>CNPJ:</span>
+        <input id="input_cnpj" type="text" placeholder="CNPJ">
+      </div>
+
+      <div class="campo">
+        <span>E-mail:</span>
+        <input id="input_email" type="text" placeholder="Email">
+      </div>
+
+      <div class="campo">
+        <span>Senha:</span>
+        <input id="input_senha" type="password" placeholder="Senha">
+
+      </div>
+      
+
+      <button onclick="verificarLogin()" class="botao_cadastro_login" >Acessar</button>
+      <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
+
+    </section>
+  </main>
+  
+</body>
+<script>
+
+  let qtd_tentativa = 6;
+
+  function verificarLogin() {
+    var cnpj = input_cnpj.value
+    var email = input_email.value
+    var senha = input_senha.value
+    const usuariosSistema = ['anna@gmail.com', 'bianca@gmail.com', 'enzo@gmail.com', 'igor@gmail.com', 'manuela@gmail.com', 'sergio@gmail.com']
+    const senhaCorreta = 'sprint2'
+    var resposta = ''
+
+    if (cnpj === '') {
+      resposta = 'Por favor, insira o CNPJ'
+    } else if (email === '') {
+      resposta = 'Por favor, insira o Email'
+    } else if (senha === '') {
+      resposta = 'Por favor, insira a senha'
+    } else if (qtd_tentativa <= 0) {
+      resposta = 'Número de tentativas esgotado.<br>Tente novamente mais tarde.'
+    } else {
+
+      for (var i = 0; i < 1; i++) {
+        if (cnpj.length !== 14 || isNaN(cnpj)) {
+          qtd_tentativa--
+          resposta = 'CNPJ inválido!<br>Deve conter 14 dígitos numéricos<br><br>Tentativas restantes: ' + qtd_tentativa
+
+        } else if (usuariosSistema.includes(email) && senha === senhaCorreta) {
+          resposta = '<span style="color: green;">Login válido!</span>'
+          qtd_tentativa = 0; // se o login for valido, isso vai bloquear fazer outro
+
+        } else {
+          qtd_tentativa--
+          resposta = 'Login inválido!<br>Tente novamente.<br><br>Tentativas restantes: ' + qtd_tentativa
+        }
+      }
+    }
+
+    document.getElementById('div_resposta').innerHTML = resposta
+  }
+</script>
+</html>

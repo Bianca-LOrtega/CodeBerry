@@ -29,10 +29,25 @@
     margin: auto;
 }
 
+.header {
+  justify-content: space-between;
+  align-items: center;
+}
+
 .header .container {
-    justify-content: space-between;
     align-items: center;
     height: 100%;
+}
+
+.container .navbar {
+   display: flex;
+   flex-direction: row;
+   width: 40%;
+   align-items: center;
+   justify-content: right;
+   list-style: none;
+   color: #ffffff;
+   padding: 10px;
 }
 
 .banner {

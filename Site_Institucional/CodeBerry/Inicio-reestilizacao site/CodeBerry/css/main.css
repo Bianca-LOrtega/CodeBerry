@@ -304,3 +304,75 @@ main {
     margin-bottom: 60px;
     font-size: 30px;
 }
+
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  padding: 5%;
+  gap: 0;
+  width: 100%;
+}
+
+.cadastro_image {
+  width: 600px;
+  display: flex;
+}
+
+.cadastro_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px 0 0 16px;
+}
+
+.section_main {
+  flex: 1;
+  max-width: 420px;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.campo span {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.campo input {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  transition: border 0.3s ease;
+}
+
+.botao_cadastro_login {
+  background-color: #e11e24;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.botao_cadastro_login:hover {
+  background-color: #ad1d1d;
+  transform: scale(1.03);
+}

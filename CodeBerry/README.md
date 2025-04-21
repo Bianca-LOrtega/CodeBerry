@@ -1,2 +1,0 @@
-# CodeBerry
-Projeto de PI.

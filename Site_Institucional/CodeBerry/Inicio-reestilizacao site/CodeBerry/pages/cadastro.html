@@ -1,91 +1,139 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> REGISTRE-SE AQUI - Code Berry </title>
-    <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
-    <link rel="stylesheet" href="../css/body.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/footer.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro - CodeBerry</title>
+  <link rel="shortcut icon" href="../img/logo/logoIcone.ico" type="image/x-icon" />
+
+  <link rel="stylesheet" href="../css/body.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+
 </head>
-
 <body>
-    <header>
-        <div class="header">
-            <div class="container">
-        
-                <h1 class="logo">CodeBery</h1>
-                <ul class="navbar">
-                    <li class="agora">
-                        <a href="../index.html">Home</a>
-                    </li>
-                    <li class="agora">
-                        <a href="../pages/sobrenos.html">Sobre</a>
-                    </li>
-                    <li>
-                        <a href="../pages/calculadora.html">Calculadora</a>
-                    </li>
-                    <li>|</li>
-        
-        
-                    <div class="botao">
-        
-                        <button class="login">
-                            <a href="../pages/login.html">Login</a>
-                        </button>
-        
-                        <button class="cadastro">
-                            <a href="../pages/cadastro.html">Cadastro</a>
-                        </button>
-        
-                    </div>
-                </ul>
-            </div>
-        </div>
+  <header>
+   
+    <div class="header">
+      <div class="container">
+         <a href="../index.html">
+        <img src="../img/logo/logoCurta.png" class="logo" alt="Logo da Code Berry">
+    </a>
+        <h1 class="nome">CodeBerry</h1>
+        <ul class="navbar">
+          <li class="agora"><a href="../index.html">Home</a></li>
+          <li class="agora"><a href="../pages/sobrenos.html">Sobre</a></li>
+          <li><a href="../pages/calculadora.html">Calculadora</a></li>
+          <li>|</li>
+          <div class="botao">
+            <button class="login"><a href="../pages/login.html">Login</a></button>
+            <button class="cadastro"><a href="../pages/cadastro.html">Cadastro</a></button>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </header>
 
-    </header>
+  <main>
+    <section class="cadastro_image">
+      <img src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2022/07/06/1594778894-como-cultivar-morangos-dentro-de-casa-pexels-aphiwat-chuangchoem.jpg" alt="Imagem Morangos" />
+    </section>
 
-    <main>
-        <section class="cadastro_image">
-            <img src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2022/07/06/1594778894-como-cultivar-morangos-dentro-de-casa-pexels-aphiwat-chuangchoem.jpg"
-                alt="Ilustração Login">
-        </section>
-        <section class="section_main">
+    <section class="section_main">
+      <h1>Cadastre-se</h1>
 
-            <section class="textos">
-                <h1 class="vermelho">Cadastre-se</h1>
+      <div class="campo">
+        <span>CNPJ:</span>
+        <input id="input_cnpj" type="text" placeholder="12.345.678/0001-00" />
+      </div>
 
-                <div class="campo">
-                    <span>CNPJ:</span>
-                    <input id="input_cnpj" type="text" placeholder="12.345.678/0001-00">
-                </div>
-                <div class="campo">
-                    <span>Nome de Usuário:</span>
-                    <input id="input_usuario" type="text" placeholder="user2025">
-                </div>
-                <div class="campo">
-                    <span>E-mail:</span>
-                    <input id="input_email" type="text" placeholder="user2025@sptech.school">
-                </div>
-                <div class="campo">
-                    <span>Senha:</span>
-                    <input id="input_senha" type="password" placeholder="*******">
-                </div>
-                <div class="campo">
-                    <span>Confirmação da Senha:</span>
-                    <input id="input_confirmacao_senha" type="password" placeholder="*******">
-                    <a href="../pages/login.html">Ja tem cadastro? Entrar</a>
-                </div>
+      <div class="campo">
+        <span>Nome de Usuário:</span>
+        <input id="input_usuario" type="text" placeholder="user2025" />
+      </div>
 
-                <button class="botao_cadastro_login">Registrar-se</button>
-            </section>
-        </section>
-    </main>
+      <div class="campo">
+        <span>E-mail:</span>
+        <input id="input_email" type="text" placeholder="user2025@sptech.school" />
+      </div>
 
+      <div class="campo">
+        <span>Senha:</span>
+        <input id="input_senha" type="password" placeholder="*******" />
+      </div>
 
+      <div class="campo">
+        <span>Confirmação da Senha:</span>
+        <input id="input_confirmacao_senha" type="password" placeholder="*******" />
+        <a href="../pages/login.html">Já tem cadastro? Entrar</a>
+      </div>
+
+      <button onclick="verificarCadastro()" class="botao_cadastro_login">Registrar-se</button>
+                <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
+    </section>
+  </main>
 </body>
+
+<script> 
+
+    let qtd_tentativa = 20
+    
+        function verificarCadastro(){
+          var cnpj  = input_cnpj.value
+          var nomeUsuario = input_usuario.value
+          var email = input_email.value
+          var senha = input_senha.value
+          var confirmarSenha = input_confirmacao_senha.value 
+          const regraEmail = ['@','.', '#', '$', '%', '&', '*', '(', ')']
+          const CaracterEspeciais = ['!', '@', '#', '$', '%', '&', '*', '(', ')']
+          var resposta = ''
+      
+          if (cnpj === '') {
+            resposta = 'Por favor, insira o CNPJ.'
+          }else if(nomeUsuario === ''){
+            resposta = 'Por favor, insira o nome que você quer ser chamado.'
+          } else if (email === '') {
+            resposta = 'Por favor, insira o Email.'
+          } else if (senha === '') {
+            resposta = 'Por favor, insira a senha'
+          } else if(confirmarSenha === ''){
+            resposta = 'Por Favor, confirme sua senha.'
+          } else if (qtd_tentativa <= 0) {
+            resposta = 'Número de tentativas esgotado.<br>Tente novamente mais tarde.'
+          } else {
+            
+            for (var i = 0; i < 1; i++) {
+              if (cnpj.length !== 14 || isNaN(cnpj)) {
+                qtd_tentativa--
+                resposta = 'CNPJ inválido!<br>Deve conter 14 dígitos numéricos.'
+              } else if(nomeUsuario.length > 20){
+                qtd_tentativa--
+                resposta = 'Nome de usuário grande demais.<br><br>O nome deve conter no máximo 20 caracteres.'
+    
+              } else if(!email.includes('@') && !email.includes('.')){
+                qtd_tentativa--
+                resposta = 'Email Inválido.'
+    
+              } else if(senha.length < 8 || senha.length > 128 || !CaracterEspeciais.some(char => senha.includes(char))){
+                qtd_tentativa--
+                resposta = 'Senha inválida.<br><br>Deve estar entre 8 e 128 caracteres e conter ao menos um caractere especial.'
+    
+              } else if(confirmarSenha != senha){
+                resposta = 'A confirmação de senha está diferente'
+    
+              } else {
+                resposta = `<span style="color: green;">Parabéns ${nomeUsuario}, Cadastro válido!</span>`
+                qtd_tentativa = 0; // se o login for valido, isso vai bloquear fazer outro
+                window.location.href = "../pages/login.html"; // redireciona para a página inicial
+              }
+            }
+          }
+      
+          document.getElementById('div_resposta').innerHTML = resposta
+        }
+    
+    </script>
+    
 
 </html>

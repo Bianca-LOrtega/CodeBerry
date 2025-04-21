@@ -6,25 +6,23 @@
   <title>LOGIN - Code Berry</title>
   <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- CSS Global -->
   <link rel="stylesheet" href="../css/body.css">
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/footer.css">
 
-  <!-- CSS Login -->
   <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
   <header>
-  
+   
     <div class="header">
       <div class="container">
-  
-        <h1 class="logo">CodeBery</h1>
+   <a href="../index.html">
+      <img src="../img/logo/logoCurta.png" class="logo" alt="Logo da Code Berry">
+  </a>
+        <h1 class="nome">CodeBery</h1>
         <ul class="navbar">
           <li class="agora">
             <a href="../index.html">Home</a>
@@ -118,6 +116,7 @@
         } else if (usuariosSistema.includes(email) && senha === senhaCorreta) {
           resposta = '<span style="color: green;">Login válido!</span>'
           qtd_tentativa = 0; // se o login for valido, isso vai bloquear fazer outro
+          window.location.href = "../pages/dashboard.html";
 
         } else {
           qtd_tentativa--

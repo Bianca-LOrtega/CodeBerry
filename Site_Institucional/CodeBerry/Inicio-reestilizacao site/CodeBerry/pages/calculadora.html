@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../css/footer.css">
 </head>
 
-<body>
+<body class="page-calculadora">
     <header>
         
     <div class="header">
@@ -53,24 +53,29 @@
 
     <main>
         <section class="section_main">
-            <section class="textos">
-                <h1 class="vermelho"> Calculadora </h1>
-
-                <label for="ipt_peso"> Digite quantos kg são transportados mensalmente </label>
-                <input type="number" name="ipt_peso" id="ipt_peso" placeholder="Digite quantos kg são transportados">
-
-                <label for="ipt_preco"> Digite o preço do morango </label>
-                <input type="number" name="ipt_preco" id="ipt_preco" placeholder="Digite o preço do morango">
-
-                <button onclick="calcularDesconto()" id="btn" class="botao">🍓Calcular Desconto!🍓</button>
-
-            </section>
+            <div class="calculadora-container">
+                <h1>Calculadora de Economia 🍓</h1>
+    
+                <div class="campo">
+                    <span>Digite quantos kg são transportados mensalmente</span>
+                    <input type="number" name="ipt_peso" id="ipt_peso" placeholder="Ex: 500">
+                </div>
+    
+                <div class="campo">
+                    <span>Digite o preço do morango</span>
+                    <input type="number" name="ipt_preco" id="ipt_preco" placeholder="Ex: 7.50">
+                </div>
+    
+                <button onclick="calcularDesconto()" id="btn">🍓 Calcular Desconto! 🍓</button>
+            </div>
         </section>
-
+    
         <section class="calculadora">
-            <section id="section_esquerda"></section>
-            <section id="section_direita"></section>
+            <div id="section_esquerda"></div>
+            <div id="section_direita"></div>
         </section>
+    </main>
+    
     </main>
 </body>
 <footer>

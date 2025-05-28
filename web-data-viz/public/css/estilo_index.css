@@ -1,0 +1,267 @@
+/* Adicionar aqui toda a estilização criada para sua aplicação. */
+
+
+/* Importando a fonte do google fonts (clicar em import, copiar e colar no arquivo.css) */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Barlow', sans-serif;
+    background-color: rgb(203, 221, 209);
+
+}
+
+:root {
+    --tamanho-header: 90px;
+    --tamanho-footer: 90px;
+    --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px)
+}
+
+/* Header Início */
+.header {
+    height: var(--tamanho-header);
+    background-color: #216c3c;
+    color: #ffff;
+}
+
+.logo {
+    width: fit-content;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+.header .container {
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.navbar {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.header a {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 10px;
+    font-size: 20px;
+}
+
+.agora {
+    font-weight: 800;
+}
+
+.botao {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.botao .login {
+    background-color: #4caf70;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    color: #ffff;
+    margin: 10px;
+}
+
+.botao .cadastro {
+    background-color: #c44242;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    color: #ffff;
+    margin: 10px;
+}
+
+/* Header Fim */
+
+
+/* Banner Início */
+
+.banner {
+    height: var(--tamanho-banner);
+    color: white;
+    background-image: url('');
+    background-size: cover;
+}
+
+.banner .container {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.banner .container p {
+    width: 30%;
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+}
+
+
+
+/* Banner Fim */
+
+/* Missão - Visão - Valores */
+
+.social {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.social .container .boxes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 30px 0;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box img {
+    width: 170px;
+}
+
+/* Footer Início */
+
+.footer {
+    background-color: #32b9cd;
+    height: var(--tamanho-footer);
+    color: white;
+    display: flex;
+    font-size: 15px;
+}
+
+.footer .container {
+    justify-content: center;
+    text-align: center;
+}
+
+.version {
+    font-size: 12px;
+}
+
+/* Footer Fim */
+
+/* Início Login */
+
+.login .container {
+    display: flex;
+    color: rgb(222, 124, 140);
+    background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
+    background-size: cover;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    height: 80vh;
+    width: 100%;
+}
+
+.login .card {
+    background-color: #d0d3d4;
+    padding: 10px;
+    border-radius: 15px;
+    width: 40%;
+    height: 35%;
+    margin-top: 150px;
+}
+
+#email_input {
+    border-radius: 5px;
+    text-align: center;
+    border: solid;
+    color: #32b9cd;
+    width: 65%;
+    height: 25px;
+}
+
+#senha_input {
+    border-radius: 5px;
+    text-align: center;
+    border: solid;
+    color: #32b9cd;
+    width: 65%;
+    height: 25px;
+}
+
+.login .campo {
+    padding: 10px;
+}
+
+.login .botao {
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    background-color: rgb(221, 46, 90);
+    width: 15%;
+    height: 30px;
+    border: none;
+}
+
+span {
+    display: block;
+    text-align: left;
+    margin-left: 17%;
+}
+
+/* Fim Login */
+
+/* Inicio cadastro */
+
+.login .container .card-cadastro {
+    height: 470px;
+    margin-top: 80px;
+}
+
+#codigo_input {
+    border-radius: 5px;
+    text-align: center;
+    border: solid;
+    color: #32b9cd;
+    width: 65%;
+    height: 25px;
+}
+
+#nome_input {
+    border-radius: 5px;
+    text-align: center;
+    border: solid;
+    color: #32b9cd;
+    width: 65%;
+    height: 25px;
+}
+
+#confirmacao_senha_input {
+    border-radius: 5px;
+    text-align: center;
+    border: solid;
+    color: #32b9cd;
+    width: 65%;
+    height: 25px;
+}
+
+.login .container .botao {
+    margin-top: 12px;
+}

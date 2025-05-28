@@ -1,0 +1,58 @@
+*{
+  margin: 0;
+  padding: 0;  
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url("../fonte/Roboto/static/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Roboto-ExtraBold";
+  src: url("../fonte/Roboto/static/Roboto-ExtraBold.ttf");
+}
+
+body {
+  font-family: "Roboto-Regular";
+  margin: 20px;
+  background: #faf3f5;
+}
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card, .chart-container {
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: left;
+  justify-content: space-between;
+}
+
+.chart {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.chart-container canvas {
+  width: 100%;
+  height: auto;
+}
+.kpi {
+  display: flex;
+  justify-content: space-between;
+}
+.kpi h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.kpi h2 {
+  margin: 5px 0 0;
+  color: rgb(20, 219, 2);
+}

@@ -1,0 +1,69 @@
+
+    /* Header Início */
+
+    .header {
+      height: var(--tamanho-header);
+      background-color: #216c3c;
+      color: #ffff;
+    }
+  
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+
+    }
+  
+    .container {
+      display: flex;
+      width: 80%;
+      gap: 280px;
+    }
+
+    .nome{
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+    }
+  
+  
+    .header a {
+      text-decoration: none;
+      color: #ffffff;
+      margin: 10px;
+      font-size: 20px;
+      font-weight: bold
+    }
+  
+    .agora {
+      font-weight: 800;
+    }
+  
+    .botao {
+      margin: 10px;
+      display: flex;
+      justify-content: space-between;
+  
+    }
+  
+    .botao .login {
+      background-color: #4caf70;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      color: #ffff;
+      margin: 10px;
+    }
+  
+    .botao .cadastro {
+      background-color: #c44242;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      color: #ffff;
+      margin: 10px;
+    }
+  
+    /* Header Fim */
+

@@ -78,6 +78,7 @@
 
       </div>
       
+      
 
       <button onclick="verificarLogin()" class="botao_cadastro_login" >Acessar</button>
       <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
@@ -106,7 +107,13 @@
       resposta = 'Por favor, insira a senha'
     } else if (qtd_tentativa <= 0) {
       resposta = 'Número de tentativas esgotado.<br>Tente novamente mais tarde.'
-    } 
+    } else if(email == 'joao@transmorangos.com' && senha == 'senha123' && cnpj == '12345678001301'){
+      resposta = '<span style="color: green;">Login Válido!</span>'
+      setTimeout(() => {
+        window.location.href = "../pages/n3.html"
+      }, 1000)
+    }
+
     else {
 
       for (var i = 0; i < 1; i++) {

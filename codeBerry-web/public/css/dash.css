@@ -1,24 +1,4 @@
-*{
-  margin: 0;
-  padding: 0;  
-  box-sizing: border-box;
-}
 
-@font-face {
-  font-family: "Roboto-Regular";
-  src: url("../fonte/Roboto/static/Roboto-Regular.ttf");
-}
-
-@font-face {
-  font-family: "Roboto-ExtraBold";
-  src: url("../fonte/Roboto/static/Roboto-ExtraBold.ttf");
-}
-
-body {
-  font-family: "Roboto-Regular";
-  margin: 20px;
-  background: #faf3f5;
-}
 .dashboard {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

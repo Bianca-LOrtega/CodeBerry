@@ -8,10 +8,9 @@ use codeberry;
 -- tabela empresa.
 
 create table empresa (
-  idtransportadora int not null auto_increment,
+  cnpj char(12) not null auto_increment,
   nomeempresa varchar(80),
-  cnpj char(12),
-  primary key (idtransportadora)
+  primary key (cnpj)
 );
 
 -- tabela usuario.
@@ -24,7 +23,7 @@ create table usuario (
   tipoacesso varchar(20),
   fk_empresa int,
   primary key (idlogin),
-  constraint fk_usuario_empresa foreign key (fk_empresa) references empresa (idtransportadora)
+  constraint fk_usuario_empresa foreign key (fk_empresa) references empresa (cnpj)
 );
 
 -- motorista.

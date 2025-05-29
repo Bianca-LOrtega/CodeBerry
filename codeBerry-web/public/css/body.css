@@ -20,7 +20,7 @@
     :root {
       --tamanho-header: 90px;
       --tamanho-footer: 90px;
-      --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px)
+      --tamanho-banner: 500px
     }
   
 .container {
@@ -58,7 +58,6 @@
 }
 
 .banner .container {
-  justify-content: center;
   align-items: center;
   height: 100%;
 }
@@ -76,13 +75,13 @@
   align-items: center;
   padding: 50px 350px;
   height: 50%;
-  font-size: 30px;
+  font-size: 25px;
   background-color: #ffffff;
 }
 
 .intro>p {
   margin: 50px;
-  font-size: 45px;
+  font-size: 25px;
   text-align: center;
 }
 
@@ -108,7 +107,7 @@ display: flex;
     flex-direction: row;
     width: 100%;
     padding: 30px;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .box {
@@ -120,7 +119,7 @@ display: flex;
 }
 
 .box img {
-  width: 170px;
+  width: 110px;
 }
 
 
@@ -132,6 +131,6 @@ display: flex;
   width: 100%;
   height: 200vh;
   padding: 5%;
-  background-image: url('../img/fundo/morango.jpg');
+  background-image: url('../assets/img/fundo/morango.jpg');
 }
 

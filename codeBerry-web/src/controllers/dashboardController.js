@@ -78,7 +78,6 @@ module.exports = {
   listarCaminhoesComAlertas,
   rotaCaminhao,
   registrosCaminhao,
-  obterTemperaturaMedia,
   alertaTemperatura,
   loteEmTransito,
   temperaturaMediaCaminhao,

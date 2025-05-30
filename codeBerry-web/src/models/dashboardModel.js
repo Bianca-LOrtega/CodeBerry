@@ -17,7 +17,7 @@ function listarCaminhoesComAlertas(cnpjEmpresa) {
     WHERE c.fk_empresa = ?;
   `;
 
-  return db.query(instrucaoSql, [cnpjEmpresa])
+  return db.executar(instrucaoSql, [cnpjEmpresa])
     .then((resposta) => resposta[0]);
 }
 
@@ -74,7 +74,7 @@ function buscarRota(idCaminhao) {
     WHERE c.idcaminhao = ?
     LIMIT 1;
   `;
-  return db.query(sql, [idCaminhao])
+  return db.executar(sql, [idCaminhao])
     .then(res => res[0][0]);
 }
 
@@ -90,7 +90,7 @@ function registrosCaminhao(idCaminhao) {
     ORDER BY r.horario DESC
     LIMIT 10;
   `;
-  return db.query(query, [idCaminhao])
+  return db.executar(query, [idCaminhao])
     .then(res => res[0]);
 }
 
@@ -98,7 +98,6 @@ module.exports = {
   listarCaminhoesComAlertas,
   buscarRota,
   registrosCaminhao,
-  temperaturaMedia,
   alertaTemperatura,
   loteEmTransito,
   temperaturaMediaCaminhao,

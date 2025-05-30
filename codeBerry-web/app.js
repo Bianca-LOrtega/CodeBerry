@@ -27,7 +27,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index.js");
 var usuarioRouter = require("./src/routes/usuarios");
-
+var dashboardRouter = require("./src/routes/dashboard.js")
 
 
 app.use(express.json());
@@ -45,6 +45,7 @@ app.use((req, res, next) => {
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
+app.use("/dashboard", dashboardRouter);
 
 
 

@@ -1,0 +1,16 @@
+const express = require('express');
+const router = express.Router();
+const dashboardController = require('../controllers/dashboardController');
+
+// Caminhões com alerta por empresa
+router.get('/caminhoes/:cnpjEmpresa', dashboardController.listarCaminhoesComAlertas);
+// Kpi
+router.get("/alerta-temperatura", dashboardController.alertaTemperatura);
+router.get("/lote-em-transito", dashboardController.loteEmTransito);
+router.get("/temperatura-caminhao", dashboardController.temperaturaMediaCaminhao);
+router.get("/umidade-caminhao", dashboardController.umidadeMediaCaminhao);
+// Gráficos
+router.get("/caminhao/:idCaminhao/registros", dashboardController.registrosCaminhao);
+
+
+module.exports = router;

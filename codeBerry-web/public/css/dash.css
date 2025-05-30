@@ -1,4 +1,51 @@
 
+h1 {
+  text-align: center;
+}
+
+.container-caminhoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card-caminhao {
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  width: 200px;
+  cursor: pointer;
+  box-shadow: 2px 2px 8px #ccc;
+  transition: transform 0.2s;
+}
+
+.card-caminhao:hover {
+  transform: scale(1.03);
+}
+
+.card-caminhao.alerta {
+  border-color: red;
+  background-color: #ffe5e5;
+  color: #a10000;
+}
+
+.graficos-linha {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.grafico-box {
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
 .dashboard {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

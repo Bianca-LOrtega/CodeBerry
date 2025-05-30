@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
+    <link rel="stylesheet" href="../css/dash.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/body.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+
+<body onload="carregarDashboardCaminhao(), carregarKPI()">
+    <div class="header">
+        <div class="container">
+            <div class="logo-nome">
+                <a href="./index.html">
+                    <img src="../assets/img/logo/logoCurta.png" class="logo" alt="Logo da Code Berry">
+                </a>
+                <h1 class="nome">CodeBerry</h1>
+            </div>
+            <ul class="navbar">
+                <li class="agora"><a href="./index.html">Home</a></li>
+                <li class="agora"><a href="./sobrenos.html">Sobre</a></li>
+                <li><a href="./calculadora.html">Simulador</a></li>
+                <li>|</li>
+                <div class="botao">
+                    <button class="login"><a href="./login.html">Login</a></button>
+                    <button class="cadastro"><a href="./cadastro.html">Cadastro</a></button>
+                </div>
+            </ul>
+        </div>
+    </div><br>
+
+    <h1>Dashboard do Caminhão</h1>
+    <div id="infoCaminhao" class="card-info"></div>
+
+    <h2>Últimos Registros</h2>
+    <div class="dashboard">
+
+        <!-- KPIs -->
+        <div class="card kpi">
+            <div>
+                <h3>Alertas de Temperatura</h3>
+                <h2 id="kpi-alerta">...</h2>
+            </div>
+        </div>
+
+        <div class="card kpi">
+            <div>
+                <h3>Lote em trânsito:</h3>
+                <h2 id="kpi-lote">...</h2>
+            </div>
+        </div>
+
+        <div class="card kpi">
+            <div>
+                <h3>Temperatura no Caminhão:</h3>
+                <h2 id="kpi-temp">...</h2>
+            </div>
+        </div>
+
+        <div class="card kpi">
+            <div>
+                <h3>Umidade no Caminhão:</h3>
+                <h2 id="kpi-umi">...</h2>
+            </div>
+        </div>
+
+    </div><br>
+
+
+    <div class="graficos-linha">
+        <div class="grafico-box">
+            <h3>Gráfico de Umidade</h3>
+            <canvas id="graficoUmidade" width="400" height="200"></canvas>
+        </div>
+        <div class="grafico-box">
+            <h3>Gráfico Misto</h3>
+            <canvas id="graficoMisto" width="400" height="200"></canvas>
+        </div>
+        <div class="grafico-box">
+            <h3>Rota da Viagem</h3>
+            <div id="mapa" width="400" height="200"></div>
+        </div>
+    </div>
+
+    <script>
+        /*KPIS*/
+        function carregarKPIs() {
+            fetch("/dashboard/alerta-temperatura")
+                .then(res => res.json())
+                .then(dado => {
+                    document.getElementById("kpi-alerta").innerHTML = `${dado.alertas}`;
+                });
+
+            fetch("/dashboard/lote-em-transito")
+                .then(res => res.json())
+                .then(dado => {
+                    document.getElementById("kpi-lote").innerHTML = `${dado.emTransito}`;
+                });
+
+            fetch("/dashboard/temperatura-caminhao")
+                .then(res => res.json())
+                .then(dado => {
+                    document.getElementById("kpi-temp").innerHTML = `${dado.mediaTemp}ºC`;
+                });
+
+            fetch("/dashboard/umidade-caminhao")
+                .then(res => res.json())
+                .then(dado => {
+                    document.getElementById("kpi-umi").innerHTML = `${dado.mediaUmi}%`;
+                });
+        }
+
+
+        /*Gráficos*/
+        function carregarDashboardCaminhao() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idCaminhao = urlParams.get("id");
+
+            let horarios = [];
+            let temperaturas = [];
+            let registros = [];
+
+            fetch("/dashboard/caminhao/" + idCaminhao + "/resumo")
+                .then(res => res.json())
+                .then(dados => {
+                    const divInfo = document.getElementById("infoCaminhao");
+                    const alertaClasse = dados.alerta ? 'alerta' : 'normal';
+
+                    divInfo.innerHTML = `
+                        <h2 class="${alertaClasse}">Placa: ${dados.placa}</h2>
+                        <p>Média de Temperatura: ${dados.mediaTemperatura}°C</p>
+                        <p>Média de Umidade: ${dados.mediaUmidade}%</p>
+                    `;
+                });
+
+            fetch("/dashboard/caminhao/" + idCaminhao + "/registros")
+                .then(res => res.json())
+                .then(res => {
+                    registros = res;
+                    const corpoTabela = document.getElementById("tabelaRegistros");
+                    res.forEach(r => {
+                        corpoTabela.innerHTML += `
+                            <tr>
+                                <td>${r.horario}</td>
+                                <td>${r.temperatura}</td>
+                                <td>${r.umidade}</td>
+                            </tr>
+                        `;
+                        horarios.push(r.horario);
+                        temperaturas.push(r.temperatura);
+                    });
+
+                    plotarGraficos();
+                });
+
+            const coordenadas = {
+                "São Paulo": [-23.5505, -46.6333],
+                "Campinas": [-22.9099, -47.0626]
+            };
+
+            fetch("/dashboard/caminhao/" + idCaminhao + "/rota")
+                .then(res => res.json())
+                .then(lote => {
+                    const partida = coordenadas[lote.localpartida];
+                    const destino = coordenadas[lote.localdestino];
+
+                    const mapa = L.map('mapa').setView(partida, 9);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: 'Mapa por OpenStreetMap'
+                    }).addTo(mapa);
+
+                    L.marker(partida).addTo(mapa).bindPopup("Local de Partida");
+                    L.marker(destino).addTo(mapa).bindPopup("Local de Destino");
+
+                    const rota = L.polyline([partida, destino], { color: 'blue' }).addTo(mapa);
+                    mapa.fitBounds(rota.getBounds());
+                });
+
+            function plotarGraficos() {
+                const ctxUmidade = document.getElementById("graficoUmidade").getContext("2d");
+                new Chart(ctxUmidade, {
+                    type: 'line',
+                    data: {
+                        labels: [...horarios].reverse(),
+                        datasets: [{
+                            label: 'Umidade (%)',
+                            data: registros.map(r => r.umidade).reverse(),
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                const ctxMisto = document.getElementById("graficoMisto").getContext("2d");
+                new Chart(ctxMisto, {
+                    type: 'line',
+                    data: {
+                        labels: [...horarios].reverse(),
+                        datasets: [
+                            {
+                                label: 'Temperatura (°C)',
+                                data: [...temperaturas].reverse(),
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderWidth: 2,
+                                fill: false,
+                                tension: 0.3,
+                                yAxisID: 'y1'
+                            },
+                            {
+                                label: 'Umidade (%)',
+                                data: registros.map(r => r.umidade).reverse(),
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderWidth: 2,
+                                fill: false,
+                                tension: 0.3,
+                                yAxisID: 'y2'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y1: {
+                                type: 'linear',
+                                position: 'left',
+                                title: { display: true, text: 'Temperatura (°C)' }
+                            },
+                            y2: {
+                                type: 'linear',
+                                position: 'right',
+                                title: { display: true, text: 'Umidade (%)' },
+                                grid: { drawOnChartArea: false }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

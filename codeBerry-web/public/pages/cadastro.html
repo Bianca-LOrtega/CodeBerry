@@ -89,6 +89,18 @@
         <a href="../pages/login.html">Já tem cadastro? Entrar</a>
       </div>
 
+      
+      <div class="campo">
+        <span>Seu tipo de acesso:</span>
+        <select  id="tipoAcesso">
+          <option value="*">Escolha</option>
+          <option value="n3">Nivel Suporte</option>
+          <option value="usuario">Usuario</option>
+        </select>
+        <a href="../pages/login.html">Já tem cadastro? Entrar</a>
+      </div>
+
+
       <button onclick="cadastro()" class="botao_cadastro_login">Registrar-se</button>
       <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
     </section>
@@ -104,6 +116,7 @@
     var nome = input_usuario.value
     var email = input_email.value
     var senha = input_senha.value
+    var tipo = tipoAcesso.value
     var confirmarSenha = input_confirmacao_senha.value
     const regraEmail = ['@', '.', '#', '$', '%', '&', '*', '(', ')']
     const CaracterEspeciais = ['!', '@', '#', '$', '%', '&', '*', '(', ')']
@@ -157,6 +170,7 @@
               nomeServer: nome,
               emailServer: email,
               senhaServer: senha,
+              tipoServer: tipo,
               fkEmpresaServer: cnpj   //fkEmpresa é o cnpj
 
             }),
@@ -175,13 +189,10 @@
             })
 
             .catch(erro => {
-              console.log("erro no cadastro");
+              console.log("erro no cadastro", erro);
               div_resposta.innerHTML = "deu erro no cadastro"
             })
-          return false
-
-
-          window.location.href = "../pages/login.html"; // redireciona para a página inicial
+  
         }
       }
     }
@@ -191,5 +202,4 @@
 
 
 </script>
-
 </html>

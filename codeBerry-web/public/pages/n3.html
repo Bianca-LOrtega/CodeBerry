@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BobIA</title>
     <link rel="stylesheet" href="../css/n3.css">
 </head>
-<body>
 
+<body>
+    <div class="layoutVoltar">
+        <button onclick="voltar()" class="botaoVoltar">Voltar</button>
+    </div>
     <div id="container">
         <h1>BobIA</h1>
         <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
@@ -15,10 +19,37 @@
         <button onclick="gerarResposta()">Gerar Resposta</button>
         <h3>Resposta da IA:</h3>
         <div id="resposta"></div>
+        
+        
+                <div class="divMorangos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        
+                    <img id="morangosFotos" src="../assets/img/logo/morangoosPng-removebg-preview.png" alt="morangosFotos">
+        </div>
+
+        
+
     </div>
 
     <script>
-        
+
         async function gerarResposta() {
             const pergunta = document.getElementById('pergunta').value;
 
@@ -36,7 +67,12 @@
             document.getElementById('resposta').innerText = data.resultado;
         }
 
+        function voltar() {
+            setTimeout(function () {
+                window.location = "../pages/login.html"
+            }, 2000)
+        }
     </script>
-    
 </body>
+
 </html>

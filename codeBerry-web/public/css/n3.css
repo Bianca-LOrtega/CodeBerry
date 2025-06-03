@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #ffffff;
+    background-color: #b22e1c;
+    color: white;
     margin: 0;
     padding: 50px;
 }
@@ -9,10 +10,16 @@ body {
     width: 80%;
     margin: 50px auto;
     text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-    color: #1F2A44;
+
+h1, h2 {
+    color: #279054;
+    margin-bottom: 20px;
+
 }
 
 textarea[type="text"] {
@@ -20,20 +27,24 @@ textarea[type="text"] {
     font-size: 16px;
     border-radius: 5px;
     width: 400px;
+    border: 1px solid #279054;
+    color: #1f2a44;
 }
 
 select,
 button {
-    padding: 8px;
+    padding: 10px 20px;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    border: none;
+    margin: 10px 0;
 }
 
 button {
     background-color: #279054;
     color: #FFFFFF;
-    border: none;
+    transition: background-color 0.3 ease;
 }
 
 button:hover {
@@ -48,4 +59,47 @@ button:hover {
     border: 1px solid #63666A;
     text-align: left;
     display: none;
+    color: #1f2a44;
 }
+
+a{
+    color: #279054;
+    text-decoration: none;
+}
+a:hover{
+    color: #ED145B;
+    text-decoration: underline;
+}
+
+.layoutVoltar{
+    display: flex;
+    justify-content: flex-end;
+    
+    
+}
+
+.botaoVoltar{
+    display: flex;
+    align-items: flex-end;
+    align-content: flex-end;
+    justify-content: flex-end;
+    align-self: flex-end;
+    margin: 0;
+}
+
+.divMorangos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    gap: 20px;
+    margin: 10px auto;
+    box-shadow: rgba(0, 0, 0, 0.2);
+
+}
+#morangosFotos{
+    width: 100px;    
+    
+}
+
+

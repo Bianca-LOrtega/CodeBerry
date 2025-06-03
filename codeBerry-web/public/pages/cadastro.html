@@ -89,7 +89,7 @@
         <a href="../pages/login.html">Já tem cadastro? Entrar</a>
       </div>
 
-      <button onclick="verificarCadastro()" class="botao_cadastro_login">Registrar-se</button>
+      <button onclick="cadastro()" class="botao_cadastro_login">Registrar-se</button>
       <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
     </section>
   </main>
@@ -99,9 +99,9 @@
 
   let qtd_tentativa = 20
 
-  function verificarCadastro() {
+  function cadastro() {
     var cnpj = input_cnpj.value
-    var nomeUsuario = input_usuario.value
+    var nome = input_usuario.value
     var email = input_email.value
     var senha = input_senha.value
     var confirmarSenha = input_confirmacao_senha.value
@@ -111,7 +111,7 @@
 
     if (cnpj === '') {
       resposta = 'Por favor, insira o CNPJ.'
-    } else if (nomeUsuario === '') {
+    } else if (nome === '') {
       resposta = 'Por favor, insira o nome que você quer ser chamado.'
     } else if (email === '') {
       resposta = 'Por favor, insira o Email.'
@@ -127,7 +127,7 @@
         if (cnpj.length !== 14 || isNaN(cnpj)) {
           qtd_tentativa--
           resposta = 'CNPJ inválido!<br>Deve conter 14 dígitos numéricos.'
-        } else if (nomeUsuario.length > 20) {
+        } else if (nome.length > 20) {
           qtd_tentativa--
           resposta = 'Nome de usuário grande demais.<br><br>O nome deve conter no máximo 20 caracteres.'
 
@@ -143,8 +143,44 @@
           resposta = 'A confirmação de senha está diferente'
 
         } else {
-          resposta = `<span style="color: green;">Parabéns ${nomeUsuario}, Cadastro válido!</span>`
+          resposta = `<span style="color: green;">Parabéns ${nome}, Cadastro válido!</span>`
           qtd_tentativa = 0; // se o login for valido, isso vai bloquear fazer outro
+
+
+
+          fetch("/usuarios/cadastrar/", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              nomeServer: nome,
+              emailServer: email,
+              senhaServer: senha,
+              fkEmpresaServer: cnpj   //fkEmpresa é o cnpj
+
+            }),
+          })
+            .then(res => {
+              if (res.ok) {
+                alert("Cadastro realizado com sucesso")
+                setTimeout(() => {
+                  window.location = "../pages/login.html"
+
+                }, 1000)
+
+              } else {
+                div_resposta.innerHTML = "deu erro"
+              }
+            })
+
+            .catch(erro => {
+              console.log("erro no cadastro");
+              div_resposta.innerHTML = "deu erro no cadastro"
+            })
+          return false
+
+
           window.location.href = "../pages/login.html"; // redireciona para a página inicial
         }
       }
@@ -153,7 +189,7 @@
     document.getElementById('div_resposta').innerHTML = resposta
   }
 
-</script>
 
+</script>
 
 </html>

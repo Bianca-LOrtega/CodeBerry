@@ -9,6 +9,7 @@ main {
   padding: 5rem 0;
 }
 
+
 .container_setor{
   display: flex;
   flex-direction: row;
@@ -27,6 +28,13 @@ font-size:20px;
 text-align: center;
 }
 
+
+.bloco_cadastro {
+  width: 50%;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
 
 .section_main {
   display: flex;
@@ -317,7 +325,7 @@ width: 100%;
 }
 
 .cadastro_image {
-width: 600px;
+width: 400px;
 display: flex;
 }
 
@@ -376,6 +384,12 @@ transition: background-color 0.3s ease, transform 0.2s ease;
 .botao_cadastro_login:hover {
 background-color: #ad1d1d;
 transform: scale(1.03);
+}
+
+.link-cadastro {
+text-align: center;
+margin-top: 1rem;
+font-weight: bold;
 }
 
 /*CALCULADORA*/

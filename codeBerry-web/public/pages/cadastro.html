@@ -54,7 +54,8 @@
   </div>
 
   <main>
-    <section class="cadastro_image">
+    <div class="bloco_cadastro">
+      <section class="cadastro_image">
       <img
         src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2022/07/06/1594778894-como-cultivar-morangos-dentro-de-casa-pexels-aphiwat-chuangchoem.jpg"
         alt="Imagem Morangos" />
@@ -86,7 +87,6 @@
       <div class="campo">
         <span>Confirmação da Senha:</span>
         <input id="input_confirmacao_senha" type="password" placeholder="*******" />
-        <a href="../pages/login.html">Já tem cadastro? Entrar</a>
       </div>
 
       
@@ -97,13 +97,15 @@
           <option value="n3">Nivel Suporte</option>
           <option value="usuario">Usuario</option>
         </select>
-        <a href="../pages/login.html">Já tem cadastro? Entrar</a>
       </div>
 
 
       <button onclick="cadastro()" class="botao_cadastro_login">Registrar-se</button>
+      <p class="link-cadastro">Já possui conta? <a href="./cadastro.html">Login</a></p>
       <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
     </section>
+    </div>
+    
   </main>
 </body>
 

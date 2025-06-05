@@ -12,13 +12,11 @@
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/footer.css">
-
   <link rel="stylesheet" href="../css/login.css">
 </head>
 
 <body>
   <div class="header">
-
     <div class="container">
       <div class="logo-nome">
         <a href="../pages/index.html">
@@ -26,7 +24,6 @@
         </a>
         <h1 class="nome">CodeBerry</h1>
       </div>
-
       <ul class="navbar">
         <li class="agora">
           <a href="../pages/index.html">Home</a>
@@ -38,18 +35,13 @@
           <a href="../pages/calculadora.html">Simulador</a>
         </li>
         <li>|</li>
-
-
         <div class="botao">
-
           <button class="login">
             <a href="../pages/login.html">Login</a>
           </button>
-
           <button class="cadastro">
             <a href="../pages/cadastro.html">Cadastro</a>
           </button>
-
         </div>
       </ul>
     </div>
@@ -66,11 +58,6 @@
       <h1>Login</h1>
 
       <div class="campo">
-        <span>CNPJ:</span>
-        <input id="input_cnpj" type="text" placeholder="CNPJ">
-      </div>
-
-      <div class="campo">
         <span>E-mail:</span>
         <input id="input_email" type="text" placeholder="Email">
       </div>
@@ -78,65 +65,71 @@
       <div class="campo">
         <span>Senha:</span>
         <input id="input_senha" type="password" placeholder="Senha">
-
       </div>
 
       <button onclick="verificarLogin()" class="botao_cadastro_login">Acessar</button>
-       <p class="link-cadastro">Não possui conta? <a href="./login.html">Login</a></p>
+      <p class="link-cadastro">Não possui conta? <a href="./cadastro.html">Cadastre-se</a></p>
       <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
-
     </section>
   </main>
 
-</body>
-<script>
+  <script>
+    let qtd_tentativa = 6;
 
-  let qtd_tentativa = 6;
+    function verificarLogin() {
+      var email = input_email.value.trim();
+      var senha = input_senha.value.trim();
+      var resposta = '';
 
-  function verificarLogin() {
-    var cnpj = input_cnpj.value
-    var email = input_email.value
-    var senha = input_senha.value
-    const usuariosSistema = ['anna@gmail.com', 'bianca@gmail.com', 'enzo@gmail.com', 'igor@gmail.com', 'manuela@gmail.com', 'sergio@gmail.com']
-    const senhaCorreta = 'sprint3'
-    var resposta = ''
+      if (email === '') {
+        resposta = 'Por favor, insira o Email.';
+      } else if (senha === '') {
+        resposta = 'Por favor, insira a senha.';
+      } else if (qtd_tentativa <= 0) {
+        resposta = 'Número de tentativas esgotado.<br>Tente novamente mais tarde.';
+      } else {
+        // Fetch para autenticação no backend
+        fetch("/usuarios/autenticar", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify({
+            emailServer: email,
+            senhaServer: senha
+          }),
+        })
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error('Falha na autenticação');
+          }
+        })
+        .then(data => {
+          resposta = `<span style="color: green;">Login bem-sucedido! Bem-vindo ${data.nome}!</span>`;
+          setTimeout(() => {
+            if (data.tipo === "n3") {
+              window.location.href = "../pages/n3.html";
+            } else {
+              window.location.href = "../pages/dashboard.html";
+            }
+          }, 1000);
+        })
+        .catch(erro => {
+          qtd_tentativa--;
+          resposta = `Login inválido!<br>Tentativas restantes: ${qtd_tentativa}`;
+        })
+        .finally(() => {
+          document.getElementById('div_resposta').innerHTML = resposta;
+        });
 
-    if (cnpj === '') {
-      resposta = 'Por favor, insira o CNPJ'
-    } else if (email === '') {
-      resposta = 'Por favor, insira o Email'
-    } else if (senha === '') {
-      resposta = 'Por favor, insira a senha'
-    } else if (qtd_tentativa <= 0) {
-      resposta = 'Número de tentativas esgotado.<br>Tente novamente mais tarde.'
-    } else if(email == 'joao@transmorangos.com' && senha == 'senha123' && cnpj == '12345678001301'){
-      resposta = '<span style="color: green;">Login Válido!</span>'
-      setTimeout(() => {
-        window.location.href = "../pages/n3.html"
-      }, 1000)
-    }
-
-    else {
-
-      for (var i = 0; i < 1; i++) {
-        if (cnpj.length !== 14 || isNaN(cnpj)) {
-          qtd_tentativa--
-          resposta = 'CNPJ inválido!<br>Deve conter 14 dígitos numéricos<br><br>Tentativas restantes: ' + qtd_tentativa
-
-        } else if (usuariosSistema.includes(email) && senha === senhaCorreta) {
-          resposta = '<span style="color: green;">Login válido!</span>'
-          qtd_tentativa = 0; // se o login for valido, isso vai bloquear fazer outro
-          window.location.href = "../pages/dashboard.html";
-
-        } else {
-          qtd_tentativa--
-          resposta = 'Login inválido!<br>Tente novamente.<br><br>Tentativas restantes: ' + qtd_tentativa
-        }
+        return;
       }
-    }
 
-    document.getElementById('div_resposta').innerHTML = resposta
-  }
-</script>
+      document.getElementById('div_resposta').innerHTML = resposta;
+    }
+  </script>
+</body>
 
 </html>

@@ -56,57 +56,58 @@
   <main>
     <div class="bloco_cadastro">
       <section class="cadastro_image">
-      <img
-        src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2022/07/06/1594778894-como-cultivar-morangos-dentro-de-casa-pexels-aphiwat-chuangchoem.jpg"
-        alt="Imagem Morangos" />
-    </section>
+        <img
+          src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2022/07/06/1594778894-como-cultivar-morangos-dentro-de-casa-pexels-aphiwat-chuangchoem.jpg"
+          alt="Imagem Morangos" />
+      </section>
 
-    <section class="section_main">
-      <h1>Cadastre-se</h1>
+      <section class="section_main">
+        <h1>Cadastre-se</h1>
 
-      <div class="campo">
-        <span>CNPJ:</span>
-        <input id="input_cnpj" type="text" placeholder="12.345.678/0001-00" />
-      </div>
+        <div class="campo">
+          <span>CNPJ:</span>
+          <input id="input_cnpj" type="text" placeholder="12.345.678/0001-00" />
+        </div>
 
-      <div class="campo">
-        <span>Nome de Usuário:</span>
-        <input id="input_usuario" type="text" placeholder="user2025" />
-      </div>
+        <div class="campo">
+          <span>Nome de Usuário:</span>
+          <input id="input_usuario" type="text" placeholder="user2025" />
+        </div>
 
-      <div class="campo">
-        <span>E-mail:</span>
-        <input id="input_email" type="text" placeholder="user2025@sptech.school" />
-      </div>
+        <div class="campo">
+          <span>E-mail:</span>
+          <input id="input_email" type="text" placeholder="user2025@sptech.school" />
+        </div>
 
-      <div class="campo">
-        <span>Senha:</span>
-        <input id="input_senha" type="password" placeholder="*******" />
-      </div>
+        <div class="campo">
+          <span>Senha:</span>
+          <input id="input_senha" type="password" placeholder="*******" />
+        </div>
 
-      <div class="campo">
-        <span>Confirmação da Senha:</span>
-        <input id="input_confirmacao_senha" type="password" placeholder="*******" />
-      </div>
-
-      
-      <div class="campo">
-        <span>Seu tipo de acesso:</span>
-        <select  id="tipoAcesso">
-          <option value="*">Escolha</option>
-          <option value="n3">Nivel Suporte</option>
-          <option value="usuario">Usuario</option>
-        </select>
-      </div>
+        <div class="campo">
+          <span>Confirmação da Senha:</span>
+          <input id="input_confirmacao_senha" type="password" placeholder="*******" />
+        </div>
 
 
-      <button onclick="cadastro()" class="botao_cadastro_login">Registrar-se</button>
-      <p class="link-cadastro">Já possui conta? <a href="./cadastro.html">Login</a></p>
-      <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
-    </section>
+        <div class="campo">
+          <span>Seu tipo de acesso:</span>
+          <select id="tipoAcesso">
+            <option value="*">Escolha</option>
+            <option value="n3">Nivel Suporte</option>
+            <option value="usuario">Usuario</option>
+          </select>
+        </div>
+
+
+        <button onclick="cadastro()" class="botao_cadastro_login">Registrar-se</button>
+        <p class="link-cadastro">Já possui conta? <a href="./cadastro.html">Login</a></p>
+        <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
+      </section>
     </div>
-    
+
   </main>
+
 </body>
 
 <script>
@@ -122,6 +123,8 @@
     var confirmarSenha = input_confirmacao_senha.value
     const regraEmail = ['@', '.', '#', '$', '%', '&', '*', '(', ')']
     const CaracterEspeciais = ['!', '@', '#', '$', '%', '&', '*', '(', ')']
+    const cnpjEmpresaOficial = "12345678000199" // <== Coloque aqui o CNPJ oficial da sua empresa!
+
     var resposta = ''
 
     if (cnpj === '') {
@@ -131,12 +134,19 @@
     } else if (email === '') {
       resposta = 'Por favor, insira o Email.'
     } else if (senha === '') {
-      resposta = 'Por favor, insira a senha'
+      resposta = 'Por favor, insira a senha.'
     } else if (confirmarSenha === '') {
-      resposta = 'Por Favor, confirme sua senha.'
+      resposta = 'Por favor, confirme sua senha.'
     } else if (qtd_tentativa <= 0) {
       resposta = 'Número de tentativas esgotado.<br>Tente novamente mais tarde.'
     } else {
+
+      // Validação CNPJ e tipo N3
+      if (tipo === 'n3' && cnpj !== cnpjEmpresaOficial) {
+        resposta = 'Cadastro de nível N3 só permitido com o CNPJ da empresa!';
+        document.getElementById('div_resposta').innerHTML = resposta
+        return; // Sai da função
+      }
 
       for (var i = 0; i < 1; i++) {
         if (cnpj.length !== 14 || isNaN(cnpj)) {
@@ -145,23 +155,17 @@
         } else if (nome.length > 20) {
           qtd_tentativa--
           resposta = 'Nome de usuário grande demais.<br><br>O nome deve conter no máximo 20 caracteres.'
-
         } else if (!email.includes('@') && !email.includes('.')) {
           qtd_tentativa--
           resposta = 'Email Inválido.'
-
         } else if (senha.length < 8 || senha.length > 128 || !CaracterEspeciais.some(char => senha.includes(char))) {
           qtd_tentativa--
           resposta = 'Senha inválida.<br><br>Deve estar entre 8 e 128 caracteres e conter ao menos um caractere especial.'
-
         } else if (confirmarSenha != senha) {
           resposta = 'A confirmação de senha está diferente'
-
         } else {
           resposta = `<span style="color: green;">Parabéns ${nome}, Cadastro válido!</span>`
-          qtd_tentativa = 0; // se o login for valido, isso vai bloquear fazer outro
-
-
+          qtd_tentativa = 0; // Bloqueia novos cadastros até refresh
 
           fetch("/usuarios/cadastrar/", {
             method: "POST",
@@ -173,8 +177,7 @@
               emailServer: email,
               senhaServer: senha,
               tipoServer: tipo,
-              fkEmpresaServer: cnpj   //fkEmpresa é o cnpj
-
+              fkEmpresaServer: cnpj   // fkEmpresa é o CNPJ
             }),
           })
             .then(res => {
@@ -182,26 +185,21 @@
                 alert("Cadastro realizado com sucesso")
                 setTimeout(() => {
                   window.location = "../pages/login.html"
-
                 }, 1000)
-
               } else {
-                div_resposta.innerHTML = "deu erro"
+                div_resposta.innerHTML = "Erro ao realizar cadastro."
               }
             })
-
             .catch(erro => {
-              console.log("erro no cadastro", erro);
-              div_resposta.innerHTML = "deu erro no cadastro"
+              console.log("Erro no cadastro:", erro);
+              div_resposta.innerHTML = "Erro no cadastro."
             })
-  
         }
       }
     }
 
     document.getElementById('div_resposta').innerHTML = resposta
   }
-
-
 </script>
+
 </html>

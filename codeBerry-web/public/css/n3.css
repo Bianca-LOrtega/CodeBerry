@@ -1,105 +1,99 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #b22e1c;
-    color: white;
+body, h1, h3, textarea, button, div {
     margin: 0;
-    padding: 50px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #fffafa; /* Quase branco com leve rosa */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
 }
 
 #container {
-    width: 80%;
-    margin: 50px auto;
-    text-align: center;
+    background-color: #ffffff; /* Branco */
+    border: 2px solid #b22222; /* Vermelho escuro */
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 10px rgba(178, 34, 34, 0.3); /* Sombra vermelha */
+    text-align: center;
 }
 
-
-h1, h2 {
-    color: #279054;
+h1 {
+    color: #b22222; /* Vermelho escuro */
     margin-bottom: 20px;
-
 }
 
-textarea[type="text"] {
-    padding: 8px;
-    font-size: 16px;
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 2px solid #b22222;
     border-radius: 5px;
-    width: 400px;
-    border: 1px solid #279054;
-    color: #1f2a44;
+    resize: none;
+    background-color: #fff;
 }
 
-select,
 button {
+    background-color: #b22222; /* Vermelho escuro */
+    color: white;
+    border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
-    border: none;
-    margin: 10px 0;
-}
-
-button {
-    background-color: #279054;
-    color: #FFFFFF;
-    transition: background-color 0.3 ease;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #ED145B;
+    background-color: #8b0000; /* Vermelho ainda mais escuro */
 }
 
 #resposta {
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 10px;
+    background-color: #e6ffe6; /* Verde bem claro */
+    border: 2px solid #228b22; /* Verde folha */
     border-radius: 5px;
-    background-color: #D0D3D4;
-    border: 1px solid #63666A;
-    text-align: left;
     display: none;
-    color: #1f2a44;
+    color: #006400; /* Verde musgo */
 }
 
-a{
-    color: #279054;
-    text-decoration: none;
-}
-a:hover{
-    color: #ED145B;
-    text-decoration: underline;
-}
-
-.layoutVoltar{
+.divMorangos {
+    margin-top: 20px;
     display: flex;
-    justify-content: flex-end;
-    
-    
-}
-
-.botaoVoltar{
-    display: flex;
-    align-items: flex-end;
-    align-content: flex-end;
-    justify-content: flex-end;
-    align-self: flex-end;
-    margin: 0;
-}
-
-.divMorangos{
-    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    width: 100px;
-    gap: 20px;
-    margin: 10px auto;
-    box-shadow: rgba(0, 0, 0, 0.2);
-
-}
-#morangosFotos{
-    width: 100px;    
-    
+    gap: 10px;
 }
 
+#container img {
+    width: 40px;
+    height: 40px;
+}
 
+.layoutVoltar {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.botaoVoltar {
+    background-color: #dc143c; /* Vermelho Crimson */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botaoVoltar:hover {
+    background-color: #8b0000; /* Vermelho escuro */
+}

@@ -12,6 +12,50 @@
   <link rel="stylesheet" href="../css/footer.css">
   <link rel="stylesheet" href="../css/body.css">
 
+  
+  <style>
+    /*adicionei a estilização, mas depois colocar em css separado*/
+    .container-caminhoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .card-caminhao {
+      min-width: 220px;
+      max-width: 300px;
+      margin: 0.5rem;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #0001;
+      background: #fff;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .card-caminhao:hover {
+      transform: scale(1.03);
+    }
+
+    .card-caminhao.alerta {
+      border: 2px solid #e11e24;
+      background: #ffeaea;
+    }
+
+    .botao-adicionar {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.5rem 1rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+
 </head>
 
 <body onload="carregarCaminhoes()">
@@ -59,6 +103,8 @@
   <div id="containerCaminhoes" class="container-caminhoes"></div>
 
 
+  <button onclick="window.location.href='./cadastrarCaminhao.html'" class="botao-adicionar">+ Adicionar Caminhão</button>
+
 </body>
 
 <script>
@@ -72,7 +118,12 @@
       })
       .then(function (caminhoes) {
         var container = document.getElementById("containerCaminhoes");
-        container.innerHTML = "";
+        container.innerHTML = "<p>Carregando...</p>"; // adicionei a mensagem de carregando
+
+        if (caminhoes.length === 0) { // tratar caso nao tenha nenhum caminhao cadastrado
+          container.innerHTML = "<p>Nenhum caminhão cadastrado.</p>";
+          return;
+        }
 
         for (var i = 0; i < caminhoes.length; i++) {
           var caminhao = caminhoes[i];
@@ -84,10 +135,13 @@
             div.classList.add("alerta");
           }
 
-          div.innerHTML = `
-            <h2>${caminhao.placa}</h2>
+          // adicioei mais informações do caminhão
+          div.innerHTML = ` 
+            <h2>Placa: ${caminhao.placa}</h2>
             <p>ID: ${caminhao.idCaminhao}</p>
-          `;
+            <p>Status: <span class="status-${caminhao.status === 'OK' ? 'ok' : 'alerta'}">${caminhao.status}</span></p>
+            <p>Última atualização: ${new Date(caminhao.ultimaAtualizacao).toLocaleString()}</p> 
+          `; 
 
           div.onclick = (function (id) {
             return function () {

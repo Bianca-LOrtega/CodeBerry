@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Caminhão</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .form-caminhao {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px #0002;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .form-caminhao label {
+            font-weight: bold;
+        }
+        .form-caminhao input, .form-caminhao select {
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-caminhao button {
+            background: #e11e24;
+            color: #fff;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .form-caminhao button:hover {
+            background: #ad1d1d;
+        }
+        .mensagem {
+            color: #e11e24;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <form class="form-caminhao" id="formCaminhao" onsubmit="return cadastrarCaminhao()">
+        <h2>Cadastrar Caminhão</h2>
+
+        <label for="placa">Placa:</label>
+        <input type="text" id="ipt_placa" name="placa" maxlength="7" placeholder="ABC1D23" required>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="ipt_modelo" name="modelo" maxlength="30" required>
+
+        <button type="submit">Cadastrar</button>
+        <div class="mensagem" id="mensagem"></div>
+    </form>
+
+    <script>
+        function cadastrarCaminhao() {
+
+            const placa = ipt_placa.value.trim().toUpperCase() // o .trim é pra caso o cliente escrever um espaço
+            const modelo = ipt_modelo.value.trim()
+            const mensagem = document.getElementById('mensagem');
+
+           
+            const idEmpresa = sessionStorage.ID_EMPRESA // pega o id da empresa, a gente pode usar o CNPJ tbm
+
+            if (!idEmpresa) {
+                mensagem.textContent = "Erro: Empresa não identificada.";
+                return false;
+            }
+
+            // Validação da placa padrão Mercosul (ABC1D23)
+            if (!placa.match(/^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$/)) {
+                mensagem.textContent = "Placa inválida. Use o formato ABC1D23.";
+                return false;
+            }
+
+            // Montar o objeto de dados
+            const dados = {
+                placa: placa,
+                modelo: modelo,
+                fkEmpresa: idEmpresa
+            };
+
+            // Enviar os dados via fetch
+            fetch('/caminhao/cadastrar', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(dados)
+})
+            .then(res => {
+                if (!res.ok) { // se a resposta não for ok, lança um erro
+                    throw new Error('Erro ao cadastrar caminhão');
+                }
+                return res.json(); // retorna a resposta como json
+            })
+            .then(dados => { // trata a resposta do servidor (SUCESSO)
+                mensagem.style.color = "#28a745";
+                mensagem.textContent = "Caminhão cadastrado com sucesso!";
+                document.getElementById('formCaminhao').reset();
+                setTimeout(() => { mensagem.textContent = ""; }, 3000);
+            })
+            .catch(error => { // trata o erro (FALHA)
+                console.error('Erro:', error);
+                mensagem.style.color = "#e11e24";
+                mensagem.textContent = "Erro ao cadastrar caminhão.";
+            });
+
+            return false; // evita recarregar a página
+        }
+    </script>
+
+</body>
+</html>

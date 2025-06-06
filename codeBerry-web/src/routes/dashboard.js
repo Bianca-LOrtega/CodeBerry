@@ -19,5 +19,7 @@ router.get("/caminhao/:idCaminhao/registros", dashboardController.registrosCamin
 //ROTA DE CADASTRAR CANINHAO
 router.post("/caminhao/cadastrar", dashboardController.cadastrarCaminhao);
 
+router.post('/caminhao/cadastrar', dashboardController.cadastrarCaminhao); // cadastrar
+
 
 module.exports = router;

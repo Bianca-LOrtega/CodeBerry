@@ -90,7 +90,7 @@
             };
 
             // Enviar os dados via fetch
-            fetch('/dashboard/caminhao/cadastrar', {
+            fetch('http://localhost:3333/dashboard/caminhao/cadastrar', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(dados)

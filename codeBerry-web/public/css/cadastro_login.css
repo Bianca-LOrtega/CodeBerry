@@ -1,3 +1,11 @@
+.cadastro{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+.cadastro >h1{
+    font-size: 50px;
+}
 .container_cadastro {
     display: flex;  
     justify-content: center;
@@ -41,6 +49,7 @@
     flex-direction: column;
     padding: 20px;
     height: 100%;
+    width: 50%;
     background-color: #ffffff;
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
@@ -48,19 +57,16 @@
     text-align: center; 
 }
 
-
-.cadastro{
+.campos_cadastro{
     display: flex;
-    justify-content: center;
-    margin: 20px;
+    justify-content: space-around;
+    flex-direction: column;
 }
-.cadastro >h1{
-    font-size: 50px;
-}
+
 
 .campo{
     width: 60%;
-    height: 9   0px;
+    height: 90px;
 }
 
 

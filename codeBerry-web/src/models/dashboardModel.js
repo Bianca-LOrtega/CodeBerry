@@ -94,6 +94,13 @@ function registrosCaminhao(idCaminhao) {
     .then(res => res[0]);
 }
 
+
+function cadastrarCaminhao(placa, modelo, fk_empresa) {
+  const sql = `INSERT INTO caminhao (placa, modelo, statuscaminhao, fk_empresa) VALUES (?, ?, 'ativo', ?)`;
+  return db.query(sql, [placa, modelo, fk_empresa]);
+}
+
+
 module.exports = {
   listarCaminhoesComAlertas,
   buscarRota,
@@ -101,5 +108,6 @@ module.exports = {
   alertaTemperatura,
   loteEmTransito,
   temperaturaMediaCaminhao,
-  umidadeMediaCaminhao
+  umidadeMediaCaminhao,
+  cadastrarCaminhao
 };

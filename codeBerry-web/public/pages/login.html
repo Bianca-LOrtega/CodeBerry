@@ -99,30 +99,39 @@
             senhaServer: senha
           }),
         })
-        .then(res => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            throw new Error('Falha na autenticação');
-          }
-        })
-        .then(data => {
-          resposta = `<span style="color: green;">Login bem-sucedido! Bem-vindo ${data.nome}!</span>`;
-          setTimeout(() => {
-            if (data.tipo === "n3") {
-              window.location.href = "../pages/n3.html";
+          .then(res => {
+            if (res.ok) {
+              return res.json();
             } else {
-              window.location.href = "../pages/dashboard.html";
+              throw new Error('Falha na autenticação');
             }
-          }, 1000);
-        })
-        .catch(erro => {
-          qtd_tentativa--;
-          resposta = `Login inválido!<br>Tentativas restantes: ${qtd_tentativa}`;
-        })
-        .finally(() => {
-          document.getElementById('div_resposta').innerHTML = resposta;
-        });
+          })
+          .then(data => {
+
+            console.log("Resposta do back-end:", data); // Confirma se veio certo
+            console.log("CNPJ que será salvo:", data.empresaId);
+
+            // Salva o CNPJ no sessionStorage
+            sessionStorage.setItem("CNPJ_EMPRESA", data.empresaId);
+
+            console.log("CNPJ salvo:", sessionStorage.getItem("CNPJ_EMPRESA"));
+
+            resposta = `<span style="color: green;">Login bem-sucedido! Bem-vindo ${data.nome}!</span>`;
+            setTimeout(() => {
+              if (data.tipo === "n3") {
+                window.location.href = "../pages/n3.html";
+              } else {
+                window.location.href = "../pages/dashboard.html";
+              }
+            }, 10000);
+          })
+          .catch(erro => {
+            qtd_tentativa--;
+            resposta = `Login inválido!<br>Tentativas restantes: ${qtd_tentativa}`;
+          })
+          .finally(() => {
+            document.getElementById('div_resposta').innerHTML = resposta;
+          });
 
         return;
       }

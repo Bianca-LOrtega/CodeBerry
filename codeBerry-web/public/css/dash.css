@@ -83,3 +83,10 @@ h1 {
   margin: 5px 0 0;
   color: rgb(20, 219, 2);
 }
+
+#mapa {
+    width: 380px;
+    height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}

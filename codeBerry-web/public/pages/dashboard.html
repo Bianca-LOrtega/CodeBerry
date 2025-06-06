@@ -63,7 +63,8 @@
 
 <script>
   function carregarCaminhoes() {
-    var cnpjEmpresa = sessionStorage.CNPJ_EMPRESA;
+    var cnpjEmpresa = sessionStorage.getItem("CNPJ_EMPRESA");
+    console.log("CNPJ carregado na dashboard:", cnpjEmpresa);
 
     fetch("/dashboard/caminhoes/" + cnpjEmpresa)
       .then(function (resposta) {

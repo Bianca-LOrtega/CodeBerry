@@ -14,7 +14,7 @@ function listarCaminhoesComAlertas(cnpjEmpresa) {
         LIMIT 1
       ) AS alerta
     FROM caminhao c
-    WHERE c.fk_empresa = ?;
+    WHERE c.fk_empresa = ${cnpjEmpresa}
   `;
 
   return db.executar(instrucaoSql, [cnpjEmpresa])

@@ -166,23 +166,19 @@
                 "Campinas": [-22.9099, -47.0626]
             };
 
-            fetch("/dashboard/caminhao/" + idCaminhao + "/rota")
-                .then(res => res.json())
-                .then(lote => {
-                    const partida = coordenadas[lote.localpartida];
-                    const destino = coordenadas[lote.localdestino];
+            const partida = coordenadas["São Paulo"];
+            const destino = coordenadas["Campinas"];
 
-                    const mapa = L.map('mapa').setView(partida, 9);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: 'Mapa por OpenStreetMap'
-                    }).addTo(mapa);
+            const mapa = L.map('mapa').setView(partida, 9);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Mapa por OpenStreetMap'
+            }).addTo(mapa);
 
-                    L.marker(partida).addTo(mapa).bindPopup("Local de Partida");
-                    L.marker(destino).addTo(mapa).bindPopup("Local de Destino");
+            L.marker(partida).addTo(mapa).bindPopup("Local de Partida");
+            L.marker(destino).addTo(mapa).bindPopup("Local de Destino");
 
-                    const rota = L.polyline([partida, destino], { color: 'blue' }).addTo(mapa);
-                    mapa.fitBounds(rota.getBounds());
-                });
+            const rota = L.polyline([partida, destino], { color: 'blue' }).addTo(mapa);
+            mapa.fitBounds(rota.getBounds());
 
             function plotarGraficos() {
                 const ctxUmidade = document.getElementById("graficoUmidade").getContext("2d");

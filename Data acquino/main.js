@@ -19,7 +19,7 @@ const serial = async (
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
-            host: '127.0.0.1',
+            host: '10.18.33.14',
             user: 'aluno',
             password: 'Sptech#2024',
             database: 'codeberry',
@@ -51,24 +51,28 @@ const serial = async (
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
         console.log("Dado - " + data);
         const valores = data.split(';');
-        const sensorTemperatura = parseFloat(valores[1]);
-        const sensorUmidade = parseFloat(valores[0]);
+        const sensorTemperatura = parseFloat(valores[1]) - Number(25);
+        const sensorUmidade = parseFloat(valores[0]) + Number(30);
 
         // armazena os valores dos sensores nos arrays correspondentes
         valoresSensorAnalogico.push(sensorTemperatura);
         valoresSensorDigital.push(sensorUmidade);
-        var lote = Math.random()* (3 - 1) + 1;
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
 
-            // este insert irá inserir os dados na tabela "medida"
-            await poolBancoDados.execute(
-                'INSERT INTO registros (umidade, temperatura, horario, fk_lote) VALUES (?, ?, current_timestamp(), ? );',
-                [sensorUmidade, sensorTemperatura, lote]
-            );
-            console.log("valores inseridos no banco: ", sensorUmidade + ", " +  sensorTemperatura );
-                
+            for (var v = 1; v < 6; v++) {
+                for (var c = 1; c < 20; c++) {
+                    // este insert irá inserir os dados na tabela "registros"
+                    await poolBancoDados.execute(
+                        'INSERT INTO registros (fk_viagem, contador, umidade, temperatura, horario) VALUES (?, ?, ?, ?, current_timestamp());',
+                        [v, c, sensorUmidade, sensorTemperatura]
+                    );
+                    console.log("valores inseridos no banco: ", sensorUmidade + ", " + sensorTemperatura);
+
+                }
+            }
+
         }
 
     });

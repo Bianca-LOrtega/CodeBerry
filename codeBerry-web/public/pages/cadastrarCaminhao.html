@@ -68,6 +68,8 @@
 
            
             const idEmpresa = sessionStorage.getItem("CNPJ_EMPRESA"); // pega o id da empresa, a gente pode usar o CNPJ tbm
+            console.log(idEmpresa);
+            
 
             if (!idEmpresa) {
                 mensagem.textContent = "Erro: Empresa não identificada.";

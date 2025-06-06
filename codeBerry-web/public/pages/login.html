@@ -1,13 +1,10 @@
+<!-- login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOGIN - Code Berry</title>
-  <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/body.css">
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/main.css">
@@ -25,23 +22,13 @@
         <h1 class="nome">CodeBerry</h1>
       </div>
       <ul class="navbar">
-        <li class="agora">
-          <a href="../pages/index.html">Home</a>
-        </li>
-        <li class="agora">
-          <a href="../pages/sobrenos.html">Sobre</a>
-        </li>
-        <li>
-          <a href="../pages/calculadora.html">Simulador</a>
-        </li>
+        <li><a href="../pages/index.html">Home</a></li>
+        <li><a href="../pages/sobrenos.html">Sobre</a></li>
+        <li><a href="../pages/calculadora.html">Simulador</a></li>
         <li>|</li>
         <div class="botao">
-          <button class="login">
-            <a href="../pages/login.html">Login</a>
-          </button>
-          <button class="cadastro">
-            <a href="../pages/cadastro.html">Cadastro</a>
-          </button>
+          <button class="login"><a href="../pages/login.html">Login</a></button>
+          <button class="cadastro"><a href="../pages/cadastro.html">Cadastro</a></button>
         </div>
       </ul>
     </div>
@@ -49,9 +36,7 @@
 
   <main class="login_container">
     <section class="login_image">
-      <img
-        src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2022/07/06/1594778894-como-cultivar-morangos-dentro-de-casa-pexels-aphiwat-chuangchoem.jpg"
-        alt="Ilustração Login">
+      <img src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2022/07/06/1594778894-como-cultivar-morangos-dentro-de-casa-pexels-aphiwat-chuangchoem.jpg" alt="Ilustração Login">
     </section>
 
     <section class="login_card">
@@ -72,10 +57,6 @@
         <input id="input_senha" type="password" placeholder="Senha">
       </div>
 
-      <div>
-
-      </div>
-
       <button onclick="verificarLogin()" class="botao_cadastro_login">Acessar</button>
       <p class="link-cadastro">Não possui conta? <a href="./cadastro.html">Cadastre-se</a></p>
       <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
@@ -88,11 +69,11 @@
     function verificarLogin() {
       var email = input_email.value.trim();
       var senha = input_senha.value.trim();
-      var cnpj = input_cnpj.value.trim()
-      var cnpjEmpresaOficial = "12345678000199"; 
+      var cnpj = input_cnpj.value.trim();
+      var cnpjEmpresaOficial = "12345678000199";
       var resposta = '';
 
-      if(cnpj === ''){
+      if (cnpj === '') {
         resposta = 'Por favor, insira o CNPJ.';
       } else if (email === '') {
         resposta = 'Por favor, insira o Email.';
@@ -101,15 +82,13 @@
       } else if (qtd_tentativa <= 0) {
         resposta = 'Número de tentativas esgotado.<br>Tente novamente mais tarde.';
       } else {
+        if (cnpj == cnpjEmpresaOficial && senha == "12345678") {
+          resposta = `<span style="color: green;">Login bem-sucedido! Bem-vindo ao Nível 3!</span>`;
+          setTimeout(() => {
+            window.location.href = "../pages/n3.html";
+          }, 2000);
+        }
 
-      if (cnpj == cnpjEmpresaOficial && senha == "12345678") {
-        resposta = `<span style="color: green;">Login bem-sucedido! Bem-vindo ao Nível 3!</span>`;
-        setTimeout(() => {
-          window.location.href = "../pages/n3.html";
-        }, 2000);
-      }
-
-        // Fetch para autenticação no backend
         fetch("/usuarios/autenticar", {
           method: "POST",
           headers: {
@@ -122,22 +101,12 @@
           }),
         })
           .then(res => {
-            if (res.ok) {
-              return res.json();
-            } else {
-              throw new Error('Falha na autenticação');
-            }
+            if (res.ok) return res.json();
+            else throw new Error('Falha na autenticação');
           })
           .then(data => {
-
-            console.log("Resposta do back-end:", data); // Confirma se veio certo
-            console.log("CNPJ que será salvo:", data.cnpj);
-
-            // Salva o CNPJ no sessionStorage
+            console.log("Resposta do back-end:", data);
             sessionStorage.setItem("CNPJ_EMPRESA", data.cnpj);
-
-            console.log("CNPJ salvo:", sessionStorage.getItem("CNPJ_EMPRESA"));
-
             resposta = `<span style="color: green;">Login bem-sucedido! Bem-vindo ${data.nome}!</span>`;
             setTimeout(() => {
               if (data.tipo === "n3") {
@@ -145,22 +114,19 @@
               } else {
                 window.location.href = "../pages/dashboard.html";
               }
-            }, 20000);
+            }, 2000);
           })
-          .catch(erro => {
+          .catch(() => {
             qtd_tentativa--;
             resposta = `Login inválido!<br>Tentativas restantes: ${qtd_tentativa}`;
           })
           .finally(() => {
             document.getElementById('div_resposta').innerHTML = resposta;
           });
-
-        return;
       }
 
       document.getElementById('div_resposta').innerHTML = resposta;
     }
   </script>
 </body>
-
 </html>

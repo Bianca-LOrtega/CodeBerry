@@ -43,6 +43,7 @@ create table motorista (
 create table caminhao (
   idcaminhao int not null,
   placa char(7),
+  modelo varchar(30),
   statuscaminhao varchar(20),
   fk_empresa char(14),
   primary key (idcaminhao),
@@ -108,10 +109,10 @@ insert into motorista (nome, telefone) values
 ('Mariana Costa', '21912345678'),
 ('João Pereira', '31998765432');
 
-insert into caminhao (idcaminhao, placa, statuscaminhao, fk_empresa) values
-(101, 'ABC1234', 'ativo', '12345678001301'),
-(102, 'KFL5678', 'ativo', '98765432000241'),
-(103, 'PMG9012', 'inativo', '98765432000241');
+insert into caminhao (idcaminhao, placa, modelo, statuscaminhao, fk_empresa) values
+(101, 'ABC1234','Mercedes-Benz Accelo 815', 'ativo', '12345678001301'),
+(102, 'KFL5678', 'Volkswagen Delivery 9.170', 'ativo', '98765432000241'),
+(103, 'PMG9012', 'Scania R 450 ', 'inativo', '98765432000241');
 
 insert into lote (localpartida, localdestino, horariopartida, horariochegada, statuslote, fk_empresa) values
 ('São Paulo', 'Campinas', '2025-04-01 08:00:00', '2025-04-01 10:30:00', 'finalizado', '12345678001301'),

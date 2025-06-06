@@ -12,5 +12,7 @@ router.get("/umidade-caminhao", dashboardController.umidadeMediaCaminhao);
 // Gráficos
 router.get("/caminhao/:idCaminhao/registros", dashboardController.registrosCaminhao);
 
+router.post('/caminhao/cadastrar', dashboardController.cadastrarCaminhao); // cadastrar
+
 
 module.exports = router;

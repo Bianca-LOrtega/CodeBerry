@@ -108,10 +108,7 @@ async function gerarResposta(mensagem) {
     }
 }
 
-// Rota para cadastrar caminhão
-app.post('/caminhao/cadastrar', (req, res) => {
-    // lógica para cadastrar caminhão
-});
+
 
 
 

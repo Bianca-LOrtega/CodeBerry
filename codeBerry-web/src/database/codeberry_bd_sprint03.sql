@@ -92,9 +92,11 @@ constraint fk_registros_viagem foreign key (fk_viagem) references viagem (idviag
 -- inserts para as tabelas: 
 
 insert into empresa (nomeempresa, cnpj) values
+('CodeBerry', '12345678000199'),
 ('TransMorangos Ltda', '12345678001301'),
 ('FrutaTrans Brasil', '98765432000241'),
 ('Logística Berry', '00112233440001');
+
 
 insert into usuario (nomeusuario, emailusuario, senhausuario, tipoacesso, fk_empresa) values
 ('João Silva', 'joao@transmorangos.com', 'senha123', 'admin', '12345678001301'),
@@ -121,6 +123,11 @@ insert into viagem (fk_caminhao, fk_motorista, fk_lote) values
 (102, 2, 2),
 (103, 3, 3);
 
+insert into viagem (fk_caminhao, fk_motorista, fk_lote) values
+(103, 2, 3),
+(101, 3, 1),
+(102, 1, 2);
+
 insert into registros (fk_viagem, temperatura, umidade, horario) values
 (1, 1.2, 85.3, '2025-04-01 08:15:00'),
 (2, 0.9, 87.0, '2025-04-02 10:45:00'),
@@ -129,6 +136,8 @@ insert into registros (fk_viagem, temperatura, umidade, horario) values
 -- checando os dados
 
 select * from lote;
+
+select * from viagem;
 
 select * from registros;
 

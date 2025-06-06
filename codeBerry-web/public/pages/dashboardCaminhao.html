@@ -37,11 +37,26 @@
         </div>
     </div><br>
 
-    <h1>Registros da Viagem</h1><br>
-
+    <h1>Dashboard do Caminhão</h1>
     <div id="infoCaminhao" class="card-info"></div>
 
+    <h2>Últimos Registros</h2>
     <div class="dashboard">
+
+        <!-- KPIs -->
+        <div class="card kpi">
+            <div>
+                <h3>Alertas de Temperatura</h3>
+                <h2 id="kpi-alerta">...</h2>
+            </div>
+        </div>
+
+        <div class="card kpi">
+            <div>
+                <h3>Lote em trânsito:</h3>
+                <h2 id="kpi-lote">...</h2>
+            </div>
+        </div>
 
         <div class="card kpi">
             <div>
@@ -57,43 +72,17 @@
             </div>
         </div>
 
-        <div class="card kpi">
-            <div>
-                <h3>Informações da Viagem:</h3>
-                <h2 id="kpi-lote">...</h2>
-            </div>
-        </div>
-
-        <div class="card kpi">
-            <div>
-                <h3>Alertas Registrados:</h3>
-                <h2 id="kpi-alerta">...</h2>
-            </div>
-        </div>
-
     </div><br>
 
 
     <div class="graficos-linha">
         <div class="grafico-box">
-            <h3>Gráfico de Temperatura</h3>
-            <canvas id="graficoTemperatura" width="400" height="200"></canvas>
-        </div>
-        <div class="grafico-box">
-            <h3>Gráfico Umidade</h3>
+            <h3>Gráfico de Umidade</h3>
             <canvas id="graficoUmidade" width="400" height="200"></canvas>
         </div>
         <div class="grafico-box">
             <h3>Gráfico Misto</h3>
-            <canvas id="graficoUmidade" width="400" height="200"></canvas>
-        </div>
-        <div class="grafico-box">
-            <h3>Alertas por dia na semana</h3>
-            <canvas id="graficoUmidade" width="400" height="200"></canvas>
-        </div>
-        <div class="grafico-box">
-            <h3>Alertas por hora no dia</h3>
-            <canvas id="graficoUmidade" width="400" height="200"></canvas>
+            <canvas id="graficoMisto" width="400" height="200"></canvas>
         </div>
         <div class="grafico-box">
             <h3>Rota da Viagem</h3>
@@ -253,7 +242,7 @@
                                 position: 'left',
                                 title: { display: true, text: 'Temperatura (°C)' }
                             },
-                            y2: {   
+                            y2: {
                                 type: 'linear',
                                 position: 'right',
                                 title: { display: true, text: 'Umidade (%)' },

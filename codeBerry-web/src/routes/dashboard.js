@@ -10,7 +10,14 @@ router.get("/lote-em-transito", dashboardController.loteEmTransito);
 router.get("/temperatura-caminhao", dashboardController.temperaturaMediaCaminhao);
 router.get("/umidade-caminhao", dashboardController.umidadeMediaCaminhao);
 // Gráficos
+
+// rota buscarRegistros
 router.get("/caminhao/:idCaminhao/registros", dashboardController.registrosCaminhao);
+// rota inserir um novo registro
+
+
+//ROTA DE CADASTRAR CANINHAO
+router.post("/caminhao/cadastrar", dashboardController.cadastrarCaminhao);
 
 
 module.exports = router;

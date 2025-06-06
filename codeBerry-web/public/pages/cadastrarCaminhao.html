@@ -67,7 +67,7 @@
             const mensagem = document.getElementById('mensagem');
 
            
-            const idEmpresa = sessionStorage.ID_EMPRESA // pega o id da empresa, a gente pode usar o CNPJ tbm
+            const idEmpresa = sessionStorage.getItem("CNPJ_EMPRESA"); // pega o id da empresa, a gente pode usar o CNPJ tbm
 
             if (!idEmpresa) {
                 mensagem.textContent = "Erro: Empresa não identificada.";
@@ -84,11 +84,11 @@
             const dados = {
                 placa: placa,
                 modelo: modelo,
-                fkEmpresa: idEmpresa
+                fk_empresa: idEmpresa
             };
 
             // Enviar os dados via fetch
-            fetch('/caminhao/cadastrar', {
+            fetch('http://localhost:3333/caminhao/cadastrar', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(dados)
@@ -111,7 +111,7 @@
                 mensagem.textContent = "Erro ao cadastrar caminhão.";
             });
 
-            return false; // evita recarregar a página
+            return false // evita recarregar a página
         }
     </script>
 

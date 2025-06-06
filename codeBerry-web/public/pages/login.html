@@ -58,6 +58,11 @@
       <h1>Login</h1>
 
       <div class="campo">
+        <span>CNPJ:</span>
+        <input id="input_cnpj" type="text" placeholder="CNPJ">
+      </div>
+
+      <div class="campo">
         <span>E-mail:</span>
         <input id="input_email" type="text" placeholder="Email">
       </div>
@@ -65,6 +70,10 @@
       <div class="campo">
         <span>Senha:</span>
         <input id="input_senha" type="password" placeholder="Senha">
+      </div>
+
+      <div>
+
       </div>
 
       <button onclick="verificarLogin()" class="botao_cadastro_login">Acessar</button>
@@ -79,15 +88,27 @@
     function verificarLogin() {
       var email = input_email.value.trim();
       var senha = input_senha.value.trim();
+      var cnpj = input_cnpj.value.trim()
+      var cnpjEmpresaOficial = "12345678000199"; 
       var resposta = '';
 
-      if (email === '') {
+      if(cnpj === ''){
+        resposta = 'Por favor, insira o CNPJ.';
+      } else if (email === '') {
         resposta = 'Por favor, insira o Email.';
       } else if (senha === '') {
         resposta = 'Por favor, insira a senha.';
       } else if (qtd_tentativa <= 0) {
         resposta = 'Número de tentativas esgotado.<br>Tente novamente mais tarde.';
       } else {
+
+      if (cnpj == cnpjEmpresaOficial && senha == "12345678") {
+        resposta = `<span style="color: green;">Login bem-sucedido! Bem-vindo ao Nível 3!</span>`;
+        setTimeout(() => {
+          window.location.href = "../pages/n3.html";
+        }, 2000);
+      }
+
         // Fetch para autenticação no backend
         fetch("/usuarios/autenticar", {
           method: "POST",
@@ -95,6 +116,7 @@
             "Content-type": "application/json"
           },
           body: JSON.stringify({
+            cnpjServer: cnpj,
             emailServer: email,
             senhaServer: senha
           }),
@@ -109,10 +131,10 @@
           .then(data => {
 
             console.log("Resposta do back-end:", data); // Confirma se veio certo
-            console.log("CNPJ que será salvo:", data.empresaId);
+            console.log("CNPJ que será salvo:", data.cnpj);
 
             // Salva o CNPJ no sessionStorage
-            sessionStorage.setItem("CNPJ_EMPRESA", data.empresaId);
+            sessionStorage.setItem("CNPJ_EMPRESA", data.cnpj);
 
             console.log("CNPJ salvo:", sessionStorage.getItem("CNPJ_EMPRESA"));
 
@@ -123,7 +145,7 @@
               } else {
                 window.location.href = "../pages/dashboard.html";
               }
-            }, 10000);
+            }, 20000);
           })
           .catch(erro => {
             qtd_tentativa--;

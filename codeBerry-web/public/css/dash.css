@@ -32,10 +32,11 @@ h1 {
 }
 
 .graficos-linha {
-  display: flex;
-  gap: 30px;
+  display: grid;
+  gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 20px;
 }
 
@@ -44,6 +45,13 @@ h1 {
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 10px;
+}
+
+.dashboardCaminhoes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
 }
 
 .dashboard {

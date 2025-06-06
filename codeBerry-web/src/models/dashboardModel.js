@@ -8,17 +8,16 @@ function listarCaminhoesComAlertas(cnpjEmpresa) {
       EXISTS (
         SELECT 1
         FROM viagem v
-        JOIN registros r ON v.idviagem = r.fk_viagem
+        INNER JOIN registros r ON v.idviagem = r.fk_viagem
         WHERE v.fk_caminhao = c.idcaminhao
-        AND (r.temperatura < 0 OR r.temperatura > 1)
+          AND (r.temperatura < 0 OR r.temperatura > 1)
         LIMIT 1
       ) AS alerta
     FROM caminhao c
-    WHERE c.fk_empresa = ${cnpjEmpresa}
+    WHERE c.fk_empresa = '${cnpjEmpresa}';
   `;
 
-  return db.executar(instrucaoSql, [cnpjEmpresa])
-    .then((resposta) => resposta[0]);
+  return db.executar(instrucaoSql, [cnpjEmpresa]);
 }
 
 // KPI

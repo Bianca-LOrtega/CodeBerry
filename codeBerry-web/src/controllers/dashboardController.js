@@ -107,8 +107,8 @@ function cadastrarCaminhao(req, res) {
   dashboardModel.cadastrarCaminhao(placa, modelo, fk_empresa)
     .then(() => res.status(200).json({ mensagem: "Caminhão cadastrado com sucesso!" }))
     .catch(erro => {
-      console.error("Erro ao cadastrar caminhão:", erro);
-      res.status(500).json({ erro: "Erro ao cadastrar caminhão." });
+      console.error("Erro ao cadastrar caminhão:", erro); // Isso já mostra o erro detalhado no terminal
+      res.status(500).json({ erro: "Erro ao cadastrar caminhão.", detalhe: erro });
     });
 }
 

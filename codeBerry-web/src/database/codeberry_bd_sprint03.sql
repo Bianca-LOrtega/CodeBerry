@@ -134,6 +134,12 @@ insert into registros (fk_viagem, temperatura, umidade, horario) values
 (2, 0.9, 87.0, '2025-04-02 10:45:00'),
 (3, 2.0, 84.1, '2025-04-03 13:52:00');
 
+
+ALTER TABLE viagem DROP FOREIGN KEY fk_viagem_caminhao; -- tive que adionar esses comandos para poder cadastrar os caminhões
+ALTER TABLE caminhao MODIFY COLUMN idcaminhao INT NOT NULL AUTO_INCREMENT;
+ALTER TABLE viagem
+  ADD CONSTRAINT fk_viagem_caminhao FOREIGN KEY (fk_caminhao) REFERENCES caminhao(idcaminhao);
+
 -- checando os dados
 
 select * from lote;
@@ -144,3 +150,4 @@ select * from registros;
 
 select reg.*, vi.* from registros as reg
 inner join viagem as vi on reg.fk_viagem = vi.idviagem;
+

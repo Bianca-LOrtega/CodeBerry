@@ -132,8 +132,8 @@ function alertasPorHoraDia(cnpj, idCaminhao) {
 
 // CADASTRAR CAMINHÕES:
 function cadastrarCaminhao(placa, modelo, fk_empresa) {
-  const sql = `INSERT INTO caminhao (placa, modelo, statuscaminhao, fk_empresa) VALUES (?, ?, 'ativo', ?)`;
-  return db.query(sql, [placa, modelo, fk_empresa]);
+  const sql = `INSERT INTO caminhao (placa, modelo, statuscaminhao, fk_empresa) VALUES (?, ?, ?, ?)`;
+  return db.executar(sql, [placa, modelo, 'ativo', fk_empresa]); // mudei para executar
 }
 
 

@@ -1,13 +1,13 @@
 <!-- login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOGIN - Code Berry</title>
-  <link rel="stylesheet" href="../css/body.css">
+
   <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/footer.css">
   <link rel="stylesheet" href="../css/login.css">
 </head>
@@ -34,34 +34,36 @@
     </div>
   </div>
 
-  <main class="login_container">
-    <section class="login_image">
-      <img src="../assets/img/fundo/fundo-de-morango.jpg" alt="Ilustração Login">
-    </section>
+  <div class="paizao">
+    <div class="login_container">
+      <section class="login_image">
+        <img src="../assets/img/fundo/fundo-de-morango.jpg" alt="Ilustração Login">
+      </section>
 
-    <section class="login_card">
-      <h1>Login</h1>
+      <section class="login_card">
+        <h1>Login</h1>
 
-      <div class="campo">
-        <span>CNPJ:</span>
-        <input id="input_cnpj" type="text" placeholder="CNPJ">
-      </div>
+        <div class="campo">
+          <span>CNPJ:</span>
+          <input id="input_cnpj" type="text" placeholder="CNPJ">
+        </div>
 
-      <div class="campo">
-        <span>E-mail:</span>
-        <input id="input_email" type="text" placeholder="Email">
-      </div>
+        <div class="campo">
+          <span>E-mail:</span>
+          <input id="input_email" type="text" placeholder="Email">
+        </div>
 
-      <div class="campo">
-        <span>Senha:</span>
-        <input id="input_senha" type="password" placeholder="Senha">
-      </div>
+        <div class="campo">
+          <span>Senha:</span>
+          <input id="input_senha" type="password" placeholder="Senha">
+        </div>
 
-      <button onclick="verificarLogin()" class="botao_cadastro_login">Acessar</button>
-      <p class="link-cadastro">Não possui conta? <a href="./cadastro.html">Cadastre-se</a></p>
-      <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
-    </section>
-  </main>
+        <button onclick="verificarLogin()" class="botao_cadastro_login">Acessar</button>
+        <p class="link-cadastro">Não possui conta? <a href="./cadastro.html">Cadastre-se</a></p>
+        <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
+      </section>
+    </div>
+  </div>
 
   <script>
     let qtd_tentativa = 6;
@@ -129,4 +131,5 @@
     }
   </script>
 </body>
+
 </html>

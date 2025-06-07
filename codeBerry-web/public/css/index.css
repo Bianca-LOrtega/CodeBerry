@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+:root {
+    --tamanho-header: 90px;
+    --tamanho-footer: 90px;
+    --tamanho-banner: 500px
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    margin: auto;
+}
+
+.header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .container {
+    align-items: center;
+    height: 100%;
+}
+
+.container .navbar {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    align-items: center;
+    justify-content: right;
+    list-style: none;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.banner {
+    height: 80vh;
+    color: white;
+    background-image: url('../assets/img/fundo/banner_morangos.jpg');
+    background-size: cover;
+}
+
+.banner .container {
+    align-items: center;
+    height: 100%;
+}
+
+.banner .container>p {
+    width: 30%;
+    margin-left: 5%;
+    padding: 0;
+    font-size: 36px;
+}
+
+
+/*primeira div: sobre*/
+
+.sobre {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.sobre .sobreTexto {
+    display: flex;
+    background-color: rgb(204, 68, 68);
+    justify-content: center;
+    align-items: center;
+    margin: 5%;
+    padding: 4%;
+    flex-direction: column;
+    border-radius: 2rem;
+    color: #ffffff;
+}
+
+.sobreTexto>p {
+    font-size: 25px;
+}
+
+.sobreTexto>ul {
+    font-size: 20px;
+}
+
+.sobre .sobreImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5%;
+    flex-direction: column;
+}
+
+.sobreImg>img {
+    width: 450px;
+}
+
+
+/* segunda div: solução*/
+
+.solucao {
+    display: flex;
+    background-image: url(../assets/img/fundo/morango.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 70vh;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tituloSolucao {
+    font-size: 30px;
+    color: #ffffff;
+}
+
+.solucaoCards {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 2%;
+    flex-direction: row;
+    padding: 2%;
+    border-radius: 2rem;
+}
+
+.solucaoCards .card {
+    display: flex;
+    background-color: rgb(255, 255, 255, 0.80);
+    margin: 20px;
+    max-width: 45%;
+    padding: 1%;
+    text-align: center;
+    border-radius: 1.5rem;
+}
+
+.modelo {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 30px;
+}
+
+.modeloImg {
+    display: flex;
+    margin: 3%;
+    padding: 2%;
+
+}
+
+.modeloTexto {
+    display: flex;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
+    margin: 2%;
+    flex-direction: column;
+    height: 40%;
+    margin-top: 200px;
+    border: #333 solid 2px;
+    border-radius: 2rem;
+    padding: 50px;
+}
+
+.lista_modelo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 5%;
+}
+
+.lista_modelo>ul {
+    font-size: 20px;
+}

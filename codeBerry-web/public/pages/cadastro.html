@@ -1,110 +1,120 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+    <!DOCTYPE html>
+    <html lang="pt-br">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastro - CodeBerry</title>
-  <link rel="shortcut icon" href="../img/logo/logoIcone.ico" type="image/x-icon" />
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Cadastro - CodeBerry</title>
+      <link rel="shortcut icon" href="../img/logo/logoIcone.ico" type="image/x-icon" />
 
-  <link rel="stylesheet" href="../css/body.css" />
-  <link rel="stylesheet" href="../css/header.css" />
-  <link rel="stylesheet" href="../css/main.css" />
-  <link rel="stylesheet" href="../css/footer.css" />
+      <link rel="stylesheet" href="../css/body.css" />
+      <link rel="stylesheet" href="../css/header.css" />
+      <link rel="stylesheet" href="../css/main.css" />
+      <link rel="stylesheet" href="../css/footer.css" />
+      <link rel="stylesheet" href="../css/cadastro_login.css" />
 
-</head>
+    </head>
 
-<body>
-  <div class="header">
+    <body>
+      <div class="header">
 
-    <div class="container">
-      <div class="logo-nome">
-        <a href="../pages/index.html">
-          <img src="../assets/img/logo/logoCurta.png" class="logo" alt="Logo da Code Berry">
-        </a>
-        <h1 class="nome">CodeBerry</h1>
+        <div class="container">
+          <div class="logo-nome">
+            <a href="../pages/index.html">
+              <img src="../assets/img/logo/logoCurta.png" class="logo" alt="Logo da Code Berry">
+            </a>
+            <h1 class="nome">CodeBerry</h1>
+          </div>
+
+          <ul class="navbar">
+            <li class="agora">
+              <a href="../pages/index.html">Home</a>
+            </li>
+            <li class="agora">
+              <a href="../pages/sobrenos.html">Sobre</a>
+            </li>
+            <li>
+              <a href="../pages/calculadora.html">Simulador</a>
+            </li>
+            <li>|</li>
+
+
+            <div class="botao">
+
+              <button class="login">
+                <a href="../pages/login.html">Login</a>
+              </button>
+
+              <button class="cadastro">
+                <a href="../pages/cadastro.html">Cadastro</a>
+              </button>
+
+            </div>
+          </ul>
+        </div>
       </div>
 
-      <ul class="navbar">
-        <li class="agora">
-          <a href="../pages/index.html">Home</a>
-        </li>
-        <li class="agora">
-          <a href="../pages/sobrenos.html">Sobre</a>
-        </li>
-        <li>
-          <a href="../pages/calculadora.html">Simulador</a>
-        </li>
-        <li>|</li>
 
+    <div class="container_cadastro">
+      <div class="cadastro">
+        <h1>Cadastre-se!</h1>
+      </div>
+        <div class="box_cadastro">
+          <div class="img_cadastro">
+            <img src="../assets/img/fundo/fundo-de-morango.jpg" width="150px">
+          </div>
 
-        <div class="botao">
+          <div class="texto_cadastro">
 
-          <button class="login">
-            <a href="../pages/login.html">Login</a>
-          </button>
+  
+           
 
-          <button class="cadastro">
-            <a href="../pages/cadastro.html">Cadastro</a>
-          </button>
+            <div class="campo">
+              <span>CNPJ:</span>
+              <input id="input_cnpj" type="text" placeholder="12.345.678/0001-00" />
+            </div>
+
+            <div class="campo">
+              <span>Nome de Usuário:</span>
+              <input id="input_usuario" type="text" placeholder="user2025" />
+            </div>
+
+            <div class="campo">
+              <span>E-mail:</span>
+              <input id="input_email" type="text" placeholder="user2025@sptech.school" />
+            </div>
+
+            <div class="campo">
+              <span>Senha:</span>
+              <input id="input_senha" type="password" placeholder="*******" />
+            </div>
+
+            <div class="campo">
+              <span>Confirmação da Senha:</span>
+              <input id="input_confirmacao_senha" type="password" placeholder="*******" />
+            </div>
+
+            <div class="campo">
+              <span>Seu tipo de acesso:</span>
+              <select id="tipoAcesso">
+                <option value="*">Escolha</option>
+                <option value="n3">Nivel Suporte</option>
+                <option value="usuario">Usuario</option>
+              </select>
+            </div>
+
+            <button onclick="cadastro()" class="botao_cadastro_login">Registrar-se</button>
+            <p class="link-cadastro">Já possui conta? <a href="./cadastro.html">Login</a></p>
+            
+
+          </div>
 
         </div>
-      </ul>
+
+        <div class="resposta">
+          <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
+        </div>
     </div>
-  </div>
-
-
-<div class="container_cadastro">
-    <div class="box_cadastro">
-      <div class="img_cadastro">
-        <img src="../assets/img/fundo/fundo-de-morango.jpg" width="150px">
-      </div>
-
-      <div class="texto_cadastro">
-
-        <div class="cadastro">
-          <h1>Cadastre-se!</h1>
-        </div>
-
-        <div class="campo">
-          <span>CNPJ:</span>
-          <input id="input_cnpj" type="text" placeholder="12.345.678/0001-00" />
-        </div>
-
-        <div class="campo">
-          <span>Nome de Usuário:</span>
-          <input id="input_usuario" type="text" placeholder="user2025" />
-        </div>
-
-        <div class="campo">
-          <span>E-mail:</span>
-          <input id="input_email" type="text" placeholder="user2025@sptech.school" />
-        </div>
-
-        <div class="campo">
-          <span>Senha:</span>
-          <input id="input_senha" type="password" placeholder="*******" />
-        </div>
-
-        <div class="campo">
-          <span>Confirmação da Senha:</span>
-          <input id="input_confirmacao_senha" type="password" placeholder="*******" />
-        </div>
-
-        <div class="campo">
-          <span>Seu tipo de acesso:</span>
-          <select id="tipoAcesso">
-            <option value="*">Escolha</option>
-            <option value="n3">Nivel Suporte</option>
-            <option value="usuario">Usuario</option>
-          </select>
-        </div>
-
-
-      </div>
-
-    </div>
-</div>
 
 
 <!-- 

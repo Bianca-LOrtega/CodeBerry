@@ -1,6 +1,91 @@
-*{
-    margin: 0%;
-    padding: 0%;
-    box-sizing: border-box;
+.container_cadastro {
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    height: 110vh;
+    background-color: rgb(226, 226, 226);  
+    flex-direction: column;
 }
 
+.box_cadastro {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    height: 80vh;
+    box-shadow: 10px 10px 5px rgb(204, 204, 204);
+   
+}
+
+.img_cadastro {
+    flex: 0.85;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    
+}
+
+.img_cadastro>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+.texto_cadastro {
+    flex: 0.85;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    height: 100%;
+    background-color: #ffffff;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    align-items: center;
+    text-align: center; 
+}
+
+
+.cadastro{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+.cadastro >h1{
+    font-size: 50px;
+}
+
+.campo{
+    width: 60%;
+    height: 9   0px;
+}
+
+
+.campo >span{
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.campo >input{
+    background-color: rgb(221, 221, 221);
+    text-align: center;
+    border: none;
+    padding: 20px 10px;
+}
+
+.campo >select{
+    background-color: rgb(221, 221, 221);
+        text-align: center;
+        border: none;
+        padding: 20px 10px;
+}
+
+.botao_cadastro_login{
+    padding: 30px 20px;
+    width: 30%;
+}
+
+    

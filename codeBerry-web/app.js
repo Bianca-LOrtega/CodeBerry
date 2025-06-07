@@ -48,6 +48,10 @@ app.use("/usuarios", usuarioRouter);
 app.use("/dashboard", dashboardRouter);
 
 
+// RESOLVENDO CONFLITOS:
+app.get("/", (req, res) => {
+    res.redirect("/pages/index.html");
+});
 
 
 

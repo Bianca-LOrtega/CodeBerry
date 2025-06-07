@@ -159,7 +159,10 @@ body {
     display: flex;
     margin: 3%;
     padding: 2%;
+}
 
+.modeloImg >img{
+    width: 1000px;
 }
 
 .modeloTexto {

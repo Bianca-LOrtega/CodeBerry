@@ -118,7 +118,7 @@
       })
       .then(function (caminhoes) {
         var container = document.getElementById("containerCaminhoes");
-        container.innerHTML = "<p>Carregando...</p>"; // adicionei a mensagem de carregando
+        container.innerHTML = "";  // adicionei a mensagem de carregando
 
         if (caminhoes.length === 0) { // tratar caso nao tenha nenhum caminhao cadastrado
           container.innerHTML = "<p>Nenhum caminhão cadastrado.</p>";
@@ -136,18 +136,20 @@
           }
 
           // adicioei mais informações do caminhão
-          div.innerHTML = ` 
-            <h2>Placa: ${caminhao.placa}</h2>
-            <p>ID: ${caminhao.idCaminhao}</p>
-            <p>Status: <span class="status-${caminhao.status === 'OK' ? 'ok' : 'alerta'}">${caminhao.status}</span></p>
-            <p>Última atualização: ${new Date(caminhao.ultimaAtualizacao).toLocaleString()}</p> 
-          `; 
+         div.innerHTML = ` 
+          <h2>Placa: ${caminhao.placa}</h2>
+          <p>ID: ${caminhao.idcaminhao}</p>
+          <p>Status: ${
+            caminhao.alerta ? '<span class="status-alerta">⚠️ Alerta</span>' : '<span class="status-ok">✅ OK</span>'
+          }</p>
+        `;
 
           div.onclick = (function (id) {
             return function () {
-              window.location.href = "dashboardCaminhao.html?id=" + id;
+            sessionStorage.setItem("ID_CAMINHAO", id);
+              window.location.href = "dashboardCaminhao.html";
             };
-          })(caminhao.idCaminhao);
+          })(caminhao.idcaminhao);
 
           container.appendChild(div);
         }
@@ -156,6 +158,7 @@
         console.error("Erro ao buscar caminhões:", erro);
       });
   }
+  
 </script>
 
 </html>

@@ -2,24 +2,19 @@ const express = require('express');
 const router = express.Router();
 const dashboardController = require('../controllers/dashboardController');
 
-// Caminhões com alerta por empresa
+// Listar caminhões dashboard.html
 router.get('/caminhoes/:cnpjEmpresa', dashboardController.listarCaminhoesComAlertas);
-// Kpi
-router.get("/alerta-temperatura", dashboardController.alertaTemperatura);
-router.get("/lote-em-transito", dashboardController.loteEmTransito);
-router.get("/temperatura-caminhao", dashboardController.temperaturaMediaCaminhao);
-router.get("/umidade-caminhao", dashboardController.umidadeMediaCaminhao);
+// Kpis
+router.get("/temperatura-caminhao/:cnpjEmpresa/:idCaminhao", dashboardController.kpiTemperatura);
+router.get("/umidade-caminhao/:cnpjEmpresa/:idCaminhao", dashboardController.kpiUmidade);
+router.get("/alerta-temperatura/:cnpjEmpresa/:idCaminhao", dashboardController.kpiAlertas);
+router.get("/informacoes/:cnpjEmpresa/:idCaminhao", dashboardController.kpiInformacoes);
 // Gráficos
+router.get("/graficos/:cnpj/:idCaminhao", dashboardController.obterDadosGrafico);
+router.get("/alertas-semana/:cnpj/:idCaminhao", dashboardController.alertasPorDiaSemana);
+router.get("/alertas-hora/:cnpj/:idCaminhao", dashboardController.alertasPorHoraDia);
 
-// rota buscarRegistros
-router.get("/caminhao/:idCaminhao/registros", dashboardController.registrosCaminhao);
-// rota inserir um novo registro
-
-
-//ROTA DE CADASTRAR CANINHAO
+//ROTA DE CADASTRAR CAMINHAO
 router.post("/caminhao/cadastrar", dashboardController.cadastrarCaminhao);
-
-router.post('/caminhao/cadastrar', dashboardController.cadastrarCaminhao); // cadastrar
-
 
 module.exports = router;

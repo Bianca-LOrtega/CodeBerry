@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
     <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/body.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 
-<body onload="carregarDashboardCaminhao(); carregarKPIs()">
+<body onload="carregarGraficos(); carregarKPIs(); carregarGraficoAlertas()">
     <div class="header">
         <div class="container">
             <div class="logo-nome">
@@ -37,26 +37,11 @@
         </div>
     </div><br>
 
-    <h1>Dashboard do Caminhão</h1>
+    <h1>Registros da Viagem</h1><br>
+
     <div id="infoCaminhao" class="card-info"></div>
 
-    <h2>Últimos Registros</h2>
     <div class="dashboard">
-
-        <!-- KPIs -->
-        <div class="card kpi">
-            <div>
-                <h3>Alertas de Temperatura</h3>
-                <h2 id="kpi-alerta">...</h2>
-            </div>
-        </div>
-
-        <div class="card kpi">
-            <div>
-                <h3>Lote em trânsito:</h3>
-                <h2 id="kpi-lote">...</h2>
-            </div>
-        </div>
 
         <div class="card kpi">
             <div>
@@ -72,96 +57,253 @@
             </div>
         </div>
 
+        <div class="card kpi">
+            <div>
+                <h3>Informações da Viagem:</h3>
+                <h4 id="kpi-info">...</h4>
+            </div>
+        </div>
+
+        <div class="card kpi">
+            <div>
+                <h3>Alertas Registrados:</h3>
+                <h2 id="kpi-alerta">...</h2>
+            </div>
+        </div>
+
     </div><br>
 
 
     <div class="graficos-linha">
         <div class="grafico-box">
-            <h3>Gráfico de Umidade</h3>
-            <canvas id="graficoUmidade" width="400" height="200"></canvas>
+            <h3>Gráfico de Temperatura</h3>
+            <canvas id="graficoTemperatura" width="400" height="200"></canvas>
         </div>
         <div class="grafico-box">
-            <h3>Gráfico Misto</h3>
-            <canvas id="graficoMisto" width="400" height="200"></canvas>
+            <h3>Gráfico Umidade</h3>
+            <canvas id="graficoUmidade" width="400" height="200"></canvas>
         </div>
         <div class="grafico-box">
             <h3>Rota da Viagem</h3>
             <div id="mapa" width="400" height="200"></div>
+        </div>
+        <div class="grafico-box">
+            <h3>Alertas por dia na semana</h3>
+            <canvas id="graficoAlertaSemana" width="400" height="200"></canvas>
+        </div>
+        <div class="grafico-box">
+            <h3>Alertas por hora no dia</h3>
+            <canvas id="graficoAlertaDia" width="400" height="200"></canvas>
         </div>
     </div>
 
     <script>
         /*KPIS*/
         function carregarKPIs() {
-            fetch("/dashboard/alerta-temperatura")
-                .then(res => res.json())
-                .then(dado => {
-                    document.getElementById("kpi-alerta").innerHTML = `${dado.alertas}`;
-                });
+            var idCaminhao = sessionStorage.getItem("ID_CAMINHAO");
+            var cnpjEmpresa = sessionStorage.getItem("CNPJ_EMPRESA");
 
-            fetch("/dashboard/lote-em-transito")
-                .then(res => res.json())
-                .then(dado => {
-                    document.getElementById("kpi-lote").innerHTML = `${dado.emTransito}`;
-                });
+            if (!idCaminhao || !cnpjEmpresa) {
+                alert("Caminhão ou empresa não definidos!");
+                return;
+            }
 
-            fetch("/dashboard/temperatura-caminhao")
+            fetch(`/dashboard/temperatura-caminhao/${cnpjEmpresa}/${idCaminhao}`)
                 .then(res => res.json())
                 .then(dado => {
                     document.getElementById("kpi-temp").innerHTML = `${dado.mediaTemp}ºC`;
                 });
 
-            fetch("/dashboard/umidade-caminhao")
+            fetch(`/dashboard/umidade-caminhao/${cnpjEmpresa}/${idCaminhao}`)
                 .then(res => res.json())
                 .then(dado => {
                     document.getElementById("kpi-umi").innerHTML = `${dado.mediaUmi}%`;
+                });
+
+            fetch(`/dashboard/informacoes/${cnpjEmpresa}/${idCaminhao}`)
+                .then(res => res.json())
+                .then(dado => {
+                    document.getElementById("kpi-info").innerHTML = `
+                     Motorista: ${dado.nomeMotorista}<br>
+                     Telefone: ${dado.telefoneMotorista}<br>
+                     Lote: ${dado.idLote}
+                   `;
+                });
+
+            fetch(`/dashboard/alerta-temperatura/${cnpjEmpresa}/${idCaminhao}`)
+                .then(res => res.json())
+                .then(dado => {
+                    document.getElementById("kpi-alerta").innerHTML = `${dado.alertas}`;
                 });
         }
 
 
         /*Gráficos*/
-        function carregarDashboardCaminhao() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const idCaminhao = urlParams.get("id");
 
-            let horarios = [];
-            let temperaturas = [];
-            let registros = [];
+        var graficoTemperatura;
+        var graficoUmidade;
 
-            fetch("/dashboard/caminhao/" + idCaminhao + "/resumo")
-                .then(res => res.json())
-                .then(dados => {
-                    const divInfo = document.getElementById("infoCaminhao");
-                    const alertaClasse = dados.alerta ? 'alerta' : 'normal';
+        function carregarGraficos() {
+            var idCaminhao = sessionStorage.getItem("ID_CAMINHAO");
+            var cnpjEmpresa = sessionStorage.getItem("CNPJ_EMPRESA");
 
-                    divInfo.innerHTML = `
-                        <h2 class="${alertaClasse}">Placa: ${dados.placa}</h2>
-                        <p>Média de Temperatura: ${dados.mediaTemperatura}°C</p>
-                        <p>Média de Umidade: ${dados.mediaUmidade}%</p>
-                    `;
-                });
+            if (!idCaminhao || !cnpjEmpresa) {
+                alert("Caminhão ou empresa não definidos!");
+                return;
+            }
 
-            fetch("/dashboard/caminhao/" + idCaminhao + "/registros")
-                .then(res => res.json())
-                .then(res => {
-                    registros = res;
-                    const corpoTabela = document.getElementById("tabelaRegistros");
-                    res.forEach(r => {
-                        corpoTabela.innerHTML += `
-                            <tr>
-                                <td>${r.horario}</td>
-                                <td>${r.temperatura}</td>
-                                <td>${r.umidade}</td>
-                            </tr>
-                        `;
-                        horarios.push(r.horario);
-                        temperaturas.push(r.temperatura);
+            fetch(`/dashboard/graficos/${cnpjEmpresa}/${idCaminhao}`)
+                .then(function (resposta) {
+                    return resposta.json();
+                })
+                .then(function (dados) {
+                    var labels = dados.map(function (registro) {
+                        return registro.horario;
+                    });
+                    var temperaturas = dados.map(function (registro) {
+                        return registro.temperatura;
+                    });
+                    var umidades = dados.map(function (registro) {
+                        return registro.umidade;
                     });
 
-                    plotarGraficos();
+                    // Se os gráficos já existem, só atualiza os dados
+                    if (graficoTemperatura && graficoUmidade) {
+                        graficoTemperatura.data.labels = labels;
+                        graficoTemperatura.data.datasets[0].data = temperaturas;
+                        graficoTemperatura.data.datasets[1].data = Array(labels.length).fill(0);
+                        graficoTemperatura.data.datasets[2].data = Array(labels.length).fill(1);
+                        graficoTemperatura.update();
+
+                        graficoUmidade.data.labels = labels;
+                        graficoUmidade.data.datasets[0].data = umidades;
+                        graficoUmidade.data.datasets[1].data = Array(labels.length).fill(75);
+                        graficoUmidade.data.datasets[2].data = Array(labels.length).fill(90);
+                        graficoUmidade.update();
+                    } else {
+                        // Criação inicial dos gráficos
+                        graficoTemperatura = new Chart(document.getElementById("graficoTemperatura"), {
+                            type: "line",
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: "Temperatura (°C)",
+                                        data: temperaturas,
+                                        borderColor: "orange",
+                                        borderWidth: 2,
+                                        fill: false
+                                    },
+                                    {
+                                        label: "Mínimo Aceitável (0°C)",
+                                        data: Array(labels.length).fill(0),
+                                        borderColor: "blue",
+                                        borderDash: [5, 5],
+                                        borderWidth: 1,
+                                        fill: false
+                                    },
+                                    {
+                                        label: "Máximo Aceitável (1°C)",
+                                        data: Array(labels.length).fill(1),
+                                        borderColor: "red",
+                                        borderDash: [5, 5],
+                                        borderWidth: 1,
+                                        fill: false
+                                    }
+                                ]
+                            }
+                        });
+
+                        graficoUmidade = new Chart(document.getElementById("graficoUmidade"), {
+                            type: "line",
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: "Umidade (%)",
+                                        data: umidades,
+                                        borderColor: "green",
+                                        borderWidth: 2,
+                                        fill: false
+                                    },
+                                    {
+                                        label: "Mínimo Aceitável (75%)",
+                                        data: Array(labels.length).fill(75),
+                                        borderColor: "blue",
+                                        borderDash: [5, 5],
+                                        borderWidth: 1,
+                                        fill: false
+                                    },
+                                    {
+                                        label: "Máximo Aceitável (90%)",
+                                        data: Array(labels.length).fill(90),
+                                        borderColor: "red",
+                                        borderDash: [5, 5],
+                                        borderWidth: 1,
+                                        fill: false
+                                    }
+                                ]
+                            }
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.error("Erro ao carregar gráficos:", erro);
+                });
+        }
+
+        // Chama a primeira vez
+        carregarGraficos();
+
+        function carregarGraficoAlertas() {
+            var cnpjEmpresa = sessionStorage.getItem("CNPJ_EMPRESA");
+            var idCaminhao = sessionStorage.getItem("ID_CAMINHAO");
+
+            if (!cnpjEmpresa || !idCaminhao) return;
+
+            fetch(`/dashboard/alertas-semana/${cnpjEmpresa}/${idCaminhao}`)
+                .then(res => res.json())
+                .then(dados => {
+                    const dias = dados.map(d => d.dia);
+                    const totais = dados.map(d => d.total);
+
+                    new Chart(document.getElementById("graficoAlertaSemana"), {
+                        type: "bar",
+                        data: {
+                            labels: dias,
+                            datasets: [{
+                                label: "Alertas por Dia da Semana",
+                                data: totais,
+                                borderWidth: 1
+                            }]
+                        }
+                    });
                 });
 
-            const coordenadas = {
+            fetch(`/dashboard/alertas-hora/${cnpjEmpresa}/${idCaminhao}`)
+                .then(res => res.json())
+                .then(dados => {
+                    const horas = dados.map(d => d.hora + "h");
+                    const totais = dados.map(d => d.total);
+
+                    new Chart(document.getElementById("graficoAlertaDia"), {
+                        type: "bar",
+                        data: {
+                            labels: horas,
+                            datasets: [{
+                                label: "Alertas por Hora do Dia",
+                                data: totais,
+                                borderWidth: 1
+                            }]
+                        }
+                    });
+                });
+        }
+
+        // chame junto com os outros gráficos
+        carregarGraficoAlertas();
+
+         const coordenadas = {
                 "São Paulo": [-23.5505, -46.6333],
                 "Campinas": [-22.9099, -47.0626]
             };
@@ -180,80 +322,11 @@
             const rota = L.polyline([partida, destino], { color: 'blue' }).addTo(mapa);
             mapa.fitBounds(rota.getBounds());
 
-            function plotarGraficos() {
-                const ctxUmidade = document.getElementById("graficoUmidade").getContext("2d");
-                new Chart(ctxUmidade, {
-                    type: 'line',
-                    data: {
-                        labels: [...horarios].reverse(),
-                        datasets: [{
-                            label: 'Umidade (%)',
-                            data: registros.map(r => r.umidade).reverse(),
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderWidth: 2,
-                            fill: true,
-                            tension: 0.3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
 
-                const ctxMisto = document.getElementById("graficoMisto").getContext("2d");
-                new Chart(ctxMisto, {
-                    type: 'line',
-                    data: {
-                        labels: [...horarios].reverse(),
-                        datasets: [
-                            {
-                                label: 'Temperatura (°C)',
-                                data: [...temperaturas].reverse(),
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderWidth: 2,
-                                fill: false,
-                                tension: 0.3,
-                                yAxisID: 'y1'
-                            },
-                            {
-                                label: 'Umidade (%)',
-                                data: registros.map(r => r.umidade).reverse(),
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                borderWidth: 2,
-                                fill: false,
-                                tension: 0.3,
-                                yAxisID: 'y2'
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y1: {
-                                type: 'linear',
-                                position: 'left',
-                                title: { display: true, text: 'Temperatura (°C)' }
-                            },
-                            y2: {
-                                type: 'linear',
-                                position: 'right',
-                                title: { display: true, text: 'Umidade (%)' },
-                                grid: { drawOnChartArea: false }
-                            }
-                        }
-                    }
-                });
-            }
-        }
+        // Atualiza a cada 5 segundos (5000 milissegundos)
+        //  setInterval(carregarGraficos, 5000);
     </script>
+
 </body>
 
 </html>

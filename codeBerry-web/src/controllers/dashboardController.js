@@ -15,81 +15,88 @@ function listarCaminhoesComAlertas(req, res) {
 
 // KPI
 
-async function alertaTemperatura(req, res) {
-  try {
-    const resultado = await kpiModel.alertaTemperatura();
-    res.status(200).json(resultado[0]);
-  } catch (erro) {
-    res.status(500).json({ erro: erro.message });
-  }
-}
+function kpiTemperatura(req, res) {
+  const { cnpjEmpresa, idCaminhao } = req.params;
 
-async function loteEmTransito(req, res) {
-  try {
-    const resultado = await kpiModel.loteEmTransito();
-    res.status(200).json(resultado[0]);
-  } catch (erro) {
-    res.status(500).json({ erro: erro.message });
-  }
-}
-
-async function temperaturaMediaCaminhao(req, res) {
-  try {
-    const resultado = await kpiModel.temperaturaMediaCaminhao();
-    res.status(200).json(resultado[0]);
-  } catch (erro) {
-    res.status(500).json({ erro: erro.message });
-  }
-}
-
-async function umidadeMediaCaminhao(req, res) {
-  try {
-    const resultado = await kpiModel.umidadeMediaCaminhao();
-    res.status(200).json(resultado[0]);
-  } catch (erro) {
-    res.status(500).json({ erro: erro.message });
-  }
-}
-
-function rotaCaminhao(req, res) {
-  const { idCaminhao } = req.params;
-
-  dashboardModel.buscarRota(idCaminhao)
-    .then(dados => res.status(200).json(dados))
-    .catch(err => {
-      console.error("Erro ao buscar rota:", err);
-      res.status(500).json({ erro: "Erro ao buscar rota" });
-    });
-}
-
-function registrosCaminhao(req, res) {
-  const { idCaminhao } = req.params;
-
-  dashboardModel.registrosCaminhao(idCaminhao)
-    .then(registros => res.status(200).json(registros))
+  dashboardModel.kpiTemperatura(cnpjEmpresa, idCaminhao)
+    .then(resposta => res.json(resposta[0]))
     .catch(erro => {
-      console.error("Erro ao buscar registros:", erro);
-      res.status(500).json({ erro: "Erro ao buscar registros do caminhão" });
+      console.error("Erro ao buscar temperatura média:", erro);
+      res.status(500).json({ erro: "Erro ao buscar temperatura média" });
     });
 }
 
-function cadastrarCaminhao(req, res) {
-  const { placa, modelo, fk_empresa } = req.body;
+function kpiUmidade(req, res) {
+  const { cnpjEmpresa, idCaminhao } = req.params;
 
-  if (!placa || !modelo || !fk_empresa) {
-    return res.status(400).json({ erro: "Dados incompletos." });
-  }
-
-  dashboardModel.cadastrarCaminhao(placa, modelo, fk_empresa)
-    .then(() => res.status(200).json({ mensagem: "Caminhão cadastrado com sucesso!" }))
+  dashboardModel.kpiUmidade(cnpjEmpresa, idCaminhao)
+    .then(resposta => res.json(resposta[0]))
     .catch(erro => {
-      console.error("Erro ao cadastrar caminhão:", erro);
-      res.status(500).json({ erro: "Erro ao cadastrar caminhão." });
+      console.error("Erro ao buscar umidade média:", erro);
+      res.status(500).json({ erro: "Erro ao buscar umidade média" });
+    });
+}
+
+function kpiAlertas(req, res) {
+  const { cnpjEmpresa, idCaminhao } = req.params;
+
+  dashboardModel.kpiAlertas(cnpjEmpresa, idCaminhao)
+    .then(resposta => res.json(resposta[0]))
+    .catch(erro => {
+      console.error("Erro ao buscar alertas:", erro);
+      res.status(500).json({ erro: "Erro ao buscar alertas" });
+    });
+}
+
+function kpiInformacoes(req, res) {
+  const { cnpjEmpresa, idCaminhao } = req.params;
+
+  dashboardModel.kpiInformacoes(cnpjEmpresa, idCaminhao)
+    .then(resposta => res.json(resposta[0]))
+    .catch(erro => {
+      console.error("Erro ao buscar informações:", erro);
+      res.status(500).json({ erro: "Erro ao buscar informações" });
     });
 }
 
 
-// CADSTRAR CAMINHAO:
+//Gráficos
+
+function obterDadosGrafico(req, res) {
+  const { cnpj, idCaminhao } = req.params;
+
+  dashboardModel.buscarDadosGraficos(cnpj, idCaminhao)
+    .then(resultado => res.json(resultado))
+    .catch(erro => {
+      console.error("Erro no gráfico:", erro);
+      res.status(500).json({ erro: "Erro ao buscar dados" });
+    });
+}
+
+function alertasPorDiaSemana(req, res) {
+  const { cnpj, idCaminhao } = req.params;
+
+  dashboardModel.alertasPorDiaSemana(cnpj, idCaminhao)
+    .then(resposta => res.json(resposta))
+    .catch(erro => {
+      console.error("Erro ao buscar alertas por dia da semana:", erro);
+      res.status(500).json({ erro: "Erro ao buscar dados" });
+    });
+}
+
+function alertasPorHoraDia(req, res) {
+  const { cnpj, idCaminhao } = req.params;
+
+  dashboardModel.alertasPorHoraDia(cnpj, idCaminhao)
+    .then(resposta => res.json(resposta))
+    .catch(erro => {
+      console.error("Erro ao buscar alertas por hora do dia:", erro);
+      res.status(500).json({ erro: "Erro ao buscar dados" });
+    });
+}
+
+
+// CADASTRAR CAMINHAO:
 function cadastrarCaminhao(req, res) {
   const { placa, modelo, fk_empresa } = req.body;
 
@@ -108,11 +115,12 @@ function cadastrarCaminhao(req, res) {
 
 module.exports = {
   listarCaminhoesComAlertas,
-  rotaCaminhao,
-  registrosCaminhao,
-  alertaTemperatura,
-  loteEmTransito,
-  temperaturaMediaCaminhao,
-  umidadeMediaCaminhao,
+  kpiTemperatura,
+  kpiUmidade,
+  kpiAlertas,
+  kpiInformacoes,
+  obterDadosGrafico,
+  alertasPorDiaSemana,
+  alertasPorHoraDia,
   cadastrarCaminhao
 };

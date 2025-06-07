@@ -185,20 +185,26 @@
       return;
     }
 
-    lista.forEach(caminhao => {
+    for (let i = 0; i < lista.length; i++) {
+    const caminhao = lista[i];
     const div = document.createElement("div");
-    div.className = `card-caminhao${caminhao.alerta ? " alerta" : ""}`;
+    div.className = "card-caminhao" + (caminhao.alerta ? " alerta" : "");
+
     div.innerHTML = `
       <h2>Placa: ${caminhao.placa}</h2>
       <p>ID: ${caminhao.idcaminhao}</p>
       <p>Status: ${caminhao.alerta ? '⚠️ Alerta' : '✅ OK'}</p>
     `;
-    div.onclick = () => {
-      sessionStorage.setItem("ID_CAMINHAO", caminhao.idcaminhao);
-      window.location.href = "dashboardCaminhao.html";
-    };
+
+    div.onclick = (function(id) {
+      return function() {
+        sessionStorage.setItem("ID_CAMINHAO", id);
+        window.location.href = "dashboardCaminhao.html";
+      };
+    })(caminhao.idcaminhao);
+
     container.appendChild(div);
-  });
+  }
 }
 
   function filtrarAlerta() {

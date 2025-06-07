@@ -183,14 +183,14 @@ display: flex;
 
 .login_image img {
 width: 100%; /* Faz a imagem ocupar toda a largura do container .login_image */
-height: 100%; /* Faz a imagem ocupar toda a altura (esticada por align-items: stretch) */
+height: 90%; /* Faz a imagem ocupar toda a altura (esticada por align-items: stretch) */
 object-fit: cover; /* Cobre a área da imagem, pode cortar partes se a proporção não bater */
 border-radius: 16px 0 0 16px; /* Arredonda os cantos esquerdos da imagem */
 }
 .cadastro_image >img{
 width: 100%;
   /* Faz a imagem ocupar toda a largura do container .login_image */
-  height: 100%;
+  height: 50%;
   /* Faz a imagem ocupar toda a altura (esticada por align-items: stretch) */
   object-fit: cover;
   /* Cobre a área da imagem, pode cortar partes se a proporção não bater */
@@ -200,13 +200,16 @@ width: 100%;
 
 /* Caixa de login */
 .login_card {
-flex: 1; /* Ocupa o espaço restante ao lado da imagem, garantindo boa proporção */
-max-width: 420px; /* Define uma largura máxima para evitar que a caixa fique muito larga */
-background-color: #fff; /* Fundo branco */
-padding: 40px; /* Espaçamento interno da caixa */
+   /* Ocupa o espaço restante ao lado da imagem, garantindo boa proporção */
+/* Define uma largura máxima para evitar que a caixa fique muito larga */
+background-color: #ca1515; /* Fundo branco */
+padding: 80px; /* Espaçamento interno da caixa */
 border-radius: 0 16px 16px 0; /* Arredonda os cantos direitos da caixa */
 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
-margin-left: 0; /* Mantém a caixa colada à imagem (sem espaço entre os dois) */
+display: flex;
+align-items: center;
+flex-direction: column;
+height: 75vh;
 }
 
 
@@ -256,7 +259,7 @@ cursor: pointer; /* Cursor de mãozinha */
 font-weight: bold; /* Negrito */
 width: 100%; /* Largura total dentro da caixa */
 transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
-margin-top: auto; /* Empurra o botão para baixo se houver espaço extra na caixa (devido ao flex-direction: column e justify-content: center no .login_card) */
+
 }
 
 .botao_cadastro_login:hover {

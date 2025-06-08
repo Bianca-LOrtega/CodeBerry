@@ -37,9 +37,7 @@
         </div>
     </div><br>
 
-    <h1>Registros da Viagem</h1><br>
-
-    <div id="infoCaminhao" class="card-info"></div>
+    <div class="nomeCaminhao" id="caminhao"></div><br>
 
     <div class="dashboard">
 
@@ -60,14 +58,15 @@
         <div class="card kpi">
             <div>
                 <h3>Informações da Viagem:</h3>
-                <h4 id="kpi-info">...</h4>
+                <h4 style="color: rgb(20, 219, 2);" id="kpi-info">...</h4>
             </div>
         </div>
 
-        <div class="card kpi">
-            <div>
+        <div class="card kpi" onclick="alertinhas()">
+            <div class="aletoso">
                 <h3>Alertas Registrados no Caminhão:</h3>
                 <h2 style="color: red;" id="kpi-alerta">...</h2>
+                <p class="p_alerta"><u>Clique para mais detalhes</u></p>
             </div>
         </div>
 
@@ -87,17 +86,40 @@
             <h3>Rota da Viagem</h3>
             <div id="mapa" width="400" height="200"></div>
         </div>
-        <div class="grafico-box">
-            <h3>Alertas por dia na semana</h3>
-            <canvas id="graficoAlertaSemana" width="400" height="200"></canvas>
-        </div>
-        <div class="grafico-box">
-            <h3>Alertas por hora no dia</h3>
-            <canvas id="graficoAlertaDia" width="400" height="200"></canvas>
+        <div id="alertasContainer" style="display: none;">
+            <div class="graficos-alerta">
+                <div class="grafico-box">
+                    <h3>Alertas por dia na semana</h3>
+                    <canvas id="graficoAlertaSemana" width="400" height="200"></canvas>
+                </div>
+                <div class="grafico-box">
+                    <h3>Alertas por hora no dia</h3>
+                    <canvas id="graficoAlertaDia" width="400" height="200"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
+
+        var idCaminhao = sessionStorage.getItem("ID_CAMINHAO")
+
+        if (idCaminhao) { // apenas para mostrar nome do funcionario
+            caminhao.innerHTML = `Registros do caminhão <strong>${idCaminhao}</strong>`
+        }
+        console.log("Id do caminhão carregado na dashboard:", idCaminhao);
+
+        //Quando a kpi alerta for clicada aparecer os gráficos
+        function alertinhas() {
+            const container = document.getElementById("alertasContainer");
+
+            if (container.style.display === "none") {
+                container.style.display = "block";
+            } else {
+                container.style.display = "none";
+            }
+        }
+
         /*KPIS*/
         function carregarKPIs() {
             var idCaminhao = sessionStorage.getItem("ID_CAMINHAO");
@@ -352,7 +374,11 @@
 
 
         // Atualiza a cada 5 segundos (5000 milissegundos)
-        //  setInterval(carregarGraficos, 5000);
+        setInterval(() => {
+            carregarGraficos();
+            carregarKPIs();
+            carregarGraficoAlertas();
+        }, 10000);
     </script>
 
 </body>

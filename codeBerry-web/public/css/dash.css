@@ -1,4 +1,3 @@
-
 h1 {
   text-align: center;
 }
@@ -52,11 +51,12 @@ h1 {
   gap: 20px;
 }
 
-.card, .chart-container {
+.card,
+.chart-container {
   background: white;
   padding: 15px;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: left;
   justify-content: space-between;
 }
@@ -71,22 +71,47 @@ h1 {
   width: 100%;
   height: auto;
 }
+
 .kpi {
   display: flex;
   justify-content: space-between;
 }
+
 .kpi h3 {
   margin: 0;
   font-size: 18px;
 }
+
 .kpi h2 {
   margin: 5px 0 0;
   color: rgb(20, 219, 2);
 }
 
-#mapa {
-    width: 380px;
-    height: 200px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+.aletoso:hover {
+  transform: scale(1.03);
 }
+
+.aletoso {
+  cursor: pointer;
+}
+
+#mapa {
+  width: 380px;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.nomeCaminhao {
+  font-size: 23px;
+  justify-content: center;
+  text-align: center;
+}
+
+.graficos-alerta {
+    display: flex;
+    justify-content: space-around; 
+    flex-wrap: wrap;
+    gap: 20px;
+}
+

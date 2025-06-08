@@ -10,13 +10,12 @@
   <link rel="stylesheet" href="../css/body.css" />
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
-  <link rel="stylesheet" href="../css/cadastro.css" />
+  <link rel="stylesheet" href="../css/cadastro_login.css" />
 
 </head>
 
 <body>
   <div class="header">
-
     <div class="container">
       <div class="logo-nome">
         <a href="../pages/index.html">
@@ -56,66 +55,65 @@
 
   <div class="container_cadastro">
 
-            <div class="cadastro">
-              <h1>Cadastre-se!</h1>
-            </div>
+    <div class="cadastro">
+      <h1>Cadastre-se!</h1>
+    </div>
 
     <div class="box_cadastro">
 
-            <div class="img_cadastro">
-              <img src="../assets/img/fundo/fundo-de-morango.jpg" width="150px">
-            </div>
+      <div class="img_cadastro">
+        <img src="../assets/img/fundo/fundo-de-morango.jpg" width="150px">
+      </div>
 
 
       <div class="texto_cadastro">
 
         <div class="campos_cadastro">
-        <div class="campo">
-          <span>CNPJ:</span>
-          <input id="input_cnpj" type="text" placeholder="12.345.678/0001-00" />
-        </div>
+          <div class="campo">
+            <span>CNPJ:</span>
+            <input id="input_cnpj" type="text" placeholder="12.345.678/0001-00" />
+          </div>
 
-        <div class="campo">
-          <span>Nome de Usuário:</span>
-          <input id="input_usuario" type="text" placeholder="user2025" />
-        </div>
+          <div class="campo">
+            <span>Nome de Usuário:</span>
+            <input id="input_usuario" type="text" placeholder="user2025" />
+          </div>
 
-        <div class="campo">
-          <span>E-mail:</span>
-          <input id="input_email" type="text" placeholder="user2025@sptech.school" />
-        </div>
+          <div class="campo">
+            <span>E-mail:</span>
+            <input id="input_email" type="text" placeholder="user2025@sptech.school" />
+          </div>
 
-        <div class="campo">
-          <span>Senha:</span>
-          <input id="input_senha" type="password" placeholder="*******" />
-        </div>
+          <div class="campo">
+            <span>Senha:</span>
+            <input id="input_senha" type="password" placeholder="*******" />
+          </div>
 
-        <div class="campo">
-          <span>Confirmação da Senha:</span>
-          <input id="input_confirmacao_senha" type="password" placeholder="*******" />
-        </div>
+          <div class="campo">
+            <span>Confirmação da Senha:</span>
+            <input id="input_confirmacao_senha" type="password" placeholder="*******" />
+          </div>
 
-        <div class="campo">
-          <span>Seu tipo de acesso:</span>
-          <select id="tipoAcesso">
-            <option value="*">Escolha</option>
-            <option value="n3">Nivel Suporte</option>
-            <option value="usuario">Usuario</option>
-          </select>
-          <button onclick="cadastro()" class="botao_cadastro_login">Registrar-se</button>
-          <p class="link-cadastro">Já possui conta? <a href="./cadastro.html">Login</a></p>
+          <div class="campo">
+            <span>Seu tipo de acesso:</span>
+            <select id="tipoAcesso">
+              <option value="*">Escolha</option>
+              <option value="n3">Nivel Suporte</option>
+              <option value="usuario">Usuario</option>
+            </select>
+          </div>
+          <div class="campo">
+            <button onclick="cadastro()" class="botao_cadastro_login">Registrar-se</button>
+            <p class="link-cadastro">Já possui conta? <a href="./cadastro.html">Login</a></p>
+          </div>
         </div>
-
 
       </div>
+
+      <div class="resposta">
+        <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
       </div>
-
     </div>
-
-    <div class="resposta">
-      <div id="div_resposta" style="margin-top:1em; color:#c00;"></div>
-    </div>
-  </div>
 
 
 </body>

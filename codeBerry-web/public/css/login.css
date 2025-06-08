@@ -120,4 +120,27 @@
     /* Cor de fundo mais escura ao passar o mouse */
     transform: scale(1.03);
     /* Leve aumento de tamanho ao passar o mouse */
+
 }
+
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+

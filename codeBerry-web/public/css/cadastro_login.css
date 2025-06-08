@@ -140,7 +140,7 @@
 
 
 .link-cadastro {
-  margin: 18px;
+  margin: 7px;
     display: flex;
     display: flex;
     justify-content: center;
@@ -149,4 +149,15 @@
 
 .cadastro{
     align-items: center;
+}
+
+
+.div_resposta{
+    
+  margin-top: 1.5em;
+  color: #c00;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+  word-wrap: break-word;
 }

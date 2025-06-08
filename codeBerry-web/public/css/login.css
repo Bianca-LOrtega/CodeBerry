@@ -14,7 +14,7 @@
     overflow: auto;
     background-color: rgb(233, 233, 233);  
     flex-direction: column;
-    
+
     padding: 20px 0;
     overflow-y: auto;
     width: 100%;
@@ -159,23 +159,23 @@
 }
 
 
-.navbar {
+.container .navbar{
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    width: 53%;
     align-items: center;
+    justify-content: right;
     list-style: none;
-    padding: 0;
-    margin: 0;
+    color: #ffffff;
+    padding: 10px;
 }
 
-.navbar li {
-    margin: 0 15px;
+.div_resposta{
+    
+  margin-top: 1em;
+  color: #c00;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+  word-wrap: break-word;
 }
-
-.navbar a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-}
-

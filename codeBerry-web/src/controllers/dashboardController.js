@@ -95,6 +95,16 @@ function alertasPorHoraDia(req, res) {
     });
 }
 
+function ultimosDados(req, res) {
+  const { cnpj, idCaminhao } = req.params;
+
+  dashboardModel.buscarUltimoRegistro(cnpj, idCaminhao)
+    .then(resposta => res.json(resposta))
+    .catch(erro => {
+      console.error("Erro ao buscar ultimos registros:", erro);
+      res.status(500).json({ erro: "Erro ao buscar dados" });
+    });
+}
 
 // CADASTRAR CAMINHAO:
 function cadastrarCaminhao(req, res) {
@@ -122,5 +132,6 @@ module.exports = {
   obterDadosGrafico,
   alertasPorDiaSemana,
   alertasPorHoraDia,
-  cadastrarCaminhao
+  cadastrarCaminhao,
+  ultimosDados
 };

@@ -134,7 +134,7 @@
                 .then(res => res.json())
                 .then(dado => {
                     const tempElemento = document.getElementById("kpi-temp");
-                    const temperatura = dado.mediaTemp;
+                    const temperatura = dado.ultimaTemp;
                     tempElemento.innerHTML = `${temperatura}ºC`;
 
                     if (temperatura < 0 || temperatura > 1) {
@@ -150,7 +150,7 @@
                 .then(res => res.json())
                 .then(dado => {
                     const umiElemento = document.getElementById("kpi-umi");
-                    const umidade = dado.mediaUmi;
+                    const umidade = dado.ultimaUmi;
                     umiElemento.innerHTML = `${umidade}%`;
 
                     if (umidade < 75 || umidade > 89) {
@@ -196,106 +196,119 @@
             }
 
             fetch(`/dashboard/graficos/${cnpjEmpresa}/${idCaminhao}`)
-                .then(function (resposta) {
-                    return resposta.json();
-                })
-                .then(function (dados) {
-                    var labels = dados.map(function (registro) {
-                        return registro.horario;
-                    });
-                    var temperaturas = dados.map(function (registro) {
-                        return registro.temperatura;
-                    });
-                    var umidades = dados.map(function (registro) {
-                        return registro.umidade;
-                    });
+                .then(res => res.json())
+                .then(dados => {
+                    dadosGrafico = dados.slice(-5); // começa com os últimos 5 registros
 
-                    // Se os gráficos já existem, só atualiza os dados
-                    if (graficoTemperatura && graficoUmidade) {
-                        graficoTemperatura.data.labels = labels;
-                        graficoTemperatura.data.datasets[0].data = temperaturas;
-                        graficoTemperatura.data.datasets[1].data = Array(labels.length).fill(0);
-                        graficoTemperatura.data.datasets[2].data = Array(labels.length).fill(1);
-                        graficoTemperatura.update();
+                    const labels = [];
+                    const temperaturas = [];
+                    const umidades = [];
 
-                        graficoUmidade.data.labels = labels;
-                        graficoUmidade.data.datasets[0].data = umidades;
-                        graficoUmidade.data.datasets[1].data = Array(labels.length).fill(75);
-                        graficoUmidade.data.datasets[2].data = Array(labels.length).fill(90);
-                        graficoUmidade.update();
-                    } else {
-                        // Criação inicial dos gráficos
-
-                        if (graficoTemperatura) graficoTemperatura.destroy();
-                        if (graficoUmidade) graficoUmidade.destroy();
-
-                        graficoTemperatura = new Chart(document.getElementById("graficoTemperatura"), {
-                            type: "line",
-                            data: {
-                                labels: labels,
-                                datasets: [
-                                    {
-                                        label: "Temperatura (°C)",
-                                        data: temperaturas,
-                                        borderColor: "orange",
-                                        borderWidth: 2,
-                                        fill: false
-                                    },
-                                    {
-                                        label: "Mínimo Aceitável (0°C)",
-                                        data: Array(labels.length).fill(0),
-                                        borderColor: "blue",
-                                        borderDash: [5, 5],
-                                        borderWidth: 1,
-                                        fill: false
-                                    },
-                                    {
-                                        label: "Máximo Aceitável (1°C)",
-                                        data: Array(labels.length).fill(1),
-                                        borderColor: "red",
-                                        borderDash: [5, 5],
-                                        borderWidth: 1,
-                                        fill: false
-                                    }
-                                ]
-                            }
-                        });
-
-                        graficoUmidade = new Chart(document.getElementById("graficoUmidade"), {
-                            type: "line",
-                            data: {
-                                labels: labels,
-                                datasets: [
-                                    {
-                                        label: "Umidade (%)",
-                                        data: umidades,
-                                        borderColor: "green",
-                                        borderWidth: 2,
-                                        fill: false
-                                    },
-                                    {
-                                        label: "Mínimo Aceitável (75%)",
-                                        data: Array(labels.length).fill(75),
-                                        borderColor: "blue",
-                                        borderDash: [5, 5],
-                                        borderWidth: 1,
-                                        fill: false
-                                    },
-                                    {
-                                        label: "Máximo Aceitável (90%)",
-                                        data: Array(labels.length).fill(90),
-                                        borderColor: "red",
-                                        borderDash: [5, 5],
-                                        borderWidth: 1,
-                                        fill: false
-                                    }
-                                ]
-                            }
-                        });
+                    for (let i = 0; i < dadosGrafico.length; i++) {
+                        labels.push(dadosGrafico[i].horario);
+                        temperaturas.push(dadosGrafico[i].temperatura);
+                        umidades.push(dadosGrafico[i].umidade);
                     }
-                })
-                .catch(function (erro) {
-                    console.error("Erro ao carregar gráficos:", erro);
+
+                    graficoTemperatura = new Chart(document.getElementById("graficoTemperatura"), {
+                        type: "line",
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "Temperatura (°C)",
+                                    data: temperaturas,
+                                    borderColor: "orange",
+                                    borderWidth: 2,
+                                    fill: false
+                                },
+                                {
+                                    label: "Mínimo Aceitável (0°C)",
+                                    data: Array(labels.length).fill(0),
+                                    borderColor: "blue",
+                                    borderDash: [5, 5],
+                                    borderWidth: 1,
+                                    fill: false
+                                },
+                                {
+                                    label: "Máximo Aceitável (1°C)",
+                                    data: Array(labels.length).fill(1),
+                                    borderColor: "red",
+                                    borderDash: [5, 5],
+                                    borderWidth: 1,
+                                    fill: false
+                                }
+                            ]
+                        }
+                    });
+
+                    graficoUmidade = new Chart(document.getElementById("graficoUmidade"), {
+                        type: "line",
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "Umidade (%)",
+                                    data: umidades,
+                                    borderColor: "green",
+                                    borderWidth: 2,
+                                    fill: false
+                                },
+                                {
+                                    label: "Mínimo Aceitável (75%)",
+                                    data: Array(labels.length).fill(75),
+                                    borderColor: "blue",
+                                    borderDash: [5, 5],
+                                    borderWidth: 1,
+                                    fill: false
+                                },
+                                {
+                                    label: "Máximo Aceitável (90%)",
+                                    data: Array(labels.length).fill(90),
+                                    borderColor: "red",
+                                    borderDash: [5, 5],
+                                    borderWidth: 1,
+                                    fill: false
+                                }
+                            ]
+                        }
+                    });
+                });
+        }
+
+        function atualizarGraficosComUltimoRegistro() {
+            fetch(`/dashboard/ultimo-registro/${cnpjEmpresa}/${idCaminhao}`)
+                .then(res => res.json())
+                .then(novo => {
+                    // Verifica se o registro já está no gráfico para evitar repetição
+                    const existe = dadosGrafico.some(reg => reg.horario === novo.horario);
+                    if (existe) return;
+
+                    dadosGrafico.push(novo);
+                    if (dadosGrafico.length > 5) dadosGrafico.shift(); // mantém só os 5 últimos
+
+                    // Atualiza dados
+                    const labels = [];
+                    const temperaturas = [];
+                    const umidades = [];
+
+                    for (let i = 0; i < dadosGrafico.length; i++) {
+                        labels.push(dadosGrafico[i].horario);
+                        temperaturas.push(dadosGrafico[i].temperatura);
+                        umidades.push(dadosGrafico[i].umidade);
+                    }
+
+                    graficoTemperatura.data.labels = labels;
+                    graficoTemperatura.data.datasets[0].data = temperaturas;
+                    graficoTemperatura.data.datasets[1].data = Array(labels.length).fill(0);
+                    graficoTemperatura.data.datasets[2].data = Array(labels.length).fill(1);
+                    graficoTemperatura.update();
+
+                    graficoUmidade.data.labels = labels;
+                    graficoUmidade.data.datasets[0].data = umidades;
+                    graficoUmidade.data.datasets[1].data = Array(labels.length).fill(75);
+                    graficoUmidade.data.datasets[2].data = Array(labels.length).fill(90);
+                    graficoUmidade.update();
                 });
         }
 
@@ -311,8 +324,13 @@
             fetch(`/dashboard/alertas-semana/${cnpjEmpresa}/${idCaminhao}`)
                 .then(res => res.json())
                 .then(dados => {
-                    const dias = dados.map(d => d.dia);
-                    const totais = dados.map(d => d.total);
+                    const dias = [];
+                    const totais = [];
+
+                    for (let i = 0; i < dados.length; i++) {
+                        dias.push(dados[i].dia);
+                        totais.push(dados[i].total);
+                    }
 
                     if (graficoAlertaSemana) graficoAlertaSemana.destroy();
 
@@ -323,6 +341,7 @@
                             datasets: [{
                                 label: "Alertas por Dia da Semana",
                                 data: totais,
+                                backgroundColor: "rgba(255, 99, 132, 0.6)",
                                 borderWidth: 1
                             }]
                         }
@@ -332,8 +351,13 @@
             fetch(`/dashboard/alertas-hora/${cnpjEmpresa}/${idCaminhao}`)
                 .then(res => res.json())
                 .then(dados => {
-                    const horas = dados.map(d => d.hora + "h");
-                    const totais = dados.map(d => d.total);
+                    const horas = [];
+                    const totais = [];
+
+                    for (let i = 0; i < dados.length; i++) {
+                        horas.push(dados[i].hora + "h");
+                        totais.push(dados[i].total);
+                    }
 
                     if (graficoAlertaDia) graficoAlertaDia.destroy();
                     graficoAlertaDia = new Chart(document.getElementById("graficoAlertaDia"), {
@@ -343,6 +367,7 @@
                             datasets: [{
                                 label: "Alertas por Hora do Dia",
                                 data: totais,
+                                backgroundColor: "rgba(255, 99, 132, 0.6)",
                                 borderWidth: 1
                             }]
                         }

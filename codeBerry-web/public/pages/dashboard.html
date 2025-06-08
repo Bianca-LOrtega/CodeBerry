@@ -8,59 +8,15 @@
   <link rel="shortcut icon" type="imagex/png" href="../img/logo/logoIcone.ico">
   <link rel="stylesheet" href="../css/dash.css">
   <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/kpi.css">
   <link rel="stylesheet" href="../css/body.css">
-
   
-  <style>
-    /*adicionei a estilização, mas depois colocar em css separado*/
-    .container-caminhoes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .card-caminhao {
-      min-width: 220px;
-      max-width: 300px;
-      margin: 0.5rem;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px #0001;
-      background: #fff;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .card-caminhao:hover {
-      transform: scale(1.03);
-    }
-
-    .card-caminhao.alerta {
-      border: 2px solid #e11e24;
-      background: #ffeaea;
-    }
-
-    .botao-adicionar {
-      display: block;
-      margin: 1rem auto;
-      padding: 0.5rem 1rem;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-  </style>
-
 </head>
 
 <body onload="carregarCaminhoes()">
 
-  <div class="header">
+
+<div class="header">
 
     <div class="container">
       <div class="logo-nome">
@@ -98,42 +54,53 @@
       </ul>
     </div>
   </div><br>
-
-  <div id="bemVindo" style="text-align:center; font-size:1.2rem; margin: 1rem 0;"></div>
-   <h1>Caminhões Cadastrados</h1>
-
-  <div id="infoCaminhao" class="card-info"></div>
-
-    <div class="dashboardCaminhoes">
-
-        <div class="card kpi">
-            <div>
-                <h3>Quantidade de Caminhões Registrados:</h3>
-                <h2 id="kpi-alerta">...</h2>
-            </div>
+    <!-- Suporte -->
+     
+    <div class="suporte-container">
+        <div class="suporte-conteudo">
+            <img src="../assets/img/icone/icone_suporte.png" alt="Suporte" class="icone-suporte">
+            <a href="https://codeberryiot.atlassian.net/servicedesk/customer/portal/4">
+                <span class="texto-suporte">Fale conosco!</span>
+            </a>
         </div>
+    </div>
 
-        <div class="card kpi">
-            <div>
-                <h3>Status Saudável:</h3>
-                <h2 id="kpi-lote">...</h2>
-            </div>
+    <!-- Título -->
+    <div class="caminhoes_cadastrados_h1">
+      <h1>Caminhões Cadastrados</h1>
+    </div>
+
+    <!-- Bem-vindo -->
+    <div id="bemVindo" style="text-align:center; font-size:1.2rem; margin: 1rem 0;"></div>
+
+    <!-- KPIs -->
+    <div class="container_kpi_qtd">
+        <div class="kpi_qtd_caminhoes">
+            <h3>Quantidade de Caminhões Registrados:</h3>
+            <h2 id="kpi-alerta">...</h2>
         </div>
+    </div>
 
-        <div class="card kpi" id="kpi-alerta-card" onclick="filtrarAlerta()" style="cursor: pointer;">
-            <div>
-                <h3>Status em Alerta:</h3>
-                <h2 id="kpi-temp">...</h2>
-            </div>
+    <div class="container_kpi_status">
+        <div class="kpi_saudavel">
+            <h3>Status Saudável:</h3>
+            <h2 id="kpi-lote">...</h2>
         </div>
+        <div class="kpi_alerta" id="kpi-alerta-card" onclick="filtrarAlerta()" style="cursor:pointer;">
+            <h3>Status em Alerta:</h3>
+            <h2 id="kpi-temp">...</h2>
+        </div>
+    </div>
 
-    </div><br>
+    <!-- Botão adicionar caminhão -->
+    <div class="container_botao">
+        <button onclick="window.location.href='./cadastrarCaminhao.html'" class="botao-adicionar">
+            + Adicionar Caminhão
+        </button>
+    </div>
 
-  <div id="containerCaminhoes" class="container-caminhoes"></div>
-
-
-  <button onclick="window.location.href='./cadastrarCaminhao.html'" class="botao-adicionar">+ Adicionar Caminhão</button>
-
+    <!-- Caminhões -->
+    <div id="containerCaminhoes" class="container-caminhoes"></div>
 
 </body>
 
@@ -145,7 +112,7 @@
     var nomeFuncionario = sessionStorage.getItem("NOME_FUNCIONARIO")
 
     if (nomeFuncionario){ // apenas para mostrar nome do funcionario
-      bemVindo.innerHTML = `Bem-vindo de volta, <strong>${nomeFuncionario}</strong>`
+      bemVindo.innerHTML = `Bem-vindo(a) de volta, <strong>${nomeFuncionario}</strong>`
     }
     console.log("CNPJ carregado na dashboard:", cnpjEmpresa);
     console.log(nomeFuncionario);

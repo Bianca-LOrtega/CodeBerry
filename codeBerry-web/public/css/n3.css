@@ -4,14 +4,20 @@ body, h1, h3, textarea, button, div {
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+h2{
+    color: white;
+}
 
 body {
     background-color: #fffafa; /* Quase branco com leve rosa */
-    color: #333;
+    color: #c13636;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2em;
+    background-image: url("../assets/img/logo/morangos.n3.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #container {
@@ -65,13 +71,6 @@ button:hover {
     color: #006400; /* Verde musgo */
 }
 
-.divMorangos {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
 
 #container img {
     width: 40px;
@@ -79,16 +78,17 @@ button:hover {
 }
 
 .layoutVoltar {
-    position: fixed;
-    top: 10px;
-    left: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    
 }
 
 .botaoVoltar {
     background-color: #dc143c; /* Vermelho Crimson */
     color: white;
     border: none;
-    padding: 8px 15px;
+    padding: 8px 27px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;

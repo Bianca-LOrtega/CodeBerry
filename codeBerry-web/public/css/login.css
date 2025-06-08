@@ -6,36 +6,49 @@
 
 /*container*/
 .paizao {
-    display: flex;
+   display: flex;  
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: rgb(226, 226, 226);
+    align-items: stretch;
+    /*min-height: 100vh;*/
+    height: 110vh;
+    overflow: auto;
+    background-color: rgb(233, 233, 233);  
     flex-direction: column;
+    
+    padding: 20px 0;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
 }
 
 /*BOX-CADASTRO ?*/
 .login_container {
     display: flex;
-    /*justify-content: space-around;*/
-    align-items: stretch;
-    max-width: 900px;
-    overflow: hidden;
-    width: 60%;
-    height: 70vh;
+    justify-content: space-around;
+    align-items: center;
+    width: 61%;
+    /*height: 80vh;*/
+    flex-wrap: wrap;
+    padding: 20px;
+    box-shadow: none;
+    margin: auto;
+    
 
-    box-shadow: 5px 5px 5px rgb(204, 204, 204);
+}
+.bem-vindo{
+    text-align: center;
 
 }
 
 
 /* Imagem morango */
 .login_image {
-    flex: 1;
+    flex: 0.85;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+    
 
 }
 
@@ -43,27 +56,32 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 16px 0 0 16px;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
 }
 
 
 /*Formulario*/
 .login_card {
-    flex: 1;
+     flex: 0.85;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    box-sizing: border-box;
-    height: 100%;
+    padding: 20px;
+    height: 87vh;
     background-color: #ffffff;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
     align-items: center;
-    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+
+    
 }
 
 .login_card h1 {
     font-size: 50px;
+    text-align: center;
 
 }
 
@@ -74,15 +92,15 @@
     margin-bottom: 1.5rem;
     width: 60%;
     height: auto;
+    text-align: center;
 }
 
 .campo span {
     margin-bottom: 0.5rem;
     font-weight: 500;
     color: #444;
-
     font-weight: 500;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .campo input {
@@ -91,6 +109,8 @@
     text-align: center;
     border: none;
     padding: 20px 10px;
+    border-radius: 5px;
+    height: 15px;
 }
 
 
@@ -99,12 +119,26 @@
     text-align: center;
     border: none;
     padding: 20px 10px;
+    text-align: center;
+}
+
+
+
+.campos_cadastro input,
+.campos_cadastro select {
+  text-align: center;
+  border: none;
+  padding: 10px 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 1opx;
+  margin-top: 5px;
 }
 
 
 /* Botão */
 .botao_cadastro_login {
-   padding: 30px 20px;
+   padding: 14px 20px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     background-color: #e11e24;
     color: #ffffff;
@@ -113,6 +147,7 @@
     border: none;
     border-radius: 0.5rem;
     margin: 30px;
+    text-align: center;
 }
 
 .botao_cadastro_login:hover {
@@ -120,4 +155,27 @@
     /* Cor de fundo mais escura ao passar o mouse */
     transform: scale(1.03);
     /* Leve aumento de tamanho ao passar o mouse */
+
 }
+
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+

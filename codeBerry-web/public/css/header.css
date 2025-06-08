@@ -47,7 +47,9 @@
 .botao {
   margin: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+
 
 }
 
@@ -57,7 +59,7 @@
   border-radius: 10px;
   border: none;
   color: #ffff;
-  margin: 10px;
+  margin: 18px;
 }
 
 .botao .cadastro {
@@ -67,6 +69,13 @@
   border: none;
   color: #ffff;
   margin: 10px;
+  width: 120px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
 }
 
 /* Header Fim */

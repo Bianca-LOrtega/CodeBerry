@@ -45,14 +45,14 @@
 
         <div class="card kpi">
             <div>
-                <h3>Temperatura no Caminhão:</h3>
+                <h3>Temperatura Atual no Caminhão:</h3>
                 <h2 id="kpi-temp">...</h2>
             </div>
         </div>
 
         <div class="card kpi">
             <div>
-                <h3>Umidade no Caminhão:</h3>
+                <h3>Umidade Atual no Caminhão:</h3>
                 <h2 id="kpi-umi">...</h2>
             </div>
         </div>
@@ -66,8 +66,8 @@
 
         <div class="card kpi">
             <div>
-                <h3>Alertas Registrados:</h3>
-                <h2 id="kpi-alerta">...</h2>
+                <h3>Alertas Registrados no Caminhão:</h3>
+                <h2 style="color: red;" id="kpi-alerta">...</h2>
             </div>
         </div>
 
@@ -111,13 +111,32 @@
             fetch(`/dashboard/temperatura-caminhao/${cnpjEmpresa}/${idCaminhao}`)
                 .then(res => res.json())
                 .then(dado => {
-                    document.getElementById("kpi-temp").innerHTML = `${dado.mediaTemp}ºC`;
+                    const tempElemento = document.getElementById("kpi-temp");
+                    const temperatura = dado.mediaTemp;
+                    tempElemento.innerHTML = `${temperatura}ºC`;
+
+                    if (temperatura < 0 || temperatura > 1) {
+                        tempElemento.style.color = "red";
+                    } else {
+                        tempElemento.style.color = "";
+                    }
+
                 });
+
 
             fetch(`/dashboard/umidade-caminhao/${cnpjEmpresa}/${idCaminhao}`)
                 .then(res => res.json())
                 .then(dado => {
-                    document.getElementById("kpi-umi").innerHTML = `${dado.mediaUmi}%`;
+                    const umiElemento = document.getElementById("kpi-umi");
+                    const umidade = dado.mediaUmi;
+                    umiElemento.innerHTML = `${umidade}%`;
+
+                    if (umidade < 75 || umidade > 89) {
+                        umiElemento.style.color = "red";
+                    } else {
+                        umiElemento.style.color = "";
+                    }
+
                 });
 
             fetch(`/dashboard/informacoes/${cnpjEmpresa}/${idCaminhao}`)
@@ -142,6 +161,8 @@
 
         var graficoTemperatura;
         var graficoUmidade;
+        var graficoAlertaSemana;
+        var graficoAlertaDia;
 
         function carregarGraficos() {
             var idCaminhao = sessionStorage.getItem("ID_CAMINHAO");
@@ -182,6 +203,10 @@
                         graficoUmidade.update();
                     } else {
                         // Criação inicial dos gráficos
+
+                        if (graficoTemperatura) graficoTemperatura.destroy();
+                        if (graficoUmidade) graficoUmidade.destroy();
+
                         graficoTemperatura = new Chart(document.getElementById("graficoTemperatura"), {
                             type: "line",
                             data: {
@@ -267,7 +292,9 @@
                     const dias = dados.map(d => d.dia);
                     const totais = dados.map(d => d.total);
 
-                    new Chart(document.getElementById("graficoAlertaSemana"), {
+                    if (graficoAlertaSemana) graficoAlertaSemana.destroy();
+
+                    graficoAlertaSemana = new Chart(document.getElementById("graficoAlertaSemana"), {
                         type: "bar",
                         data: {
                             labels: dias,
@@ -286,7 +313,8 @@
                     const horas = dados.map(d => d.hora + "h");
                     const totais = dados.map(d => d.total);
 
-                    new Chart(document.getElementById("graficoAlertaDia"), {
+                    if (graficoAlertaDia) graficoAlertaDia.destroy();
+                    graficoAlertaDia = new Chart(document.getElementById("graficoAlertaDia"), {
                         type: "bar",
                         data: {
                             labels: horas,
@@ -303,24 +331,24 @@
         // chame junto com os outros gráficos
         carregarGraficoAlertas();
 
-         const coordenadas = {
-                "São Paulo": [-23.5505, -46.6333],
-                "Campinas": [-22.9099, -47.0626]
-            };
+        const coordenadas = {
+            "São Paulo": [-23.5505, -46.6333],
+            "Campinas": [-22.9099, -47.0626]
+        };
 
-            const partida = coordenadas["São Paulo"];
-            const destino = coordenadas["Campinas"];
+        const partida = coordenadas["São Paulo"];
+        const destino = coordenadas["Campinas"];
 
-            const mapa = L.map('mapa').setView(partida, 9);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'Mapa por OpenStreetMap'
-            }).addTo(mapa);
+        const mapa = L.map('mapa').setView(partida, 9);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Mapa por OpenStreetMap'
+        }).addTo(mapa);
 
-            L.marker(partida).addTo(mapa).bindPopup("Local de Partida");
-            L.marker(destino).addTo(mapa).bindPopup("Local de Destino");
+        L.marker(partida).addTo(mapa).bindPopup("Local de Partida");
+        L.marker(destino).addTo(mapa).bindPopup("Local de Destino");
 
-            const rota = L.polyline([partida, destino], { color: 'blue' }).addTo(mapa);
-            mapa.fitBounds(rota.getBounds());
+        const rota = L.polyline([partida, destino], { color: 'blue' }).addTo(mapa);
+        mapa.fitBounds(rota.getBounds());
 
 
         // Atualiza a cada 5 segundos (5000 milissegundos)

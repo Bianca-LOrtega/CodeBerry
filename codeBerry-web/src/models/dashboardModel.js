@@ -108,7 +108,7 @@ function alertasPorDiaSemana(cnpj, idCaminhao) {
     WHERE c.fk_empresa = '${cnpj}' AND c.idcaminhao = ${idCaminhao}
       AND (r.temperatura < 0 OR r.temperatura > 1)
     GROUP BY dia
-    ORDER BY FIELD(dia, 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+    ORDER BY FIELD(dia, 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado');
   `;
   return db.executar(sql);
 }

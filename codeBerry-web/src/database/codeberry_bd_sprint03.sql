@@ -136,6 +136,13 @@ ALTER TABLE caminhao MODIFY COLUMN idcaminhao INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE viagem
   ADD CONSTRAINT fk_viagem_caminhao FOREIGN KEY (fk_caminhao) REFERENCES caminhao(idcaminhao);
 
+
+
+-- RESOLVENDO PROBLEMAS ARDUINO
+ALTER TABLE registros DROP PRIMARY KEY; -- Remove a PK antiga (se existir)
+ALTER TABLE registros MODIFY COLUMN contador INT NOT NULL; -- Remove AUTO_INCREMENT
+ALTER TABLE registros ADD PRIMARY KEY (fk_viagem, contador); -- Adiciona a PK composta
+
 -- checando os dados
 
 select * from lote;

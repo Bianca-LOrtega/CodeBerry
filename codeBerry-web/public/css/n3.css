@@ -1,4 +1,4 @@
-body, h1, h3, textarea, button, div {
+/* body, h1, h3, textarea, button, div {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,30 +9,35 @@ h2{
 }
 
 body {
-    background-color: #fffafa; /* Quase branco com leve rosa */
+    background-color: #fffafa; 
     color: #c13636;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2em;
+    
+}
+ */
+
+.banner_bob_ia{
     background-image: url("../assets/img/logo/morangos.n3.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
-
+/* 
 #container {
-    background-color: #ffffff; /* Branco */
-    border: 2px solid #b22222; /* Vermelho escuro */
+    background-color: #ffffff; 
+    border: 2px solid #b22222; 
     border-radius: 10px;
     padding: 20px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 0 10px rgba(178, 34, 34, 0.3); /* Sombra vermelha */
+    box-shadow: 0 0 10px rgba(178, 34, 34, 0.3); 
     text-align: center;
 }
 
 h1 {
-    color: #b22222; /* Vermelho escuro */
+    color: #b22222; 
     margin-bottom: 20px;
 }
 
@@ -47,7 +52,7 @@ textarea {
 }
 
 button {
-    background-color: #b22222; /* Vermelho escuro */
+    background-color: #b22222;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -55,20 +60,20 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+} */
 
 button:hover {
-    background-color: #8b0000; /* Vermelho ainda mais escuro */
+    background-color: #8b0000; 
 }
 
 #resposta {
     margin-top: 15px;
     padding: 10px;
-    background-color: #e6ffe6; /* Verde bem claro */
-    border: 2px solid #228b22; /* Verde folha */
+    background-color: #e6ffe6; 
+    border: 2px solid #228b22; 
     border-radius: 5px;
     display: none;
-    color: #006400; /* Verde musgo */
+    color: #006400; 
 }
 
 
@@ -85,7 +90,7 @@ button:hover {
 }
 
 .botaoVoltar {
-    background-color: #dc143c; /* Vermelho Crimson */
+    background-color: #dc143c;
     color: white;
     border: none;
     padding: 8px 27px;
@@ -95,5 +100,5 @@ button:hover {
 }
 
 .botaoVoltar:hover {
-    background-color: #8b0000; /* Vermelho escuro */
+    background-color: #8b0000; 
 }

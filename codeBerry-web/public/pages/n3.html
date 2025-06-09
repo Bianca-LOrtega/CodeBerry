@@ -10,19 +10,22 @@
 
 <body>
 
-    <h2>Área de Suporte</h2>
-    <div class="layoutVoltar">
-        <button onclick="voltar()" class="botaoVoltar">Voltar</button>
-    </div>
-    <div id="container">
-        <h1>BobIA</h1>
-        <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
-        <br><br>
-        <button onclick="gerarResposta()">Gerar Resposta</button>
-        <h3>Resposta da IA:</h3>
-        <div id="resposta"></div>
 
+    <div class="banner_bob_ia">
+        <div class="seta-voltar">
+            <a onclick="voltar()"><img src="../assets/img/icone/seta_voltar.png"></a>
+        </div>
+        <div class="tituloSuporrte">Área de Suporte</div>
+        <div class="containerSuporte">
+            <h1>BobIA</h1>
+            <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+            <br><br>
+            <button onclick="gerarResposta()">Gerar Resposta</button>
+            <h3>Resposta da IA:</h3>
+            <div id="resposta"></div>
+        </div>
     </div>
+
 
     <script>
 

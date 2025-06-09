@@ -1,4 +1,37 @@
-/* Header Início */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+   font-family: 'Roboto', sans-serif;
+   font-size: 16px;
+   line-height: 1.6;
+   color: #333;
+   background-color: #f4f4f4;
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+  
+
+:root {
+   --tamanho-header: 90px;
+   --tamanho-footer: 90px;
+   --tamanho-banner: 500px
+}
+  
+
+.header {
+ justify-content: space-between;
+ align-items: center;
+}
+
+.header .container {
+   align-items: center;
+   height: 100%;
+}
 
 .header {
   height: var(--tamanho-header);
@@ -19,6 +52,7 @@
   width: 80%;
   gap: 280px;
 }
+
 
 .nome {
   display: flex;
@@ -45,12 +79,10 @@
 }
 
 .botao {
-  margin: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-
+ margin: 10px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
 }
 
 .botao .login {
@@ -74,8 +106,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
+.navbar {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  color: #e3b062;
+}
 
+.container .navbar {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    align-items: center;
+    justify-content: right;
+    list-style: none;
+    color: #ffffff;
+    padding: 10px;
 }
 
 /* Header Fim */

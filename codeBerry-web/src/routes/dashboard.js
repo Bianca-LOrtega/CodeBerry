@@ -11,6 +11,7 @@ router.get("/alerta-temperatura/:cnpjEmpresa/:idCaminhao", dashboardController.k
 router.get("/informacoes/:cnpjEmpresa/:idCaminhao", dashboardController.kpiInformacoes);
 // Gráficos
 router.get("/graficos/:cnpj/:idCaminhao", dashboardController.obterDadosGrafico);
+router.get("/ultimo-registro/:cnpj/:idCaminhao", dashboardController.ultimosDados);
 router.get("/alertas-semana/:cnpj/:idCaminhao", dashboardController.alertasPorDiaSemana);
 router.get("/alertas-hora/:cnpj/:idCaminhao", dashboardController.alertasPorHoraDia);
 

@@ -24,24 +24,28 @@ function listarCaminhoesComAlertas(cnpjEmpresa) {
 
 function kpiTemperatura(cnpjEmpresa, idCaminhao) {
   const sql = `
-        SELECT ROUND(AVG(r.temperatura), 2) AS mediaTemp
+        SELECT r.temperatura AS ultimaTemp
         FROM registros r
         JOIN viagem v ON r.fk_viagem = v.idviagem
         JOIN caminhao c ON v.fk_caminhao = c.idcaminhao
         JOIN empresa e ON c.fk_empresa = e.cnpj
-        WHERE e.cnpj = '${cnpjEmpresa}' AND c.idcaminhao = ${idCaminhao};
+        WHERE e.cnpj = '${cnpjEmpresa}' AND c.idcaminhao = ${idCaminhao}
+        ORDER BY r.horario DESC
+        LIMIT 1;
     `;
   return db.executar(sql);
 }
 
 function kpiUmidade(cnpjEmpresa, idCaminhao) {
   const sql = `
-        SELECT ROUND(AVG(r.umidade), 2) AS mediaUmi
-        FROM registros r
-        JOIN viagem v ON r.fk_viagem = v.idviagem
-        JOIN caminhao c ON v.fk_caminhao = c.idcaminhao
-        JOIN empresa e ON c.fk_empresa = e.cnpj
-        WHERE e.cnpj = '${cnpjEmpresa}' AND c.idcaminhao = ${idCaminhao};
+            SELECT r.umidade AS ultimaUmi
+            FROM registros r
+            JOIN viagem v ON r.fk_viagem = v.idviagem
+            JOIN caminhao c ON v.fk_caminhao = c.idcaminhao
+            JOIN empresa e ON c.fk_empresa = e.cnpj
+            WHERE e.cnpj = '${cnpjEmpresa}' AND c.idcaminhao = ${idCaminhao}
+            ORDER BY r.horario DESC
+            LIMIT 1;
     `;
   return db.executar(sql);
 }
@@ -129,6 +133,25 @@ function alertasPorHoraDia(cnpj, idCaminhao) {
   return db.executar(sql);
 }
 
+//Busca os últimos registros para atualização:
+
+function buscarUltimoRegistro(cnpj, idCaminhao) {
+  const sql = `
+    SELECT 
+      DATE_FORMAT(r.horario, '%H:%i:%s') AS horario,
+      r.temperatura,
+      r.umidade
+    FROM registros r
+    JOIN viagem v ON r.fk_viagem = v.idviagem
+    JOIN caminhao c ON v.fk_caminhao = c.idcaminhao
+    JOIN empresa e ON c.fk_empresa = e.cnpj
+    WHERE e.cnpj = '${cnpj}' AND c.idcaminhao = ${idCaminhao}
+    ORDER BY r.horario DESC
+    LIMIT 1;
+  `;
+  return db.executar(sql);
+}
+
 
 // CADASTRAR CAMINHÕES:
 function cadastrarCaminhao(placa, modelo, fk_empresa) {
@@ -146,5 +169,6 @@ module.exports = {
   buscarDadosGraficos,
   alertasPorDiaSemana,
   alertasPorHoraDia,
-  cadastrarCaminhao
+  cadastrarCaminhao,
+  buscarUltimoRegistro
 };

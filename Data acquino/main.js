@@ -19,7 +19,7 @@ const serial = async (
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
-            host: '172.20.10.3',
+            host: '10.18.32.186',
             user: 'aluno',
             password: 'Sptech#2024',
             database: 'codeberry',
@@ -51,8 +51,13 @@ const serial = async (
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
         console.log("Dado - " + data);
         const valores = data.split(';');
-        const sensorTemperatura = parseFloat(valores[1]) - Number(20);
-        const sensorUmidade = parseFloat(valores[0]) + Number(25);
+       
+     const temperaturaBase = parseFloat(valores[1]);
+    const umidadeBase = parseFloat(valores[0]);
+
+    const sensorTemperatura = parseFloat(((temperaturaBase - Number(21)) + (Math.random() * 2 - 1)).toFixed(2));
+    const sensorUmidade = parseFloat(((umidadeBase + Number(23))+ (Math.random() * 4 - 2)).toFixed(2));
+
 
         // armazena os valores dos sensores nos arrays correspondentes
         valoresSensorAnalogico.push(sensorTemperatura);
@@ -61,24 +66,20 @@ const serial = async (
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
 
-            var v = 0
-            for (var i = 0; v <= 6; i++) {
-                v++
-                for (var c = 1; c < 20; c++) {
+            for (var v = 1; v <= 6; v++ ) {
+                for (var c = 1; c < 50; c++) {
                     // este insert irá inserir os dados na tabela "registros"
                     await poolBancoDados.execute(
                         'INSERT INTO registros (fk_viagem, contador, umidade, temperatura, horario) VALUES (?, ?, ?, ?, current_timestamp());',
                         [v, c, sensorUmidade, sensorTemperatura]
                     );
                     console.log("valores inseridos no banco: ", sensorUmidade + ", " + sensorTemperatura);
-
+                  
                 }
-            
+                  
             }
 
-
         }
-
 
     });
 

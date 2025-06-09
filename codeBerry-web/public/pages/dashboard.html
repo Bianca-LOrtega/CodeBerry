@@ -178,6 +178,14 @@
     const caminhoesAlerta = todosCaminhoes.filter(c => c.alerta);
     exibirCaminhoes(caminhoesAlerta);
   }
+
+   // Atualiza a cada 2 segundos (5000 milissegundos)
+        setInterval(() => {
+            carregarCaminhoes();
+            atualizarKPIs();
+            exibirCaminhoes();
+            filtrarAlerta();
+        }, 2000);
 </script>
 
 

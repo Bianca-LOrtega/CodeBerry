@@ -120,16 +120,17 @@
     justify-content: space-between;
     flex-direction: row;
     margin: 30px;
+    align-items: center;
 }
 
 .modeloImg {
     display: flex;
     margin: 3%;
-    padding: 2%;
 }
 
 .modeloImg >img{
-    width: 1000px;
+    width: 650px;
+    height: 450px;
 }
 
 .modeloTexto {
@@ -140,7 +141,6 @@
     margin: 2%;
     flex-direction: column;
     height: 40%;
-    margin-top: 200px;
     border: #333 solid 2px;
     border-radius: 2rem;
     padding: 50px;
@@ -154,5 +154,5 @@
 }
 
 .lista_modelo>ul {
-    font-size: 20px;
+    font-size: 15px;
 }

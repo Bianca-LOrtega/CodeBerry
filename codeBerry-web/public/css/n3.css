@@ -7,20 +7,13 @@
 body, h1, h3, textarea, button, div {
     font-family: Arial, sans-serif;
 }
-h2{
-    color: white;
-}
 
-<<<<<<< HEAD
-body {
-    background-color: #fffafa; /* Quase branco com leve rosa */
-    color: #c13636;
-=======
 
 .banner_bob_ia{
-    background-image: url("../assets/img/logo/morangos.n3.jpg");
+    background-image: url('../assets/img/logo/morangos.n3.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    height: 100vh;
 }
 
 .seta-voltar{
@@ -43,7 +36,6 @@ body {
     background: #fff;
     border-radius: 1.5rem;
     box-shadow: 0 10px 10px #0002;
->>>>>>> 4f2c2ec152fb5f15b6055e13eec4e518424478fa
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -55,13 +47,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-<<<<<<< HEAD
-    padding: 2em;
-    background-image: url("../assets/img/logo/morangos.n3.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-=======
->>>>>>> 4f2c2ec152fb5f15b6055e13eec4e518424478fa
 }
 
 .tituloSuporte >h1{
@@ -102,35 +87,7 @@ textarea{
     padding: 10px 30px;
 }
 
-<<<<<<< HEAD
-
-#container img {
-    width: 40px;
-    height: 40px;
-}
-
-.layoutVoltar {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    
-}
-
-.botaoVoltar {
-    background-color: #dc143c; /* Vermelho Crimson */
-    color: white;
-    border: none;
-    padding: 8px 27px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.botaoVoltar:hover {
-    background-color: #8b0000; /* Vermelho escuro */
-=======
 .seta-voltar>a>img:hover{
     transform: scale(1.2);
     cursor: pointer;
->>>>>>> 4f2c2ec152fb5f15b6055e13eec4e518424478fa
 }

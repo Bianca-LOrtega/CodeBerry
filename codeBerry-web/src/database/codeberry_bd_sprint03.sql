@@ -86,7 +86,7 @@ contador int auto_increment,
 temperatura decimal (3,1),
 umidade decimal (3,1),
 horario datetime,
-primary key (contador),
+primary key (contador, fk_viagem),
 constraint fk_registros_viagem foreign key (fk_viagem) references viagem (idviagem)
 );
 
@@ -146,7 +146,13 @@ select * from lote;
 
 select * from viagem;
 
-select * from registros;
+select * from registros
+order by fk_viagem;
+
+-- truncate table registros;
+	
+    desc registros;
+
 
 select reg.*, vi.* from registros as reg
 inner join viagem as vi on reg.fk_viagem = vi.idviagem;

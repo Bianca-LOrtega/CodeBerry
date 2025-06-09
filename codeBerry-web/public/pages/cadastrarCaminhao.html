@@ -4,60 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Caminhão</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <style>
-        .form-caminhao {
-            max-width: 400px;
-            margin: 40px auto;
-            padding: 2rem;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px #0002;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .form-caminhao label {
-            font-weight: bold;
-        }
-        .form-caminhao input, .form-caminhao select {
-            padding: 0.5rem;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        .form-caminhao button {
-            background: #e11e24;
-            color: #fff;
-            border: none;
-            padding: 0.7rem;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .form-caminhao button:hover {
-            background: #ad1d1d;
-        }
-        .mensagem {
-            color: #e11e24;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/cadastrarCaminhao.css">
+ 
 </head>
 <body>
 
-    <form class="form-caminhao" id="formCaminhao" onsubmit="return cadastrarCaminhao()">
-        <h2>Cadastrar Caminhão</h2>
 
-        <label for="placa">Placa:</label>
-        <input type="text" id="ipt_placa" name="placa" maxlength="7" placeholder="ABC1D23" required>
+    <div class="banner-cadastro-caminhao">
 
-        <label for="modelo">Modelo:</label>
-        <input type="text" id="ipt_modelo" name="modelo" maxlength="30" required>
 
-        <button type="submit">Cadastrar</button>
-        <div class="mensagem" id="mensagem"></div>
-    </form>
+        <div class="seta-voltar">
+            <a href="dashboard.html"><img src="../assets/img/icone/seta_voltar.png"></a>
+        </div>
+
+        <div class="card-form">
+        
+        <form class="form-caminhao" id="formCaminhao" onsubmit="return cadastrarCaminhao()">
+            <h2 style="text-align: center; font-size: 30px; margin-bottom: 20px;">CADASTRAR CAMINHÃO</h2>
+            
+            <label for="placa">Placa:</label>
+            <input type="text" id="ipt_placa" name="placa" maxlength="7" placeholder="ABC1D23" required>
+            
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="ipt_modelo" name="modelo" maxlength="30" required>
+            
+            <button type="submit">Cadastrar</button>
+            <div class="mensagem" id="mensagem"></div>
+        </form>
+
+        </div>
+    </div>
 
     <script>
         function cadastrarCaminhao() {

@@ -82,7 +82,7 @@ constraint fk_viagem_lote foreign key (fk_lote) references lote (idlote)
 
 create table registros (
 fk_viagem int,
-contador int auto_increment,
+contador int,
 temperatura decimal (3,1),
 umidade decimal (3,1),
 horario datetime,
@@ -129,16 +129,19 @@ insert into viagem (fk_caminhao, fk_motorista, fk_lote) values
 (101, 3, 1),
 (102, 1, 2);
 
-insert into registros (fk_viagem, temperatura, umidade, horario) values
-(1, 1.2, 85.3, '2025-04-01 08:15:00'),
-(2, 0.9, 87.0, '2025-04-02 10:45:00'),
-(3, 2.0, 84.1, '2025-04-03 13:52:00');
 
 
 ALTER TABLE viagem DROP FOREIGN KEY fk_viagem_caminhao; -- tive que adionar esses comandos para poder cadastrar os caminhões
 ALTER TABLE caminhao MODIFY COLUMN idcaminhao INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE viagem
   ADD CONSTRAINT fk_viagem_caminhao FOREIGN KEY (fk_caminhao) REFERENCES caminhao(idcaminhao);
+
+
+
+-- RESOLVENDO PROBLEMAS ARDUINO
+ALTER TABLE registros DROP PRIMARY KEY; -- Remove a PK antiga (se existir)
+ALTER TABLE registros MODIFY COLUMN contador INT NOT NULL; -- Remove AUTO_INCREMENT
+ALTER TABLE registros ADD PRIMARY KEY (fk_viagem, contador); -- Adiciona a PK composta
 
 -- checando os dados
 

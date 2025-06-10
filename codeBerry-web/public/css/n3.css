@@ -31,6 +31,7 @@ body, h1, h3, textarea, button, div {
 
 .container_bob{
     margin-inline: 30%;
+    margin-block: 10%;
     padding: 5rem 5rem;
     background: #fff;
     border-radius: 1.5rem;

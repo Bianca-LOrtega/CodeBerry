@@ -73,11 +73,11 @@
 }
 
 .sobreTexto>p {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .sobreTexto>ul {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .sobre .sobreImg {
@@ -89,7 +89,7 @@
 }
 
 .sobreImg>img {
-    width: 390px;
+    width: 450px;
 }
 
 
@@ -152,14 +152,16 @@
 }
 
 .modeloTexto {
+    display: flex;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
     margin: 2%;
     flex-direction: column;
     height: 40%;
     border: #333 solid 2px;
     border-radius: 2rem;
-    padding: 30px;
-    font-size: 13px;
-    background-color: white;
+    padding: 50px;
 }
 
 .lista_modelo {

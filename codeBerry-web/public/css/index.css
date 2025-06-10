@@ -32,24 +32,6 @@
     font-size: 36px;
 }
 
-.container {
-    display: flex;
-    width: 100%;
-    margin: auto;
-}
-
-.header {
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header .container {
-    align-items: center;
-    height: 100%;
-}
-
-
-
 
 /*primeira div: sobre*/
 

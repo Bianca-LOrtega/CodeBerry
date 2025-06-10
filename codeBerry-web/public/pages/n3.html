@@ -9,24 +9,18 @@
 </head>
 
 <body>
-    <div class="banner_bob_ia">
-        <div class="seta-voltar">
-            <a onclick="voltar()"><img src="../assets/img/icone/seta_voltar.png"></a>
-        </div>
 
-        <div class="container_bob">
-            <div class="tituloSuporte">
-                <h1>Área de Suporte</h1>
-            </div>
-            <div class="containerSuporte">
-                <h1>BobIA</h1>
-                <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
-                <br><br>
-                <button onclick="gerarResposta()">Gerar Resposta</button>
-                <h3>Resposta da IA:</h3>
-                <div id="resposta"></div>
-            </div>
-        </div>
+    <h2>Área de Suporte</h2>
+    <div class="layoutVoltar">
+        <button onclick="voltar()" class="botaoVoltar">Voltar</button>
+    </div>
+    <div id="container">
+        <h1>BobIA</h1>
+        <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+        <br><br>
+        <button onclick="gerarResposta()">Gerar Resposta</button>
+        <h3>Resposta da IA:</h3>
+        <div id="resposta"></div>
 
     </div>
 
@@ -34,6 +28,7 @@
 
         async function gerarResposta() {
             const pergunta = document.getElementById('pergunta').value;
+
             const response = await fetch('/perguntar', {
                 method: 'POST',
                 headers: {
@@ -41,10 +36,13 @@
                 },
                 body: JSON.stringify({ pergunta })
             });
+
             const data = await response.json();
+
             resposta.style.display = 'block';
             document.getElementById('resposta').innerText = data.resultado;
         }
+
         function voltar() {
             setTimeout(function () {
                 window.location = "../pages/login.html"

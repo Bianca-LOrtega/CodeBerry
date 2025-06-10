@@ -10,183 +10,145 @@
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/kpi.css">
   <link rel="stylesheet" href="../css/body.css">
-  
 </head>
 
 <body onload="carregarCaminhoes()">
-
-
-<div class="header">
-
+  <div class="header">
     <div class="container">
       <div class="logo-nome">
-        <a href="../pages/
-        index.html">
+        <a href="../pages/index.html">
           <img src="../assets/img/logo/logoCurta.png" class="logo" alt="Logo da Code Berry">
         </a>
         <h1 class="nome">CodeBerry</h1>
       </div>
-
       <ul class="navbar">
-        <li class="agora">
-          <a href="../pages/index.html">Home</a>
-        </li>
-        <li class="agora">
-          <a href="../pages/sobrenos.html">Sobre</a>
-        </li>
-        <li>
-          <a href="../pages/calculadora.html">Simulador</a>
-        </li>
+        <li class="agora"><a href="../pages/index.html">Home</a></li>
+        <li class="agora"><a href="../pages/sobrenos.html">Sobre</a></li>
+        <li><a href="../pages/calculadora.html">Simulador</a></li>
         <li>|</li>
-
-
         <div class="botao">
-
-          <button class="login">
-            <a href="../pages/login.html">Login</a>
-          </button>
-
-          <button class="cadastro">
-            <a href="../pages/cadastro.html">Cadastro</a>
-          </button>
-
+          <button class="login"><a href="../pages/login.html">Login</a></button>
+          <button class="cadastro"><a href="../pages/cadastro.html">Cadastro</a></button>
         </div>
       </ul>
     </div>
   </div><br>
-    <!-- Suporte -->
-     
-    <div class="suporte-container">
-        <div class="suporte-conteudo">
-            <img src="../assets/img/icone/icone_suporte.png" alt="Suporte" class="icone-suporte">
-            <a href="https://codeberryiot.atlassian.net/servicedesk/customer/portal/4">
-                <span class="texto-suporte">Fale conosco!</span>
-            </a>
-        </div>
+
+  <!-- Suporte -->
+  <div class="suporte-container">
+    <div class="suporte-conteudo">
+      <img src="../assets/img/icone/icone_suporte.png" alt="Suporte" class="icone-suporte">
+      <a href="https://codeberryiot.atlassian.net/servicedesk/customer/portal">
+        <span class="texto-suporte">Fale conosco!</span>
+      </a>
     </div>
+  </div>
 
-    <!-- Título -->
-    <div class="caminhoes_cadastrados_h1">
-      <h1>Caminhões Cadastrados</h1>
+  <!-- Título -->
+  <div class="caminhoes_cadastrados_h1">
+    <h1>Caminhões Cadastrados</h1>
+  </div>
+
+  <!-- Bem-vindo -->
+  <div id="bemVindo" style="text-align:center; font-size:1.2rem; margin: 1rem 0;"></div>
+
+  <!-- KPIs -->
+  <div class="linha-kpis">
+    <div class="kpi_qtd_caminhoes">
+      <h3>Quantidade de Caminhões Registrados:</h3>
+      <h2 id="kpi-alerta">...</h2>
     </div>
-
-    <!-- Bem-vindo -->
-    <div id="bemVindo" style="text-align:center; font-size:1.2rem; margin: 1rem 0;"></div>
-
-    <!-- KPIs -->
-    <div class="container_kpi_qtd">
-        <div class="kpi_qtd_caminhoes">
-            <h3>Quantidade de Caminhões Registrados:</h3>
-            <h2 id="kpi-alerta">...</h2>
-        </div>
+    <div class="kpis-direita">
+      <div class="kpi_saudavel">
+        <h3>Status Saudável:</h3>
+        <h2 id="kpi-lote">...</h2>
+      </div>
+      <div class="kpi_alerta" id="kpi-alerta-card" onclick="filtrarAlerta()">
+        <h3>Status em Alerta:</h3>
+        <h2 id="kpi-temp">...</h2>
+      </div>
     </div>
+  </div>
 
-    <div class="container_kpi_status">
-        <div class="kpi_saudavel">
-            <h3>Status Saudável:</h3>
-            <h2 id="kpi-lote">...</h2>
-        </div>
-        <div class="kpi_alerta" id="kpi-alerta-card" onclick="filtrarAlerta()" style="cursor:pointer;">
-            <h3>Status em Alerta:</h3>
-            <h2 id="kpi-temp">...</h2>
-        </div>
-    </div>
+  <!-- Caminhões -->
+  <div id="containerCaminhoes" class="container-caminhoes"></div>
 
-    <!-- Botão adicionar caminhão -->
-    <div class="container_botao">
-        <button onclick="window.location.href='./cadastrarCaminhao.html'" class="botao-adicionar">
-            + Adicionar Caminhão
-        </button>
-    </div>
+  <!-- Botão flutuante -->
+  <button onclick="window.location.href='./cadastrarCaminhao.html'" class="botao-fixo">
+    + Adicionar Caminhão
+  </button>
 
-    <!-- Caminhões -->
-    <div id="containerCaminhoes" class="container-caminhoes"></div>
+  <script>
+    let todosCaminhoes = [];
 
+    function carregarCaminhoes() {
+      var cnpjEmpresa = sessionStorage.getItem("CNPJ_EMPRESA")
+      var nomeFuncionario = sessionStorage.getItem("NOME_FUNCIONARIO")
+
+      if (nomeFuncionario) {
+        bemVindo.innerHTML = `Bem-vindo(a) de volta, <strong>${nomeFuncionario}</strong>`
+      }
+
+      fetch("/dashboard/caminhoes/" + cnpjEmpresa)
+        .then(function (resposta) {
+          return resposta.json();
+        })
+        .then(function (caminhoes) {
+          todosCaminhoes = caminhoes;
+          atualizarKPIs(caminhoes);
+          exibirCaminhoes(caminhoes);
+        })
+        .catch(function (erro) {
+          console.error("Erro ao buscar caminhões:", erro);
+        });
+    }
+
+    function atualizarKPIs(caminhoes) {
+      const total = caminhoes.length;
+      const saudaveis = caminhoes.filter(c => !c.alerta).length;
+      const alerta = caminhoes.filter(c => c.alerta).length;
+
+      document.getElementById("kpi-alerta").innerText = total;
+      document.getElementById("kpi-lote").innerText = saudaveis;
+      document.getElementById("kpi-temp").innerText = alerta;
+    }
+
+    function exibirCaminhoes(lista) {
+      const container = document.getElementById("containerCaminhoes");
+      container.innerHTML = "";
+
+      if (lista.length === 0) {
+        container.innerHTML = "<p>Nenhum caminhão encontrado.</p>";
+        return;
+      }
+
+      for (let i = 0; i < lista.length; i++) {
+        const caminhao = lista[i];
+        const div = document.createElement("div");
+        div.className = "card-caminhao" + (caminhao.alerta ? " alerta" : "");
+
+        div.innerHTML = `
+          <h2>Placa: ${caminhao.placa}</h2>
+          <p>ID: ${caminhao.idcaminhao}</p>
+          <p>Status: ${caminhao.alerta ? '⚠️ Alerta' : '✅ OK'}</p>
+        `;
+
+        div.onclick = (function (id) {
+          return function () {
+            sessionStorage.setItem("ID_CAMINHAO", id);
+            window.location.href = "dashboardCaminhao.html";
+          };
+        })(caminhao.idcaminhao);
+
+        container.appendChild(div);
+      }
+    }
+
+    function filtrarAlerta() {
+      const caminhoesAlerta = todosCaminhoes.filter(c => c.alerta);
+      exibirCaminhoes(caminhoesAlerta);
+    }
+  </script>
 </body>
-
-<script>
-  let todosCaminhoes = [];
-
-  function carregarCaminhoes() {
-    var cnpjEmpresa = sessionStorage.getItem("CNPJ_EMPRESA")
-    var nomeFuncionario = sessionStorage.getItem("NOME_FUNCIONARIO")
-
-    if (nomeFuncionario){ // apenas para mostrar nome do funcionario
-      bemVindo.innerHTML = `Bem-vindo(a) de volta, <strong>${nomeFuncionario}</strong>`
-    }
-    console.log("CNPJ carregado na dashboard:", cnpjEmpresa);
-    console.log(nomeFuncionario);
-    
-
-    fetch("/dashboard/caminhoes/" + cnpjEmpresa)
-      .then(function (resposta) {
-        return resposta.json();
-      })
-      .then(function (caminhoes) {
-        todosCaminhoes = caminhoes; // salva para uso no filtro
-
-        atualizarKPIs(caminhoes);
-        exibirCaminhoes(caminhoes);
-      })
-      .catch(function (erro) {
-        console.error("Erro ao buscar caminhões:", erro);
-      });
-  }
-
-  function atualizarKPIs(caminhoes) {
-    const total = caminhoes.length;
-    const saudaveis = caminhoes.filter(c => !c.alerta).length;
-    const alerta = caminhoes.filter(c => c.alerta).length;
-
-    document.getElementById("kpi-alerta").innerText = total;
-    document.getElementById("kpi-lote").innerText = saudaveis;
-    document.getElementById("kpi-temp").innerText = alerta;
-  }
-
-  function exibirCaminhoes(lista) {
-    const container = document.getElementById("containerCaminhoes");
-    container.innerHTML = "";
-
-    if (lista.length === 0) {
-      container.innerHTML = "<p>Nenhum caminhão encontrado.</p>";
-      return;
-    }
-
-    for (let i = 0; i < lista.length; i++) {
-    const caminhao = lista[i];
-    const div = document.createElement("div");
-    div.className = "card-caminhao" + (caminhao.alerta ? " alerta" : "");
-
-    div.innerHTML = `
-      <h2>Placa: ${caminhao.placa}</h2>
-      <p>ID: ${caminhao.idcaminhao}</p>
-      <p>Status: ${caminhao.alerta ? '⚠️ Alerta' : '✅ OK'}</p>
-    `;
-
-    div.onclick = (function(id) {
-      return function() {
-        sessionStorage.setItem("ID_CAMINHAO", id);
-        window.location.href = "dashboardCaminhao.html";
-      };
-    })(caminhao.idcaminhao);
-
-    container.appendChild(div);
-  }
-}
-
-  function filtrarAlerta() {
-    const caminhoesAlerta = todosCaminhoes.filter(c => c.alerta);
-    exibirCaminhoes(caminhoesAlerta);
-  }
-
-   // Atualiza a cada 2 segundos (5000 milissegundos)
-        setInterval(() => {
-            carregarCaminhoes();
-            atualizarKPIs();
-            exibirCaminhoes();
-            filtrarAlerta();
-        }, 2000);
-</script>
-
 
 </html>

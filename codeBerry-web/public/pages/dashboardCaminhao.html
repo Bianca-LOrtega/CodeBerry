@@ -209,6 +209,12 @@
                         temperaturas.push(dadosGrafico[i].temperatura);
                         umidades.push(dadosGrafico[i].umidade);
                     }
+                    if(graficoTemperatura){
+                        graficoTemperatura.destroy();
+                    }
+                    if(graficoUmidade){
+                        graficoUmidade.destroy();
+                    }
 
                     graficoTemperatura = new Chart(document.getElementById("graficoTemperatura"), {
                         type: "line",

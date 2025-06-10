@@ -1,99 +1,93 @@
-body, h1, h3, textarea, button, div {
-    margin: 0;
-    padding: 0;
+*{
+    margin: 0%;
+    padding: 0%;
     box-sizing: border-box;
+}
+
+body, h1, h3, textarea, button, div {
     font-family: Arial, sans-serif;
 }
-h2{
-    color: white;
-}
 
-body {
-    background-color: #fffafa; /* Quase branco com leve rosa */
-    color: #c13636;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2em;
-    background-image: url("../assets/img/logo/morangos.n3.jpg");
+
+.banner_bob_ia{
+    background-image: url('../assets/img/logo/morangos.n3.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    height: 100vh;
 }
 
-#container {
-    background-color: #ffffff; /* Branco */
-    border: 2px solid #b22222; /* Vermelho escuro */
-    border-radius: 10px;
-    padding: 20px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 0 10px rgba(178, 34, 34, 0.3); /* Sombra vermelha */
-    text-align: center;
+.seta-voltar{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
 }
 
-h1 {
-    color: #b22222; /* Vermelho escuro */
-    margin-bottom: 20px;
+.seta-voltar>a >img{
+    width: 50px;
+    margin-top: 20px;
+    margin-left: 20px;
+    transition: 0.5s;
 }
 
-textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    border: 2px solid #b22222;
-    border-radius: 5px;
-    resize: none;
-    background-color: #fff;
+.container_bob{
+    margin-inline: 30%;
+    margin-block: 10%;
+    padding: 5rem 5rem;
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 10px #0002;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom:50px;
+    border:#b22222 solid 5px; 
 }
+
+.tituloSuporte{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tituloSuporte >h1{
+    font-size: 40px;
+}
+
+.containerSuporte{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.containerSuporte>h1{
+    font-size: 20px;
+    margin: 10px;
+}   
 
 button {
-    background-color: #b22222; /* Vermelho escuro */
+    background-color: #b22222;
     color: white;
     border: none;
-    padding: 10px 20px;
-    margin-top: 10px;
+    padding: 15px 25px;
+    margin: 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    transition: 0.5s ease;
+} 
 
 button:hover {
-    background-color: #8b0000; /* Vermelho ainda mais escuro */
+    transform: scale(1.1);
+    background-color: #8b0000; 
 }
 
-#resposta {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #e6ffe6; /* Verde bem claro */
-    border: 2px solid #228b22; /* Verde folha */
-    border-radius: 5px;
-    display: none;
-    color: #006400; /* Verde musgo */
+textarea{
+    border:  none;
+    background-color: #e4e4e4;
+    padding: 10px 30px;
 }
 
-
-#container img {
-    width: 40px;
-    height: 40px;
-}
-
-.layoutVoltar {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    
-}
-
-.botaoVoltar {
-    background-color: #dc143c; /* Vermelho Crimson */
-    color: white;
-    border: none;
-    padding: 8px 27px;
-    border-radius: 5px;
+.seta-voltar>a>img:hover{
+    transform: scale(1.2);
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.botaoVoltar:hover {
-    background-color: #8b0000; /* Vermelho escuro */
 }

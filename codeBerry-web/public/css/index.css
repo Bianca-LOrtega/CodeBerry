@@ -55,11 +55,11 @@
 }
 
 .sobreTexto>p {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .sobreTexto>ul {
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .sobre .sobreImg {
@@ -71,7 +71,7 @@
 }
 
 .sobreImg>img {
-    width: 450px;
+    width: 390px;
 }
 
 
@@ -119,7 +119,6 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    margin: 30px;
     align-items: center;
 }
 
@@ -129,8 +128,8 @@
 }
 
 .modeloImg >img{
-    width: 650px;
-    height: 450px;
+    width: 690px;
+    height: 430px;
 }
 
 .modeloTexto {

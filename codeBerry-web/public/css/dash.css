@@ -120,3 +120,39 @@ h1 {
   flex-wrap: wrap;
   gap: 20px;
 }
+
+.linha-kpis {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 0 auto 20px;
+}
+
+.kpis-direita {
+  display: flex;
+  gap: 16px;
+}
+.botao-fixo {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #ffffff;
+  color: #2e2e2e;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  padding: 16px 24px;
+  border: 2px solid #363636;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.botao-fixo:hover {
+  background-color: #85a566;
+  color: #ffffff;
+  transform: scale(1.05);
+}

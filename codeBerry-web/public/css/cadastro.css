@@ -1,19 +1,30 @@
-/* .container_cadastro {
+
+.container_cadastro {
     display: flex;  
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: rgb(226, 226, 226);
+    align-items: stretch;
+    /*min-height: 100vh;*/
+    height: 110vh;
+    overflow: auto;
+    background-color: rgb(233, 233, 233);  
     flex-direction: column;
+    padding: 20px 0;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
 }
 
 .box_cadastro {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 60%;
-    height: 80vh;
-    box-shadow: 10px 10px 5px rgb(204, 204, 204);
+    width: 61%;
+    /*height: 80vh;*/
+    flex-wrap: wrap;
+    padding: 20px;
+    box-shadow: none;
+    margin: auto;
+    
    
 }
 
@@ -30,241 +41,123 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-top-left-radius: 2rem;
-    border-bottom-left-radius: 2rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
 }
 
 .texto_cadastro {
     flex: 0.85;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     padding: 20px;
-    height: 100%;
+    height: 87vh;
     background-color: #ffffff;
-    border-top-right-radius: 2rem;
-    border-bottom-right-radius: 2rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
     align-items: center;
-    text-align: center; 
     width: 100%;
-    overflow: hidden;
     box-sizing: border-box;
-
 }
 
 .campos_cadastro {
+    margin-top: 12px;
     display: flex;
+    align-items: center;
     flex-direction: column;
     width: 100%;
-    max-width: 400px;
-    background-color: transparent;
+    height: 100%;
+    gap: 13px;
 }
 
 .cadastro{
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin: 20px;
 }
 .cadastro >h1{
     font-size: 50px;
 }
 
 .campo{
-    width:100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 8%;
 }
 
 
 .campo >span{
+    margin-bottom: 0.3rem;
     font-weight: 500;
-    font-size: 20px;
+    color: #444;
+    font-weight: 500;
+    font-size: 17px;
+
 }
 
 .campo >input{
     background-color: rgb(221, 221, 221);
     text-align: center;
     border: none;
-    padding: 20px 10px;
+    width: 100%;
+    height: 150px;
 }
 
 .campo >select{
     background-color: rgb(221, 221, 221);
         text-align: center;
-        border: none;
-        padding: 20px 10px;
+        border: none;   
+        width: 100%;
 }
 
-.botao_cadastro_login {
-    padding: 30px 20px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    background-color: #e11e24;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-weight: bold;
+.botao_cadastro_login{
+    width: 100%;
+    font-size: 16px;
+    background-color: #45a049;
+    color: white;
     border: none;
-    border-radius: 0.5rem;
-    margin: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 15px 15px;
+    margin-top: 20px;
+
+}
+
+.campos_cadastro input,
+.campos_cadastro select {
+  
+  padding: 10px 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.campos_cadastro .campo {
+  margin-bottom: 20px;
 }
 
 
-
-
-.campo span {
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #444;
-    font-weight: 500;
-    font-size: 20px;
+.link-cadastro {
+  margin: 7px;
     display: flex;
+    display: flex;
+    justify-content: center;
 }
- */
 
 
- * {
-     margin: 0%;
-     padding: 0%;
-     box-sizing: border-box;
- }
-
- /*container*/
- .container_cadastro {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     height: 100vh;
-     background-color: rgb(226, 226, 226);
-     flex-direction: column;
- }
-
-/*  
- .box_cadastro {
-     display: flex;
-     justify-content: space-around;
-     align-items: stretch;
-     max-width: 900px;
-     overflow: hidden;
-     width: 60%;
-     height: 70vh;
-
-     box-shadow: 5px 5px 5px rgb(204, 204, 204);
-
- } */
-
- .box_cadastro {
-     display: flex;
-     align-items: stretch;
-     width: 60%;
-     height: auto;
-     /* ← libera crescimento */
-     min-height: 500px;
-     box-shadow: 5px 5px 5px rgb(204, 204, 204); }
-
- /* Imagem morango */
- .img_cadastro {
-     flex: 1;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     height: 100%;
-
- }
-
- .img_cadastro img {
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     border-radius: 16px 0 0 16px;
- }
-
- .texto_cadastro {
-     flex: 1;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     padding: 20px;
-     background-color: #fff;
-     border-top-right-radius: 1rem;
-     border-bottom-right-radius: 1rem;
-     height: auto;
-     /* ← permite altura dinâmica */ }
-
-
-/* 
- Formulario
- .texto_cadastro {
-     flex: 1;
-     display: flex;
-     justify-content: center;
-     flex-direction: column;
-     box-sizing: border-box;
-     height: 100%;
-     background-color: #ffffff;
-     border-top-right-radius: 1rem;
-     border-bottom-right-radius: 1rem;
-     align-items: center;
-     text-align: center;
- } */
-
- .texto_cadastro h1 {
-     font-size: 50px;
-
- }
-
- /* Campos */
- .campo {
-     display: flex;
-     flex-direction: column;
-     margin-bottom: 1.5rem;
-     width: 100%;
-     height: auto;
+.cadastro{
     align-items: center;
- }
+}
 
- .campo span {
-     font-weight: 500;
-     color: #444;
 
-     font-weight: 500;
-     font-size: 20px;
- }
-
- .campo input {
+.div_resposta{
     
-     background-color: rgb(221, 221, 221);
-     text-align: center;
-     border: none;
-     padding: 20px 10px;
- }
-
-
- .campo>select {
-     background-color: rgb(221, 221, 221);
-     text-align: center;
-     border: none;
-     padding: 20px 10px;
- }
-
-
- /* Botão */
- .botao_cadastro_login {
-     padding: 30px 20px;
-     transition: background-color 0.3s ease, transform 0.2s ease;
-     background-color: #e11e24;
-     color: #ffffff;
-     text-transform: uppercase;
-     font-weight: bold;
-     border: none;
-     border-radius: 0.5rem;
-     align-items: center;
-     margin: 10px;
- }
-
- .botao_cadastro_login:hover {
-     background-color: #ad1d1d;
-     /* Cor de fundo mais escura ao passar o mouse */
-     transform: scale(1.03);
-     /* Leve aumento de tamanho ao passar o mouse */
- }
+  margin-top: 1.5em;
+  color: #c00;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+  word-wrap: break-word;
+}

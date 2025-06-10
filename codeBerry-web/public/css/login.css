@@ -159,17 +159,6 @@
 }
 
 
-.container .navbar{
-    display: flex;
-    flex-direction: row;
-    width: 53%;
-    align-items: center;
-    justify-content: right;
-    list-style: none;
-    color: #ffffff;
-    padding: 10px;
-}
-
 .div_resposta{
     
   margin-top: 1em;

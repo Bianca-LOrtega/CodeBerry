@@ -21,32 +21,6 @@ body {
     --tamanho-banner: 500px
 }
 
-.container {
-    display: flex;
-    width: 100%;
-    margin: auto;
-}
-
-.header {
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header .container {
-    align-items: center;
-    height: 100%;
-}
-
-.container .navbar {
-    display: flex;
-    flex-direction: row;
-    width: 60%;
-    align-items: center;
-    justify-content: right;
-    list-style: none;
-    color: #ffffff;
-    padding: 10px;
-}
 
 .banner {
     height: 80vh;
@@ -66,6 +40,24 @@ body {
     padding: 0;
     font-size: 36px;
 }
+
+.container {
+    display: flex;
+    width: 100%;
+    margin: auto;
+}
+
+.header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .container {
+    align-items: center;
+    height: 100%;
+}
+
+
 
 
 /*primeira div: sobre*/
@@ -148,6 +140,8 @@ body {
     border-radius: 1.5rem;
 }
 
+
+/*terceira div: modelo*/    
 .modelo {
     display: flex;
     justify-content: space-between;

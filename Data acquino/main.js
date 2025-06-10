@@ -10,19 +10,22 @@ const SERVIDOR_PORTA = 3300;
 // habilita ou desabilita a inserção de dados no banco de dados
 const HABILITAR_OPERACAO_INSERIR = true;
 
-// Variável global para a pool de conexão do banco de dados (inicializada uma vez)
+// Variável para armazenar a pool de conexão do banco de dados
 let poolBancoDados;
 
-// Função para inicializar/obter a pool de conexão (garante que seja criada apenas uma vez)
-async function getDatabasePool() {
-    if (!poolBancoDados) {
+// Função para estabelecer a conexão com o banco de dados
+async function conectarBancoDados() {
+    if (!poolBancoDados) { // Conecta apenas se a pool ainda não foi criada
         poolBancoDados = mysql.createPool(
             {
-                host: '192.168.105.67',
+                host: '10.18.32.186',
                 user: 'aluno',
                 password: 'Sptech#2024',
                 database: 'codeberry',
-                port: 3307
+                port: 3307,
+                waitForConnections: true, // Garante que aguarde por conexões se o pool estiver cheio
+                connectionLimit: 10,      // Limite de conexões no pool
+                queueLimit: 0             // Sem limite de fila
             }
         ).promise();
         console.log("Pool de conexão com o banco de dados criada.");
@@ -36,8 +39,8 @@ const serial = async (
     valoresSensorAnalogico,
     valoresSensorDigital,
 ) => {
-    // A pool de conexão será obtida aqui, garantindo que já esteja pronta.
-    const pool = await getDatabasePool();
+    // Conecta-se ao banco de dados (garante que o pool esteja pronto)
+    const pool = await conectarBancoDados(); // Use a pool criada globalmente ou fora do .on('data')
 
     // lista as portas seriais disponíveis e procura pelo Arduino
     const portas = await serialport.SerialPort.list();
@@ -64,74 +67,67 @@ const serial = async (
         console.log("Dado recebido do Arduino: " + data);
         const valores = data.split(';');
 
-        // Validação e cálculo dos valores dos sensores
-        if (valores.length < 2 || isNaN(parseFloat(valores[0])) || isNaN(parseFloat(valores[1]))) {
-            console.error("Dados de sensor inválidos ou incompletos recebidos do Arduino. Ignorando.");
+        // Validação básica dos dados recebidos
+        if (valores.length < 2) {
+            console.error("Dados incompletos recebidos do Arduino. Ignorando.");
+            return;
+        }
+        
+        const umidadeBase = parseFloat(valores[0]);
+        const temperaturaBase = parseFloat(valores[1]);
+        
+        // Verificação se os valores são números válidos
+        if (isNaN(umidadeBase) || isNaN(temperaturaBase)) {
+            console.error("Dados de sensor inválidos (não são números). Ignorando.");
             return;
         }
 
-        const temperaturaBase = parseFloat(valores[1]);
-        const umidadeBase = parseFloat(valores[0]);
+        // Aplicação de variações e arredondamento
+        const sensorTemperatura = parseFloat(((temperaturaBase - 21) + (Math.random() * 2 - 1)).toFixed(2));
+        const sensorUmidade = parseFloat(((umidadeBase + 23) + (Math.random() * 4 - 2)).toFixed(2));
 
-        const sensorTemperatura = parseFloat(((temperaturaBase - 22) + (Math.random() * 2 - 1)).toFixed(2));
-        const sensorUmidade = parseFloat(((umidadeBase + 18) + (Math.random() * 4 - 2)).toFixed(2));
-
-        // armazena os valores dos sensores nos arrays correspondentes (para os endpoints GET em memória)
+        // armazena os valores dos sensores nos arrays correspondentes (para os endpoints GET)
         valoresSensorAnalogico.push(sensorTemperatura);
         valoresSensorDigital.push(sensorUmidade);
 
-        // Opcional: Limitar o tamanho dos arrays em memória para não consumir muita RAM
+        // Limitar o tamanho dos arrays para não consumir muita memória (opcional)
         if (valoresSensorAnalogico.length > 100) valoresSensorAnalogico.shift();
         if (valoresSensorDigital.length > 100) valoresSensorDigital.shift();
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
-            // --- INÍCIO DA LÓGICA SIMPLIFICADA PARA INSERÇÃO COM PK COMPOSTA ---
-
-            var fk1 = 1;
-            var fk2 = 2;
-            var fk3 = 3;
-            var fk4 = 4;// <--- Este é o ID da viagem que você quer registrar
+            // AQUI ESTÁ A MUDANÇA PRINCIPAL!
+            // Você precisa saber qual fk_viagem você quer associar.
+            // No seu código original, 'v' ia de 1 a 6. Isso significa que você estava testando
+            // com um ID de viagem fixo, ou talvez os dados do Arduino devam indicar a fk_viagem.
+            // Para simplicidade, vamos usar um fk_viagem FIXO para teste, mas você precisará
+            // de uma forma real de obter o ID da viagem atual do caminhão.
+            const fk_viagem_atual = 1; // <--- **ATENÇÃO: Este valor deve ser dinâmico no projeto real!**
+                                      // Como obter esse valor? Pelo GPS, ou um ID configurado no Arduino,
+                                      // ou ao iniciar uma "viagem" na sua aplicação web.
 
             try {
+                // 1. Obter o próximo contador para a fk_viagem_atual
                 const [rows] = await pool.execute(
                     'SELECT COALESCE(MAX(contador), 0) + 1 AS proximo_contador FROM registros WHERE fk_viagem = ?',
-                    [fk1]
+                    [fk_viagem_atual]
                 );
                 const proximoContador = rows[0].proximo_contador;
 
-                // Agora, fazemos a inserção de UM ÚNICO registro com os valores que garantem a unicidade da PK.
+                // 2. Inserir o registro com o contador calculado
                 await pool.execute(
                     'INSERT INTO registros (fk_viagem, contador, umidade, temperatura, horario) VALUES (?, ?, ?, ?, current_timestamp());',
-                    [fk1, proximoContador, sensorUmidade, sensorTemperatura]
+                    [fk_viagem_atual, proximoContador, sensorUmidade, sensorTemperatura]
                 );
-                console.log(`Dados inseridos para Viagem ${fk1}, Contador ${proximoContador}: Umidade ${sensorUmidade}, Temperatura ${sensorTemperatura}`);
-
-                 await pool.execute(
-                    'INSERT INTO registros (fk_viagem, contador, umidade, temperatura, horario) VALUES (?, ?, ?, ?, current_timestamp());',
-                    [fk2, proximoContador, sensorUmidade, sensorTemperatura]
-                );
-                console.log(`Dados inseridos para Viagem ${fk2}, Contador ${proximoContador}: Umidade ${sensorUmidade}, Temperatura ${sensorTemperatura}`);
-
-                 await pool.execute(
-                    'INSERT INTO registros (fk_viagem, contador, umidade, temperatura, horario) VALUES (?, ?, ?, ?, current_timestamp());',
-                    [fk3, proximoContador, sensorUmidade, sensorTemperatura]
-                );
-                console.log(`Dados inseridos para Viagem ${fk3}, Contador ${proximoContador}: Umidade ${sensorUmidade}, Temperatura ${sensorTemperatura}`);
-
-                await pool.execute(
-                    'INSERT INTO registros (fk_viagem, contador, umidade, temperatura, horario) VALUES (?, ?, ?, ?, current_timestamp());',
-                    [fk4, proximoContador, sensorUmidade, sensorTemperatura]
-                );
-                console.log(`Dados inseridos para Viagem ${fk4}, Contador ${proximoContador}: Umidade ${sensorUmidade}, Temperatura ${sensorTemperatura}`);
+                console.log(`Dados inseridos para Viagem ${fk_viagem_atual}, Contador ${proximoContador}: Umidade ${sensorUmidade}, Temperatura ${sensorTemperatura}`);
 
             } catch (dbError) {
-                // Tratamento de erro para o banco de dados
-                console.error(`Erro ao inserir dados no banco de dados para Viagem ${dbError.message}`);
-                // Se ocorrer "Duplicate entry" aqui, algo está errado com a configuração da sua PK no banco.
                 if (dbError.code === 'ER_DUP_ENTRY') {
-                    console.error("ERRO GRAVE: 'Duplicate entry' ainda ocorre. Verifique ABSOLUTAMENTE que sua tabela 'registros' tem 'PRIMARY KEY (fk_viagem, contador)' e 'contador' NÃO é AUTO_INCREMENT.");
+                    console.error(`Erro de entrada duplicada: ${dbError.sqlMessage}. Isso não deveria acontecer com a lógica de 'MAX(contador)+1' se a PK estiver correta.`);
+                } else {
+                    console.error(`Erro ao inserir dados no banco de dados: ${dbError.message}`);
                 }
+                console.error("SQL executado:", dbError.sql);
             }
         }
     });
@@ -161,14 +157,13 @@ const servidor = (
         console.log(`API executada com sucesso na porta ${SERVIDOR_PORTA}`);
     });
 
-    // define os endpoints da API para cada tipo de sensor (retornam dados em memória)
+    // define os endpoints da API para cada tipo de sensor
     app.get('/sensores/analogico', (_, response) => {
         return response.json(valoresSensorTemperatura);
     });
     app.get('/sensores/digital', (_, response) => {
         return response.json(valoresSensorUmidade);
     });
-
 }
 
 // função principal assíncrona para iniciar a comunicação serial e o servidor web
@@ -177,8 +172,8 @@ const servidor = (
     const valoresSensorTemperatura = [];
     const valoresSensorUmidade = [];
 
-    // Garante que a pool de conexão seja criada antes de qualquer operação de DB
-    await getDatabasePool();
+    // Inicializa a pool de conexão antes de iniciar a comunicação serial
+    await conectarBancoDados(); 
 
     // inicia a comunicação serial
     await serial(

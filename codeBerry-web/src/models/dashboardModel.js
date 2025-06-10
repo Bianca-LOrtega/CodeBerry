@@ -2,7 +2,9 @@ const db = require('../database/config');
 
 function listarCaminhoesComAlertas(cnpjEmpresa) {
   const instrucaoSql = `
-    SELECT c.idcaminhao, c.placa,
+    SELECT 
+      c.idcaminhao, 
+      c.placa,
       EXISTS (
         SELECT 1
         FROM viagem v
@@ -64,7 +66,8 @@ function kpiAlertas(cnpjEmpresa, idCaminhao) {
 
 function kpiInformacoes(cnpjEmpresa, idCaminhao) {
   const sql = `
-            SELECT m.nome AS nomeMotorista,
+            SELECT 
+            m.nome AS nomeMotorista,
             m.telefone AS telefoneMotorista,
             l.idlote AS idLote
             FROM viagem v
@@ -82,7 +85,8 @@ function kpiInformacoes(cnpjEmpresa, idCaminhao) {
 
 function buscarDadosGraficos(cnpj, idCaminhao) {
   const instrucaoSql = `
-    SELECT DATE_FORMAT(r.horario, '%H:%i') AS horario,
+    SELECT 
+      DATE_FORMAT(r.horario, '%H:%i') AS horario,
       r.temperatura,
       r.umidade
     FROM registros r
